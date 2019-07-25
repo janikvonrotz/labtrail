@@ -1,33 +1,41 @@
 {
   "version": 2,
-  "name": "edulab",
+  "name": "LabTrail",
   "builds": [
+    { 
+      "src": "apolloserver/*.js", 
+      "use": "@now/node"
+    },
     {
-      "src": "package.json",
+      "src": "app/package.json",
       "use": "@now/static-build",
-      "config": { "distDir": "build" }
+      "config": { "distDir": "app/build" }
     }
   ],
   "routes": [
     {
+      "src": "/graphql",
+      "dest": "apolloserver/index.js"
+    },
+    {
       "src": "/static/(.*)",
       "headers": { "cache-control": "s-maxage=31536000,immutable" },
-      "dest": "/static/$1"
+      "dest": "app/static/$1"
     },
-    { "src": "/favicon.ico", "dest": "/favicon.ico" },
-    { "src": "/asset-manifest.json", "dest": "/asset-manifest.json" },
-    { "src": "/manifest.json", "dest": "/manifest.json" },
-    { "src": "/precache-manifest.(.*)", "dest": "/precache-manifest.$1" },
+    { "src": "/favicon.ico", "dest": "app/favicon.ico" },
+    { "src": "/asset-manifest.json", "dest": "app/asset-manifest.json" },
+    { "src": "/manifest.json", "dest": "app/manifest.json" },
+    { "src": "/precache-manifest.(.*)", "dest": "app/precache-manifest.$1" },
     {
       "src": "/service-worker.js",
       "headers": { "cache-control": "s-maxage=0" },
-      "dest": "/service-worker.js"
+      "dest": "app/service-worker.js"
     },
-    { "src": "/sockjs-node/(.*)", "dest": "/sockjs-node/$1" },
+    { "src": "/sockjs-node/(.*)", "dest": "app/sockjs-node/$1" },
     {
       "src": "/(.*)",
       "headers": { "cache-control": "s-maxage=0" },
-      "dest": "/index.html"
+      "dest": "app/index.html"
     }
   ]
 }
