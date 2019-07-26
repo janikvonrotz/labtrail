@@ -1,5 +1,0 @@
-{
-    "scripts": {
-      "dev": "now dev --debug --port 3001"
-    }
-}
