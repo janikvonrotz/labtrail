@@ -11,7 +11,7 @@ const styles = theme => ({
 
 const FlexBoxGrid = ({ classes, children }) => (
     <div className={classes.root}>
-        <Grid container spacing={24}>
+        <Grid container spacing={1}>
             <Grid item xs={12} sm={1} md={2}>
             </Grid>
             <Grid item xs={12} sm={10} md={8}>

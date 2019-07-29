@@ -1,21 +1,21 @@
-import React, { Component } from 'react'
-import './App.css'
-import AppRouter from './components/AppRouter'
+import React from 'react'
+import Button from '@material-ui/core/Button'
 import Apollo from './components/Apollo'
 import Theme from './components/Theme'
+import FlexboxGrid from './components/FlexboxGrid'
 
-class App extends Component {
-    render() {
-        return (
-            <div className="App">
-                <Apollo>
-                    <Theme>
-                        <AppRouter />
-                    </Theme>
-                </Apollo>
-            </div>
-        )
-    }
+function App() {
+  return (
+    <Apollo>
+        <Theme>
+            <FlexboxGrid>
+                <Button variant="contained" color="primary">
+                Hello World
+                </Button>
+            </FlexboxGrid>
+        </Theme>
+    </Apollo>
+  )
 }
 
 export default App
