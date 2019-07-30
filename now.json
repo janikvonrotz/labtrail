@@ -1,17 +1,32 @@
 {
 	"version": 2,
 	"name": "LabTrail",
+    "env": {
+        "MONGODB_URI": "@mongodb_uri"
+    },
 	"builds": [
+        { 
+			"src": "authserver/index.js", 
+			"use": "@now/node"
+		},
+		{ 
+			"src": "apolloserver/index.js", 
+			"use": "@now/node"
+		},
 		{
 			"src": "app/package.json",
 			"use": "@now/static-build",
-			"config": { "distDir": "app/build" }
+			"config": { "distDir": "build" }
 		}
 	],
 	"routes": [
 		{
 			"src": "/graphql",
 			"dest": "apolloserver/index.js"
+        },
+        {
+			"src": "/sso/(.*)",
+			"dest": "authserver/index.js"
 		},
 		{
 			"src": "/static/(.*)",
