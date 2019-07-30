@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { ApolloProvider } from 'react-apollo'
 
-// initialiize apollo client
+// initialize Apollo client
 const client = new ApolloClient({
 	uri: process.env.REACT_APP_APOLLO_URL || "http://localhost:3000/graphql",
 	clientState: {
@@ -11,7 +11,7 @@ const client = new ApolloClient({
 	}
 })
 
-// define Apollo component
+// Define Apollo component
 const Apollo = ({children}) => (
 	<ApolloProvider client={client}>
 		{children}

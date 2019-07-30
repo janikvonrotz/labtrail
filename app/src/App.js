@@ -1,21 +1,21 @@
 import React from 'react'
-import Button from '@material-ui/core/Button'
-import Apollo from './components/Apollo'
-import Theme from './components/Theme'
-import FlexboxGrid from './components/FlexboxGrid'
+import Apollo from './Apollo'
+import FlexboxGrid from './FlexboxGrid'
+import Header from './Header'
+import { BrowserRouter as Router } from 'react-router-dom'
+import Routes from './Routes'
 
 function App() {
-  return (
-    <Apollo>
-        <Theme>
-            <FlexboxGrid>
-                <Button variant="contained" color="primary">
-                Hello World
-                </Button>
-            </FlexboxGrid>
-        </Theme>
-    </Apollo>
-  )
+	return (
+		<Apollo>
+			<FlexboxGrid>
+				<Router>
+					<Header/>
+					<Routes/>
+				</Router>
+			</FlexboxGrid>
+		</Apollo>
+	)
 }
 
 export default App
