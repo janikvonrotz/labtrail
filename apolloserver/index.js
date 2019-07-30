@@ -4,18 +4,6 @@ const { mongo, prepare } = require('mongo')
 // Load environment configuration
 require('dotenv').config()
 
-// Declare mongo collection variables
-var stations
-
-// Call mongo async function
-(async function() {
-	
-	// Establish database connection
-	const db = await mongo()
-
-	// Access collection
-	stations = db.collection('stations')
-})()
 
 // GraphQL schema
 const typeDefs = gql`
@@ -41,7 +29,11 @@ type Query {
 const resolvers = {
 	Query: {
 		stations: async (root, args, context) => {
-			return (await stations.find({}).toArray()).map(prepare)
+
+			// Open database connection, access stations collection and return all items
+			const db = await mongo()
+			const collection = await db.collection('stations')
+			return (await collection.find({}).toArray()).map(prepare)
 		}
 	}
 }
