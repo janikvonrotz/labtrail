@@ -5,8 +5,10 @@
   },
   "dependencies": {
     "apollo-server-micro": "^2.7.1",
+    "dotenv": "^8.0.0",
     "graphql": "^14.4.2",
-    "micro": "^9.3.4"
+    "micro": "^9.3.4",
+    "mongo": "../shared/mongo"
   },
   "devDependencies": {
     "micro-dev": "^3.0.0"
