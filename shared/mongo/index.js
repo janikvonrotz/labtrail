@@ -37,7 +37,6 @@ function prepare(object) {
 module.exports = { mongo: async () => {
     // Get a database connection, cached or otherwise,
     // using the connection string environment variable as the argument
-    const db = await connectToDatabase(process.env.MONGODB_URI)
-    return db
+    return await connectToDatabase(process.env.MONGODB_URI)
     
 }, prepare}
