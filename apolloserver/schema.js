@@ -4,6 +4,12 @@ const { gql } = require('apollo-server-micro')
 const typeDefs = gql`
 
 scalar Date
+
+enum Color {
+	RED
+	GREEN
+	BLUE
+}
 	
 type Response {
     success: Boolean!
@@ -14,6 +20,7 @@ type Station {
     id: String!
 	name: String!
 	location: String!
+	color: Color!
 	
 	created: Date
 	created_by: String!
@@ -27,8 +34,8 @@ type Query {
 }
 
 type Mutation {
-	createStation(name: String!, location: String!): Station
-	updateStation(id: String!, name: String!, location: String!): Response
+	createStation(name: String!, location: String!, color: Color!): Station
+	updateStation(id: String!, name: String, location: String, color: Color): Response
 	deleteStation(id: String!): Response
 }
 `
