@@ -10,14 +10,14 @@ const StationListItem = ({ station }) => (
         <Typography variant="h4">
             {station.name}
         </Typography>
+        <Typography variant="body1" gutterBottom>
+            Ort: {station.location}
+        </Typography>
         <Link to={`/station/${station.id}`}>
             <Typography variant="body1" gutterBottom>
                 Bearbeiten
             </Typography>
         </Link>
-        <Typography variant="body1" gutterBottom>
-            Ort: {station.location}
-        </Typography>
     </>
 )
 

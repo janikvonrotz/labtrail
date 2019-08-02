@@ -13,11 +13,11 @@ const SaunaList = () => (
             if (error) return <Error message={error.message} />
 
             return (
-                <div>
-                    {data.allStations.map((station) => (
+                <>
+                    {data.stations.map((station) => (
                         <StationListItem key={station._id} station={station} />
                     ))}
-                </div>
+                </>
             )
         }}
     </Query>

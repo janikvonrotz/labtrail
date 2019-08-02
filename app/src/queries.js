@@ -12,7 +12,7 @@ query station($id: String) {
 
 const GET_STATIONS = gql`
 {
-    allStations {
+    stations {
         id
         name
         location
