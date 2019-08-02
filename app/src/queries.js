@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-module.exports = { STATION: gql`
+const GET_STATION = gql`
 query station($id: String) {
     station(id: $id) {
         id
@@ -9,7 +9,8 @@ query station($id: String) {
     }
 }
 `
-, STATIONS: gql`
+
+const GET_STATIONS = gql`
 {
     allStations {
         id
@@ -18,4 +19,8 @@ query station($id: String) {
     }
 }
 `
+
+export {
+GET_STATION,
+GET_STATIONS
 }
