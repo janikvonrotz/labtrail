@@ -2,3 +2,4 @@
 node_modules
 default.vim
 *.swp
+yarn-error.log
