@@ -15,7 +15,7 @@ const SaunaList = () => (
             return (
                 <>
                     {data.stations.map((station) => (
-                        <StationListItem key={station._id} station={station} />
+                        <StationListItem key={station.id} station={station} />
                     ))}
                 </>
             )

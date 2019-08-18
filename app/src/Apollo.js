@@ -3,6 +3,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { ApolloProvider } from 'react-apollo'
 
+console.log(process.env)
+
 // initialize Apollo client
 const client = new ApolloClient({
 	uri: process.env.REACT_APP_APOLLO_URL || "http://localhost:3000/graphql",

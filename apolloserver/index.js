@@ -1,5 +1,4 @@
 const { ApolloServer } = require('apollo-server-micro')
-// const { makeExecutableSchema, addMockFunctionsToSchema } = require('graphql-tools')
 const cors = require('micro-cors')()
 const typeDefs = require('./schema')
 const resolvers = require('./resolvers')
