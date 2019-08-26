@@ -7,4 +7,5 @@ SAML2.0 authentication server for the LabTrail application.
 **.env**
 
 ```
+JWT_SECRET=SECRET_KEY
 ```

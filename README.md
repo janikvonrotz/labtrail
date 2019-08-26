@@ -28,3 +28,9 @@ If jwt token exists it will show username and confirm scan.
 ## Links
 
 https://github.com/auth0/node-jsonwebtoken
+
+## Environment Variables
+
+```
+JWT_SECRET=SECRET_KEY
+```

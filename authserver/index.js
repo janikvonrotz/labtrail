@@ -1,12 +1,15 @@
 const fs = require('fs')
 const { join } = require('path')
-const bodyParser = require('body-parser')
 const saml = require('samlify')
 const express = require('express')
-const router = express.Router()
+const jwt = require('jsonwebtoken')
+
+// Load env config
+require('dotenv').config()
+
+// Initialize SAML SP and IdP
 const ServiceProvider = saml.ServiceProvider
 const IdentityProvider = saml.IdentityProvider
-const app = express()
 
 // Configure your endpoint for IdP-initiated / SP-initiated SSO
 const sp = ServiceProvider({
@@ -15,6 +18,9 @@ const sp = ServiceProvider({
 const idp = IdentityProvider({
     metadata: fs.readFileSync(join(__dirname, 'idp.xml'), 'utf8')
 })
+
+// Create SSO router
+const router = express.Router()
 
 // Release the metadata publicly
 router.get('/metadata', (req, res) => res.header('Content-Type', 'text/xml').send(sp.getMetadata()))
@@ -44,6 +50,26 @@ router.post('/acs', async (req, res) => {
       }
 })
 
+// Generate JWT mock token
+router.get('/get-mock-token', (req, res) => {
+
+    // Get email from query param
+    const email = req.query.email
+
+    // Send error if no email
+    if (!email) {
+        res.status(500).send('No email param set.')
+    }
+
+    // Generate token
+    const token = jwt.sign({ email: email }, process.env.JWT_SECRET )
+    
+    // Return token
+    res.send(token)
+})
+
+// Add SSO router to express app
+const app = express()
 app.use('/sso', router)
 
 module.exports = app
