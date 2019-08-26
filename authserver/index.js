@@ -34,12 +34,10 @@ router.post('/acs', async (req, res) => {
         console.log(SAMLResponse)
         const { extract } = await sp.parseLoginResponse(idp, 'post', { body: { SAMLResponse }})
         console.log(extract.attributes)
-        /**
-        *
-        * Implement your logic here. 
-        * extract.attributes, should contains : firstName, lastName, email, uid, groups 
-        *           
-        **/
+
+        // Implement your logic here. 
+        // extract.attributes, should contains : firstName, lastName, email, uid, groups 
+
       } catch (e) {
         console.error('[FATAL] when parsing login response sent from OneLogin', e)
         return res.redirect('/')

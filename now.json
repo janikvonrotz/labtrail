@@ -3,7 +3,12 @@
 	"name": "LabTrail",
     "env": {
         "MONGODB_URI": "@mongodb_uri"
-    },
+	},
+	"build": {
+		"env": {
+			"REACT_APP_APOLLO_URL": "/graphql"
+		}
+	},
 	"builds": [
         { 
 			"src": "authserver/index.js", 
