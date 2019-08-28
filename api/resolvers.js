@@ -63,7 +63,7 @@ const resolvers = {
 
 			// Set default values
 			args.created = new Date()
-			args.created_by = "system"
+			args.created_by = context.name || "system"
 
 			// Add new document and return it
 			return prepare((await (await stationsCollection()).insertOne(args)).ops[0])
@@ -72,7 +72,7 @@ const resolvers = {
 
 			// Set default values
 			args.updated = new Date()
-			args.updated_by = "system"
+			args.updated_by = context.name || "system"
 
 			// Create update filter
 			let filter = { _id: ObjectId(args.id) }
@@ -103,12 +103,12 @@ const resolvers = {
 			// Hash password
 			args.password = await bcrypt.hash(args.password, BCRYPT_ROUNDS)
 			args.created = new Date()
-			args.created_by = "system"
+			args.created_by = context.name || "system"
 			return prepare((await (await usersCollection()).insertOne(args)).ops[0])
 		},
 		updateUser: async (obj, args, context) => {
 			args.updated = new Date()
-			args.updated_by = "system"
+			args.updated_by = context.name || "system"
 
 			// Hash password if provided
 			if(args.password){
