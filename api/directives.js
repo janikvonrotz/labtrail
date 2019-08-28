@@ -12,7 +12,7 @@ class isAuthenticated extends SchemaDirectiveVisitor {
 
         field.resolve = async function(...args) {
 
-            // Check if user token has been verified
+            // Check if user email is in context
             if (!args[2].email) {
                 throw new ForbiddenError('You are not authorized for this ressource.')
             }

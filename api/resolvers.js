@@ -23,23 +23,23 @@ const BCRYPT_ROUNDS = 12
 // Resolve GraphQL queries, mutations and graph paths
 const resolvers = {
 	Query: {
-		stations: async (root, args, context) => {
+		stations: async (obj, args, context) => {
 
 			// Open database connection, access stations collection and return all documents
 			return (await (await stationsCollection()).find({}).toArray()).map(prepare)
 		},
-		station: async (root, args, context) => {
+		station: async (obj, args, context) => {
 
 			// Open database connection, access stations collection and return one document
 			return prepare(await (await stationsCollection()).findOne({ _id: ObjectId(args.id) }))
 		},
-		users: async (root, args, context) => {
+		users: async (obj, args, context) => {
 			return (await (await usersCollection()).find({}).toArray()).map(prepare)
 		},
-		me: async (root, args, context) => {
+		me: async (obj, args, context) => {
 			return prepare(await (await usersCollection()).findOne({ email: context.email }))
 		},
-		loginUser: async (root, args, context) => {
+		loginUser: async (obj, args, context) => {
 
 			// Find user by email and password
 			let user = prepare(await (await usersCollection()).findOne({ email: args.email }))
@@ -59,7 +59,7 @@ const resolvers = {
 		}
 	},
 	Mutation: {
-		createStation: async (root, args, context) => {
+		createStation: async (obj, args, context) => {
 
 			// Set default values
 			args.created = new Date()
@@ -68,7 +68,7 @@ const resolvers = {
 			// Add new document and return it
 			return prepare((await (await stationsCollection()).insertOne(args)).ops[0])
 		},
-		updateStation: async (root, args, context) => {
+		updateStation: async (obj, args, context) => {
 
 			// Set default values
 			args.updated = new Date()
@@ -83,7 +83,7 @@ const resolvers = {
 			// Return success response
 			return { success: (await (await stationsCollection()).updateOne(filter, { $set: args })).result.ok }
 		},
-		deleteStation: async (root, args, context) => {
+		deleteStation: async (obj, args, context) => {
 
 			// Convert id property name
 			args._id = ObjectId(args.id)
@@ -92,7 +92,7 @@ const resolvers = {
 			// Return succcess response
 			return { success: (await (await usersCollection()).deleteOne(args)).result.ok }
 		},
-		createUser: async (root, args, context) => {
+		createUser: async (obj, args, context) => {
 
 			// Check if user already exists
 			let user = prepare(await (await usersCollection()).findOne({ email: args.email }))
@@ -106,7 +106,7 @@ const resolvers = {
 			args.created_by = "system"
 			return prepare((await (await usersCollection()).insertOne(args)).ops[0])
 		},
-		updateUser: async (root, args, context) => {
+		updateUser: async (obj, args, context) => {
 			args.updated = new Date()
 			args.updated_by = "system"
 
@@ -118,7 +118,7 @@ const resolvers = {
 			delete args.id
 			return { success: (await (await usersCollection()).updateOne(filter, { $set: args })).result.ok }
 		},
-		deleteUser: async (root, args, context) => {
+		deleteUser: async (obj, args, context) => {
 			args._id = ObjectId(args.id)
 			delete args.id
 			return { success: (await (await usersCollection()).deleteOne(args)).result.ok }

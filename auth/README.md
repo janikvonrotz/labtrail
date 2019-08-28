@@ -1,4 +1,4 @@
-# LabTrail Auth Server
+# LabTrail Auth
 
 SAML2.0 authentication server for the LabTrail application.
 

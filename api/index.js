@@ -38,10 +38,10 @@ const server = new ApolloServer({
 // Export server as handler
 module.exports = cors((req, res) => {
 
-	// Workaround: Abort on Options method otherwise 
+	// Workaround abort on Options method 
     if (req.method === 'OPTIONS') {
 		res.end()
 		return
     }
-    return server.createHandler()(req, res)
+    return server.createHandler({ path: '/api' })(req, res)
 })

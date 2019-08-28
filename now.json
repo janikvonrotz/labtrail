@@ -7,16 +7,16 @@
 	},
 	"build": {
 		"env": {
-			"REACT_APP_APOLLO_URL": "/graphql"
+			"REACT_APP_APOLLO_URL": "/api"
 		}
 	},
 	"builds": [
         { 
-			"src": "authserver/index.js", 
+			"src": "auth/index.js", 
 			"use": "@now/node"
 		},
 		{ 
-			"src": "apolloserver/index.js", 
+			"src": "api/index.js", 
 			"use": "@now/node"
 		},
 		{
@@ -27,12 +27,12 @@
 	],
 	"routes": [
 		{
-			"src": "/graphql",
-			"dest": "apolloserver/index.js"
+			"src": "/api",
+			"dest": "api/index.js"
         },
         {
 			"src": "/sso/(.*)",
-			"dest": "authserver/index.js"
+			"dest": "auth/index.js"
 		},
 		{
 			"src": "/static/(.*)",
