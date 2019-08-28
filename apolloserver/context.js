@@ -10,7 +10,7 @@ const context = ({ req }) => {
     if (token) {
         try {
             token = jwt.verify(token, process.env.JWT_SECRET)
-        } catch {
+        } catch (error) {
             throw new AuthenticationError(
                 'Authentication token is invalid, please log in.'
             )
