@@ -28,7 +28,9 @@ async function connectToDatabase(uri) {
 
 // Convert MongoDB object
 function prepare(object) {
-	object.id = object._id.toString()
+    if (object) {
+        object.id = object._id.toString()
+    }
 	return object
 }
 

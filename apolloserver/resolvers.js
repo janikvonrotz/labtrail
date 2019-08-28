@@ -1,12 +1,24 @@
 const { mongo, prepare } = require('mongo')
 const { ObjectId } = require('mongodb')
 const { GraphQLScalarType } = require('graphql')
+const { AuthenticationError, ForbiddenError } = require('apollo-server-micro')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 // Function to access stations collection
 const stationsCollection = async() => {
 	const db = await mongo()
 	return await db.collection('stations')
 }
+
+// Function to access users collection
+const usersCollection = async() => {
+	const db = await mongo()
+	return await db.collection('users')
+}
+
+// Hash configuration
+const BCRYPT_ROUNDS = 12
 
 // Resolve GraphQL queries, mutations and graph paths
 const resolvers = {
@@ -20,6 +32,30 @@ const resolvers = {
 
 			// Open database connection, access stations collection and return one document
 			return prepare(await (await stationsCollection()).findOne({ _id: ObjectId(args.id) }))
+		},
+		users: async (root, args, context) => {
+			return (await (await usersCollection()).find({}).toArray()).map(prepare)
+		},
+		me: async (root, args, context) => {
+			return prepare(await (await usersCollection()).findOne({ email: context.email }))
+		},
+		loginUser: async (root, args, context) => {
+
+			// Find user by email and password
+			let user = prepare(await (await usersCollection()).findOne({ email: args.email }))
+
+			// Compare hash
+			if(user && await bcrypt.compare(args.password, user.password)) {
+
+				// Generate and return JWT token
+				const token = jwt.sign({ email: user.email, name: (user.firstname + ' ' + user.lastname) }, process.env.JWT_SECRET )
+				return { token: token }
+
+			} else {
+				
+				// Throw authentication error
+				throw new AuthenticationError('Login failed.')
+			}
 		}
 	},
 	Mutation: {
@@ -54,8 +90,39 @@ const resolvers = {
 			delete args.id
 			
 			// Return succcess response
-			return { success: (await (await stationsCollection()).deleteOne(args)).result.ok }
+			return { success: (await (await usersCollection()).deleteOne(args)).result.ok }
 		},
+		createUser: async (root, args, context) => {
+
+			// Check if user already exists
+			let user = prepare(await (await usersCollection()).findOne({ email: args.email }))
+			if (user) {
+				throw new ForbiddenError('User already exists.')
+			}
+
+			// Hash password
+			args.password = await bcrypt.hash(args.password, BCRYPT_ROUNDS)
+			args.created = new Date()
+			args.created_by = "system"
+			return prepare((await (await usersCollection()).insertOne(args)).ops[0])
+		},
+		updateUser: async (root, args, context) => {
+			args.updated = new Date()
+			args.updated_by = "system"
+
+			// Hash password if provided
+			if(args.password){
+				args.password = await bcrypt.hash(args.password, BCRYPT_ROUNDS)
+			}
+			let filter = { _id: ObjectId(args.id) }
+			delete args.id
+			return { success: (await (await usersCollection()).updateOne(filter, { $set: args })).result.ok }
+		},
+		deleteUser: async (root, args, context) => {
+			args._id = ObjectId(args.id)
+			delete args.id
+			return { success: (await (await usersCollection()).deleteOne(args)).result.ok }
+		}
 	},
 	Date: new GraphQLScalarType({
 		name: 'Date',
@@ -74,6 +141,12 @@ const resolvers = {
 			return null
 		},
 	}),
+	User: {
+		// Hide password hash
+		password() {
+			return ''
+		}
+	}
 }
 
 module.exports = resolvers
