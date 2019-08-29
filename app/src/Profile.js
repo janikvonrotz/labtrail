@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-const Home = () => {
+const Profile = () => {
     const classes = useStyles()
 
     return (
@@ -27,4 +27,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Profile

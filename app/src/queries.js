@@ -20,7 +20,16 @@ const GET_STATIONS = gql`
 }
 `
 
+const LOGIN_USER = gql`
+query loginUser($email: String!, $password: String!) {
+    loginUser(email: $email, password: $password) {
+        token
+    }
+}
+`
+
 export {
-GET_STATION,
-GET_STATIONS
+    GET_STATION,
+    GET_STATIONS,
+    LOGIN_USER
 }

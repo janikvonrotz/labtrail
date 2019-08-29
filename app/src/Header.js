@@ -13,6 +13,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import CloseIcon from '@material-ui/icons/Close'
 import HomeIcon from '@material-ui/icons/Home'
+import PermDeviceInformation from '@material-ui/icons/PermDeviceInformation'
+import Person from '@material-ui/icons/Person'
 
 const drawerWidth = 240
 
@@ -64,7 +66,9 @@ const Header = () => {
                 <Typography variant="h6" className={classes.title}>
                 LabTrail
                 </Typography>
-                <Button color="inherit">Login</Button>
+                <Link to="/login" className={classes.link}>
+                    <Button color="inherit">Login</Button>
+                </Link>
             </Toolbar>
             <Drawer 
                 open={open} 
@@ -89,9 +93,17 @@ const Header = () => {
                 <Link to="/stations" className={classes.link}>
                     <MenuItem onClick={toggleDrawer}>
                         <ListItemIcon>
-                            <HomeIcon />
+                            <PermDeviceInformation />
                         </ListItemIcon>
                         <ListItemText>Stations</ListItemText>
+                    </MenuItem>
+                </Link>
+                <Link to="/profile" className={classes.link}>
+                    <MenuItem onClick={toggleDrawer}>
+                        <ListItemIcon>
+                            <Person />
+                        </ListItemIcon>
+                        <ListItemText>Profile</ListItemText>
                     </MenuItem>
                 </Link>
             </Drawer>
