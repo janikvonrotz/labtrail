@@ -2,30 +2,22 @@ import ApolloClient from 'apollo-boost'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ApolloProvider } from '@apollo/react-hooks'
-import { createHttpLink } from 'apollo-link-http'
-import { setContext } from 'apollo-link-context'
 
-const httpLink = createHttpLink({
-	uri: process.env.REACT_APP_APOLLO_URL || "http://localhost:3000/api",
-});
-
-const authLink = setContext((_, { headers }) => {
-
-	// get the authentication token from local storage if it exists
-	const token = localStorage.getItem('token');
-
-	// return the headers to the context so httpLink can read them
-	return {
-		headers: {
-			...headers,
-			authorization: token ? `Bearer ${token}` : "",
-		}
-	}
-})
-
-// initialize Apollo client
+// Initialize Apollo client
 const client = new ApolloClient({
-	link: authLink.concat(httpLink),
+	uri: process.env.REACT_APP_APOLLO_URL || "http://localhost:3000/api",
+	request: async operation => {
+
+		// Get JWT token from local storage
+		const token = localStorage.getItem('token')
+
+		// Pass token to headers
+		operation.setContext({
+			headers: {
+				Authorization: token ? `Bearer ${token}` : ''
+			}
+		})
+	},
 	clientState: {
 		resolvers: {},
 	}

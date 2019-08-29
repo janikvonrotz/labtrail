@@ -2,6 +2,10 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
+import { useQuery } from '@apollo/react-hooks'
+import { GET_PROFILE } from './queries'
+import Loading from './Loading'
+import Error from './Error'
 
 const useStyles = makeStyles(theme => ({
     title: {
@@ -15,13 +19,18 @@ const useStyles = makeStyles(theme => ({
 const Profile = () => {
     const classes = useStyles()
 
+    const { loading, error, data } = useQuery(GET_PROFILE)
+
+    if (loading) return <Loading />
+    if (error) return <Error message={error.message} />
+
     return (
         <Paper className={classes.paper}>
             <Typography className={classes.title} variant="h3" component="h1">
-            Home
+            Profil
             </Typography>
             <Typography component="p">
-            Paper can be used to build surface or other elements for your application.
+            { `${data.me.firstname} ${data.me.lastname}` }
             </Typography>
         </Paper>
     )

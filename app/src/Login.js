@@ -8,6 +8,7 @@ import Loading from './Loading'
 import Error from './Error'
 import { useLazyQuery } from '@apollo/react-hooks'
 import { LOGIN_USER } from './queries'
+import { Redirect } from 'react-router'
 
 const useStyles = makeStyles(theme => ({
     title: {
@@ -47,12 +48,15 @@ const Login = () => {
 
     // Store token if login is successful
     if (data) {
-        console.log(data)
+        localStorage.setItem('token', data.loginUser.token)
+
+        // Redirect to home page
+        return <Redirect to='/'/>
     }
 
     return (
         <Paper className={classes.paper}>
-            <Typography className={classes.title} variant="h3" component="h1">
+            <Typography className={classes.title} variant='h3' component='h1'>
                 Login
             </Typography>
             <form onSubmit={(e) => {
@@ -60,33 +64,33 @@ const Login = () => {
                 loginUser()
             }}>
                 <TextField
-                    variant="outlined"
-                    margin="normal"
+                    variant='outlined'
+                    margin='normal'
                     required
                     fullWidth
-                    id="email"
-                    name="email"
-                    label="Email Address"
-                    type="email"
+                    id='email'
+                    name='email'
+                    label='Email Address'
+                    type='email'
                     onChange={handleChange('email')}
                     autoFocus
                 />
                 <TextField
-                    variant="outlined"
-                    margin="normal"
+                    variant='outlined'
+                    margin='normal'
                     required
                     fullWidth
-                    id="password"
-                    name="password"
-                    label="Password"
-                    type="password"
+                    id='password'
+                    name='password'
+                    label='Password'
+                    type='password'
                     onChange={handleChange('password')}
                 />
                 <Button
-                    type="submit"
+                    type='submit'
                     fullWidth
-                    variant="contained"
-                    color="primary"
+                    variant='contained'
+                    color='primary'
                     className={classes.submit}
                 >
                     Sign in
