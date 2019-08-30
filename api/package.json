@@ -1,7 +1,8 @@
 {
   "scripts": {
     "start": "micro",
-    "dev": "micro-dev"
+    "dev": "micro-dev",
+    "lint": "standard"
   },
   "dependencies": {
     "apollo-server-micro": "^2.7.1",
@@ -14,6 +15,7 @@
     "mongo": "../shared/mongo"
   },
   "devDependencies": {
-    "micro-dev": "^3.0.0"
+    "micro-dev": "^3.0.0",
+    "standard": "^14.1.0"
   }
 }

@@ -6,15 +6,15 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 // Function to access stations collection
-const stationsCollection = async() => {
-	const db = await mongo()
-	return await db.collection('stations')
+const stationsCollection = async () => {
+  const db = await mongo()
+  return db.collection('stations')
 }
 
 // Function to access users collection
-const usersCollection = async() => {
-	const db = await mongo()
-	return await db.collection('users')
+const usersCollection = async () => {
+  const db = await mongo()
+  return db.collection('users')
 }
 
 // Hash configuration
@@ -22,131 +22,121 @@ const BCRYPT_ROUNDS = 12
 
 // Resolve GraphQL queries, mutations and graph paths
 const resolvers = {
-	Query: {
-		stations: async (obj, args, context) => {
+  Query: {
+    stations: async (obj, args, context) => {
+      // Open database connection, access stations collection and return all documents
+      return (await (await stationsCollection()).find({}).toArray()).map(prepare)
+    },
+    station: async (obj, args, context) => {
+      // Open database connection, access stations collection and return one document
+      return prepare(await (await stationsCollection()).findOne({ _id: ObjectId(args.id) }))
+    },
+    users: async (obj, args, context) => {
+      return (await (await usersCollection()).find({}).toArray()).map(prepare)
+    },
+    currentUser: async (obj, args, context) => {
+      return prepare(await (await usersCollection()).findOne({ email: context.email }))
+    },
+    loginUser: async (obj, args, context) => {
+      // Find user by email and password
+      const user = prepare(await (await usersCollection()).findOne({ email: args.email }))
 
-			// Open database connection, access stations collection and return all documents
-			return (await (await stationsCollection()).find({}).toArray()).map(prepare)
-		},
-		station: async (obj, args, context) => {
+      // Compare hash
+      if (user && await bcrypt.compare(args.password, user.password)) {
+        // Generate and return JWT token
+        const token = jwt.sign({ email: user.email, name: (user.firstname + ' ' + user.lastname) }, process.env.JWT_SECRET)
+        return { token: token }
+      } else {
+        // Throw authentication error
+        throw new AuthenticationError('Login failed.')
+      }
+    }
+  },
+  Mutation: {
+    createStation: async (obj, args, context) => {
+      // Set default values
+      args.created = new Date()
+      args.created_by = context.name || 'system'
 
-			// Open database connection, access stations collection and return one document
-			return prepare(await (await stationsCollection()).findOne({ _id: ObjectId(args.id) }))
-		},
-		users: async (obj, args, context) => {
-			return (await (await usersCollection()).find({}).toArray()).map(prepare)
-		},
-		currentUser: async (obj, args, context) => {
-			return prepare(await (await usersCollection()).findOne({ email: context.email }))
-		},
-		loginUser: async (obj, args, context) => {
+      // Add new document and return it
+      return prepare((await (await stationsCollection()).insertOne(args)).ops[0])
+    },
+    updateStation: async (obj, args, context) => {
+      // Set default values
+      args.updated = new Date()
+      args.updated_by = context.name || 'system'
 
-			// Find user by email and password
-			let user = prepare(await (await usersCollection()).findOne({ email: args.email }))
+      // Create update filter
+      const filter = { _id: ObjectId(args.id) }
 
-			// Compare hash
-			if(user && await bcrypt.compare(args.password, user.password)) {
+      // Remove id property
+      delete args.id
 
-				// Generate and return JWT token
-				const token = jwt.sign({ email: user.email, name: (user.firstname + ' ' + user.lastname) }, process.env.JWT_SECRET )
-				return { token: token }
+      // Return success response
+      return { success: (await (await stationsCollection()).updateOne(filter, { $set: args })).result.ok }
+    },
+    deleteStation: async (obj, args, context) => {
+      // Convert id property name
+      args._id = ObjectId(args.id)
+      delete args.id
 
-			} else {
-				
-				// Throw authentication error
-				throw new AuthenticationError('Login failed.')
-			}
-		}
-	},
-	Mutation: {
-		createStation: async (obj, args, context) => {
+      // Return succcess response
+      return { success: (await (await usersCollection()).deleteOne(args)).result.ok }
+    },
+    createUser: async (obj, args, context) => {
+      // Check if user already exists
+      const user = prepare(await (await usersCollection()).findOne({ email: args.email }))
+      if (user) {
+        throw new ForbiddenError('User already exists.')
+      }
 
-			// Set default values
-			args.created = new Date()
-			args.created_by = context.name || "system"
+      // Hash password
+      args.password = await bcrypt.hash(args.password, BCRYPT_ROUNDS)
+      args.created = new Date()
+      args.created_by = context.name || 'system'
+      return prepare((await (await usersCollection()).insertOne(args)).ops[0])
+    },
+    updateUser: async (obj, args, context) => {
+      args.updated = new Date()
+      args.updated_by = context.name || 'system'
 
-			// Add new document and return it
-			return prepare((await (await stationsCollection()).insertOne(args)).ops[0])
-		},
-		updateStation: async (obj, args, context) => {
-
-			// Set default values
-			args.updated = new Date()
-			args.updated_by = context.name || "system"
-
-			// Create update filter
-			let filter = { _id: ObjectId(args.id) }
-
-			// Remove id property
-			delete args.id
-
-			// Return success response
-			return { success: (await (await stationsCollection()).updateOne(filter, { $set: args })).result.ok }
-		},
-		deleteStation: async (obj, args, context) => {
-
-			// Convert id property name
-			args._id = ObjectId(args.id)
-			delete args.id
-			
-			// Return succcess response
-			return { success: (await (await usersCollection()).deleteOne(args)).result.ok }
-		},
-		createUser: async (obj, args, context) => {
-
-			// Check if user already exists
-			let user = prepare(await (await usersCollection()).findOne({ email: args.email }))
-			if (user) {
-				throw new ForbiddenError('User already exists.')
-			}
-
-			// Hash password
-			args.password = await bcrypt.hash(args.password, BCRYPT_ROUNDS)
-			args.created = new Date()
-			args.created_by = context.name || "system"
-			return prepare((await (await usersCollection()).insertOne(args)).ops[0])
-		},
-		updateUser: async (obj, args, context) => {
-			args.updated = new Date()
-			args.updated_by = context.name || "system"
-
-			// Hash password if provided
-			if(args.password){
-				args.password = await bcrypt.hash(args.password, BCRYPT_ROUNDS)
-			}
-			let filter = { _id: ObjectId(args.id) }
-			delete args.id
-			return { success: (await (await usersCollection()).updateOne(filter, { $set: args })).result.ok }
-		},
-		deleteUser: async (obj, args, context) => {
-			args._id = ObjectId(args.id)
-			delete args.id
-			return { success: (await (await usersCollection()).deleteOne(args)).result.ok }
-		}
-	},
-	Date: new GraphQLScalarType({
-		name: 'Date',
-		description: 'Date custom scalar type',
-		parseValue(value) {
-			return new Date(value) // Value from the client
-		},
-		serialize(value) {
-			return value.toUTCString() // Value sent to the client
-		},
-		// Parse abstract syntax tree
-		parseLiteral(ast) {
-			if (ast.kind === Kind.INT) {
-				return new Date(ast.value) // Ast value is always in string format
-			}
-			return null
-		},
-	}),
-	User: {
-		// Hide password hash
-		password() {
-			return ''
-		}
-	}
+      // Hash password if provided
+      if (args.password) {
+        args.password = await bcrypt.hash(args.password, BCRYPT_ROUNDS)
+      }
+      const filter = { _id: ObjectId(args.id) }
+      delete args.id
+      return { success: (await (await usersCollection()).updateOne(filter, { $set: args })).result.ok }
+    },
+    deleteUser: async (obj, args, context) => {
+      args._id = ObjectId(args.id)
+      delete args.id
+      return { success: (await (await usersCollection()).deleteOne(args)).result.ok }
+    }
+  },
+  Date: new GraphQLScalarType({
+    name: 'Date',
+    description: 'Date custom scalar type',
+    parseValue (value) {
+      return new Date(value) // Value from the client
+    },
+    serialize (value) {
+      return value.toUTCString() // Value sent to the client
+    },
+    // Parse abstract syntax tree
+    parseLiteral (ast) {
+      if (ast.kind === Kind.INT) {
+        return new Date(ast.value) // Ast value is always in string format
+      }
+      return null
+    }
+  }),
+  User: {
+    // Hide password hash
+    password () {
+      return ''
+    }
+  }
 }
 
 module.exports = resolvers
