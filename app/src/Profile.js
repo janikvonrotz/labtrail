@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import { useQuery } from '@apollo/react-hooks'
-import { GET_PROFILE } from './queries'
+import { GET_CURRENT_USER } from './queries'
 import Loading from './Loading'
 import Error from './Error'
 
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 const Profile = () => {
     const classes = useStyles()
 
-    const { loading, error, data } = useQuery(GET_PROFILE)
+    const { loading, error, data } = useQuery(GET_CURRENT_USER)
 
     if (loading) return <Loading />
     if (error) return <Error message={error.message} />
@@ -30,7 +30,7 @@ const Profile = () => {
             Profil
             </Typography>
             <Typography component="p">
-            { `${data.me.firstname} ${data.me.lastname}` }
+            { `${data.currentUser.firstname} ${data.currentUser.lastname}` }
             </Typography>
         </Paper>
     )

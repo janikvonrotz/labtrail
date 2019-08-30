@@ -48,9 +48,9 @@ type User {
 }
 
 type Query {
-	stations: [Station]
+	stations: [Station] @isAuthenticated
 	station(id: String): Station
-	me: User @isAuthenticated
+	currentUser: User @isAuthenticated
 	users: [User] @isAuthenticated
 	loginUser(email: String!, password: String!): Token
 }

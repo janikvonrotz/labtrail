@@ -20,11 +20,11 @@ const GET_STATIONS = gql`
 }
 `
 
-const GET_PROFILE = gql`
+const GET_CURRENT_USER = gql`
 {
-    me {
-      firstname
-      lastname
+    currentUser {
+        firstname
+        lastname
     }
 }
 `
@@ -40,6 +40,6 @@ query loginUser($email: String!, $password: String!) {
 export {
     GET_STATION,
     GET_STATIONS,
-    GET_PROFILE,
+    GET_CURRENT_USER,
     LOGIN_USER
 }

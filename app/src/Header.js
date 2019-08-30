@@ -6,7 +6,6 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
-import Button from '@material-ui/core/Button'
 import Drawer from '@material-ui/core/Drawer'
 import MenuItem from '@material-ui/core/MenuItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
@@ -15,19 +14,17 @@ import CloseIcon from '@material-ui/icons/Close'
 import HomeIcon from '@material-ui/icons/Home'
 import PermDeviceInformation from '@material-ui/icons/PermDeviceInformation'
 import Person from '@material-ui/icons/Person'
+import HeaderLoginButton from './HeaderLoginButton'
 
 const drawerWidth = 240
 
 // Styles for menu bar and drawer
 const useStyles = makeStyles(theme => ({
-    root: {
-      flexGrow: 1,
-    },
     menuButton: {
-      marginRight: theme.spacing(2),
+        marginRight: theme.spacing(2),
     },
     title: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
     drawer: {
         width: drawerWidth,
@@ -41,7 +38,6 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Header = () => {
-
     const classes = useStyles()
 
     // Set function states
@@ -55,23 +51,21 @@ const Header = () => {
     return (
         <AppBar position="static">
             <Toolbar>
-                <IconButton 
-                    onClick={toggleDrawer} 
-                    edge="start" 
-                    className={classes.menuButton} 
-                    color="inherit" 
+                <IconButton
+                    onClick={toggleDrawer}
+                    edge="start"
+                    className={classes.menuButton}
+                    color="inherit"
                     aria-label="menu">
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" className={classes.title}>
-                LabTrail
+                    LabTrail
                 </Typography>
-                <Link to="/login" className={classes.link}>
-                    <Button color="inherit">Login</Button>
-                </Link>
+                <HeaderLoginButton />
             </Toolbar>
-            <Drawer 
-                open={open} 
+            <Drawer
+                open={open}
                 className={classes.drawer}
                 classes={{
                     paper: classes.drawerPaper,
