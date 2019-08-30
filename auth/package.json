@@ -8,9 +8,11 @@
   },
   "scripts": {
     "start": "micro index.js",
-    "dev": "micro-dev index.js"
+    "dev": "micro-dev index.js",
+    "lint": "standard"
   },
   "devDependencies": {
-    "micro-dev": "^3.0.0"
+    "micro-dev": "^3.0.0",
+    "standard": "^14.1.0"
   }
 }
