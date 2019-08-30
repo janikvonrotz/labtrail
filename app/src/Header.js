@@ -20,89 +20,91 @@ const drawerWidth = 240
 
 // Styles for menu bar and drawer
 const useStyles = makeStyles(theme => ({
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
-    },
-    drawer: {
-        width: drawerWidth,
-    },
-    drawerPaper: {
-        width: drawerWidth,
-    },
-    link: {
-        textDecoration: 'none',
-    }
+  menuButton: {
+    marginRight: theme.spacing(2)
+  },
+  title: {
+    flexGrow: 1
+  },
+  drawer: {
+    width: drawerWidth
+  },
+  drawerPaper: {
+    width: drawerWidth
+  },
+  link: {
+    textDecoration: 'none'
+  }
 }))
 
 const Header = () => {
-    const classes = useStyles()
+  const classes = useStyles()
 
-    // Set function states
-    const [open, setOpen] = React.useState(false)
+  // Set function states
+  const [open, setOpen] = React.useState(false)
 
-    // Function to toggle drawer menu via open state
-    const toggleDrawer = () => {
-        setOpen(!open)
-    }
+  // Function to toggle drawer menu via open state
+  const toggleDrawer = () => {
+    setOpen(!open)
+  }
 
-    return (
-        <AppBar position="static">
-            <Toolbar>
-                <IconButton
-                    onClick={toggleDrawer}
-                    edge="start"
-                    className={classes.menuButton}
-                    color="inherit"
-                    aria-label="menu">
-                    <MenuIcon />
-                </IconButton>
-                <Typography variant="h6" className={classes.title}>
+  return (
+    <AppBar position='static'>
+      <Toolbar>
+        <IconButton
+          onClick={toggleDrawer}
+          edge='start'
+          className={classes.menuButton}
+          color='inherit'
+          aria-label='menu'
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant='h6' className={classes.title}>
                     LabTrail
-                </Typography>
-                <HeaderLoginButton />
-            </Toolbar>
-            <Drawer
-                open={open}
-                className={classes.drawer}
-                classes={{
-                    paper: classes.drawerPaper,
-                }}>
-                <MenuItem onClick={toggleDrawer}>
-                    <ListItemIcon>
-                        <CloseIcon />
-                    </ListItemIcon>
-                    <ListItemText>Close</ListItemText>
-                </MenuItem>
-                <Link to="/" className={classes.link}>
-                    <MenuItem onClick={toggleDrawer}>
-                        <ListItemIcon>
-                            <HomeIcon />
-                        </ListItemIcon>
-                        <ListItemText>Home</ListItemText>
-                    </MenuItem>
-                </Link>
-                <Link to="/stations" className={classes.link}>
-                    <MenuItem onClick={toggleDrawer}>
-                        <ListItemIcon>
-                            <PermDeviceInformation />
-                        </ListItemIcon>
-                        <ListItemText>Stations</ListItemText>
-                    </MenuItem>
-                </Link>
-                <Link to="/profile" className={classes.link}>
-                    <MenuItem onClick={toggleDrawer}>
-                        <ListItemIcon>
-                            <Person />
-                        </ListItemIcon>
-                        <ListItemText>Profile</ListItemText>
-                    </MenuItem>
-                </Link>
-            </Drawer>
-        </AppBar>
-    )
+        </Typography>
+        <HeaderLoginButton />
+      </Toolbar>
+      <Drawer
+        open={open}
+        className={classes.drawer}
+        classes={{
+          paper: classes.drawerPaper
+        }}
+      >
+        <MenuItem onClick={toggleDrawer}>
+          <ListItemIcon>
+            <CloseIcon />
+          </ListItemIcon>
+          <ListItemText>Close</ListItemText>
+        </MenuItem>
+        <Link to='/' className={classes.link}>
+          <MenuItem onClick={toggleDrawer}>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText>Home</ListItemText>
+          </MenuItem>
+        </Link>
+        <Link to='/stations' className={classes.link}>
+          <MenuItem onClick={toggleDrawer}>
+            <ListItemIcon>
+              <PermDeviceInformation />
+            </ListItemIcon>
+            <ListItemText>Stations</ListItemText>
+          </MenuItem>
+        </Link>
+        <Link to='/profile' className={classes.link}>
+          <MenuItem onClick={toggleDrawer}>
+            <ListItemIcon>
+              <Person />
+            </ListItemIcon>
+            <ListItemText>Profile</ListItemText>
+          </MenuItem>
+        </Link>
+      </Drawer>
+    </AppBar>
+  )
 }
 
 export default Header

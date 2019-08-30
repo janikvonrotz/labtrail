@@ -5,33 +5,32 @@ import { ApolloProvider } from '@apollo/react-hooks'
 
 // Initialize Apollo client
 const client = new ApolloClient({
-	uri: process.env.REACT_APP_APOLLO_URL || "http://localhost:3000/api",
-	request: async operation => {
+  uri: process.env.REACT_APP_APOLLO_URL || 'http://localhost:3000/api',
+  request: async operation => {
+    // Get JWT token from local storage
+    const token = window.localStorage.getItem('token')
 
-		// Get JWT token from local storage
-		const token = localStorage.getItem('token')
-
-		// Pass token to headers
-		operation.setContext({
-			headers: {
-				Authorization: token ? `Bearer ${token}` : ''
-			}
-		})
-	},
-	clientState: {
-		resolvers: {},
-	}
+    // Pass token to headers
+    operation.setContext({
+      headers: {
+        Authorization: token ? `Bearer ${token}` : ''
+      }
+    })
+  },
+  clientState: {
+    resolvers: {}
+  }
 })
 
 // Define Apollo component
 const Apollo = ({ children }) => (
-	<ApolloProvider client={client}>
-		{children}
-	</ApolloProvider>
+  <ApolloProvider client={client}>
+    {children}
+  </ApolloProvider>
 )
 
 Apollo.propTypes = {
-	children: PropTypes.object.isRequired,
+  children: PropTypes.object.isRequired
 }
 
 export default Apollo

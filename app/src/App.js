@@ -5,17 +5,17 @@ import Header from './Header'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Routes from './Routes'
 
-function App() {
-	return (
-		<Apollo>
-			<FlexboxGrid>
-				<Router>
-					<Header/>
-					<Routes/>
-				</Router>
-			</FlexboxGrid>
-		</Apollo>
-	)
+function App () {
+  return (
+    <Apollo>
+      <FlexboxGrid>
+        <Router>
+          <Header />
+          <Routes />
+        </Router>
+      </FlexboxGrid>
+    </Apollo>
+  )
 }
 
 export default App

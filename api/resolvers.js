@@ -4,6 +4,7 @@ const { GraphQLScalarType } = require('graphql')
 const { AuthenticationError, ForbiddenError } = require('apollo-server-micro')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const { Kind } = require('graphql/language')
 
 // Function to access stations collection
 const stationsCollection = async () => {

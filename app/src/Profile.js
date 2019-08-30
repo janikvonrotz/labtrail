@@ -8,32 +8,32 @@ import Loading from './Loading'
 import Error from './Error'
 
 const useStyles = makeStyles(theme => ({
-    title: {
-        margin: theme.spacing(2, 0)
-    },
-    paper: {
-      padding: theme.spacing(3, 2),
-    },
+  title: {
+    margin: theme.spacing(2, 0)
+  },
+  paper: {
+    padding: theme.spacing(3, 2)
+  }
 }))
 
 const Profile = () => {
-    const classes = useStyles()
+  const classes = useStyles()
 
-    const { loading, error, data } = useQuery(GET_CURRENT_USER)
+  const { loading, error, data } = useQuery(GET_CURRENT_USER)
 
-    if (loading) return <Loading />
-    if (error) return <Error message={error.message} />
+  if (loading) return <Loading />
+  if (error) return <Error message={error.message} />
 
-    return (
-        <Paper className={classes.paper}>
-            <Typography className={classes.title} variant="h3" component="h1">
+  return (
+    <Paper className={classes.paper}>
+      <Typography className={classes.title} variant='h3' component='h1'>
             Profil
-            </Typography>
-            <Typography component="p">
-            { `${data.currentUser.firstname} ${data.currentUser.lastname}` }
-            </Typography>
-        </Paper>
-    )
+      </Typography>
+      <Typography component='p'>
+        {`${data.currentUser.firstname} ${data.currentUser.lastname}`}
+      </Typography>
+    </Paper>
+  )
 }
 
 export default Profile

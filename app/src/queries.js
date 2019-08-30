@@ -38,8 +38,8 @@ query loginUser($email: String!, $password: String!) {
 `
 
 export {
-    GET_STATION,
-    GET_STATIONS,
-    GET_CURRENT_USER,
-    LOGIN_USER
+  GET_STATION,
+  GET_STATIONS,
+  GET_CURRENT_USER,
+  LOGIN_USER
 }

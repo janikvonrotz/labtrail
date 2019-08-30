@@ -6,32 +6,32 @@ import { GET_CURRENT_USER } from './queries'
 import { useQuery } from '@apollo/react-hooks'
 
 const useStyles = makeStyles(theme => ({
-    link: {
-        textDecoration: 'none',
-    }
+  link: {
+    textDecoration: 'none'
+  }
 }))
 
 const HeaderLoginButton = () => {
-    const classes = useStyles()
+  const classes = useStyles()
 
-    const { client, data } = useQuery(GET_CURRENT_USER)
+  const { client, data } = useQuery(GET_CURRENT_USER)
 
-    // Reset Apollo and local store on logout
-    const logout = () => {
-        localStorage.clear()
-        client.resetStore()
-    }
+  // Reset Apollo and local store on logout
+  const logout = () => {
+    window.localStorage.clear()
+    client.resetStore()
+  }
 
-    if (data && data.currentUser) {
-        return (
-            <Button onClick={logout}>Logout</Button>
-        )
-    }
+  if (data && data.currentUser) {
     return (
-        <Link to="/login" className={classes.link}>
-            <Button color="inherit">Login</Button>
-        </Link>
+      <Button onClick={logout}>Logout</Button>
     )
+  }
+  return (
+    <Link to='/login' className={classes.link}>
+      <Button color='inherit'>Login</Button>
+    </Link>
+  )
 }
 
 export default HeaderLoginButton

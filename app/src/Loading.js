@@ -4,21 +4,21 @@ import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
-    paper: {
-        padding: theme.spacing(3, 2),
-    },
+  paper: {
+    padding: theme.spacing(3, 2)
+  }
 }))
 
 const Loading = () => {
-    const classes = useStyles()
+  const classes = useStyles()
 
-    return (
-        <Paper className={classes.paper}>
-            <Typography variant="body1">
+  return (
+    <Paper className={classes.paper}>
+      <Typography variant='body1'>
                 Loading...
-            </Typography>
-        </Paper>
-    )
+      </Typography>
+    </Paper>
+  )
 }
 
 export default Loading

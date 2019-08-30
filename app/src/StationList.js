@@ -6,19 +6,18 @@ import { GET_STATIONS } from './queries'
 import { useQuery } from '@apollo/react-hooks'
 
 const SaunaList = () => {
-    const { loading, error, data } = useQuery(GET_STATIONS)
+  const { loading, error, data } = useQuery(GET_STATIONS)
 
-    if (loading) return <Loading />
-    if (error) return <Error message={error.message} />
+  if (loading) return <Loading />
+  if (error) return <Error message={error.message} />
 
-    return (
-        <>
-            {data.stations.map((station) => (
-                <StationListItem key={station.id} station={station} />
-            ))}
-        </>
-    )        
+  return (
+    <>
+      {data.stations.map((station) => (
+        <StationListItem key={station.id} station={station} />
+      ))}
+    </>
+  )
 }
-
 
 export default SaunaList

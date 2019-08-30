@@ -5,24 +5,24 @@ import { Link } from 'react-router-dom'
 import Divider from '@material-ui/core/Divider'
 
 const StationListItem = ({ station }) => (
-    <>
-        <Divider light />
-        <Typography variant="h4">
-            {station.name}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
+  <>
+    <Divider light />
+    <Typography variant='h4'>
+      {station.name}
+    </Typography>
+    <Typography variant='body1' gutterBottom>
             Ort: {station.location}
-        </Typography>
-        <Link to={`/station/${station.id}`}>
-            <Typography variant="body1" gutterBottom>
+    </Typography>
+    <Link to={`/station/${station.id}`}>
+      <Typography variant='body1' gutterBottom>
                 Bearbeiten
-            </Typography>
-        </Link>
-    </>
+      </Typography>
+    </Link>
+  </>
 )
 
 StationListItem.propTypes = {
-    station: PropTypes.object.isRequired,
+  station: PropTypes.object.isRequired
 }
 
 export default StationListItem
