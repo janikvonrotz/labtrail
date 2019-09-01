@@ -24,7 +24,7 @@ const HeaderLoginButton = () => {
 
   if (data && data.currentUser) {
     return (
-      <Button onClick={logout}>Logout</Button>
+      <Button onClick={logout} color='inherit'>Logout</Button>
     )
   }
   return (

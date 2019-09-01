@@ -56,7 +56,7 @@ const Login = () => {
   return (
     <Paper className={classes.paper}>
       <Typography className={classes.title} variant='h3' component='h1'>
-                Login
+        Login
       </Typography>
       <form onSubmit={(e) => {
         e.preventDefault()
@@ -93,7 +93,7 @@ const Login = () => {
           color='primary'
           className={classes.submit}
         >
-                    Sign in
+          Sign in
         </Button>
       </form>
     </Paper>
