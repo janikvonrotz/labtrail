@@ -16,9 +16,6 @@ const client = new ApolloClient({
         Authorization: token ? `Bearer ${token}` : ''
       }
     })
-  },
-  clientState: {
-    resolvers: {}
   }
 })
 

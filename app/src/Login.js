@@ -40,10 +40,10 @@ const Login = () => {
   )
 
   // Wait for lazy query
-  if (called && loading) return <Loading />
+  if (called && loading) return <Paper className={classes.paper}><Loading /></Paper>
 
   // Show error message if lazy query fails
-  if (error) return <Error message={error.message} />
+  if (error) return <Paper className={classes.paper}><Error message={error.message} /></Paper>
 
   // Store token if login is successful
   if (data) {

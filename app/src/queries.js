@@ -6,6 +6,16 @@ query station($id: String) {
         id
         name
         location
+        color
+    }
+}
+`
+
+const UPDATE_STATION = gql`
+mutation updateStation($id: String!, $name: String, $location: String, $color: Color) {
+    updateStation(id: $id, name: $name, location: $location, color: $color) {
+        success
+        message
     }
 }
 `
@@ -16,7 +26,8 @@ const GET_STATIONS = gql`
         id
         name
         location
-    }
+        color
+  }
 }
 `
 
@@ -39,6 +50,7 @@ query loginUser($email: String!, $password: String!) {
 
 export {
   GET_STATION,
+  UPDATE_STATION,
   GET_STATIONS,
   GET_CURRENT_USER,
   LOGIN_USER

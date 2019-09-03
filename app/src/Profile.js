@@ -21,8 +21,8 @@ const Profile = () => {
 
   const { loading, error, data } = useQuery(GET_CURRENT_USER)
 
-  if (loading) return <Loading />
-  if (error) return <Error message={error.message} />
+  if (loading) return <Paper className={classes.paper}><Loading /></Paper>
+  if (error) return <Paper className={classes.paper}><Error message={error.message} /></Paper>
 
   return (
     <Paper className={classes.paper}>

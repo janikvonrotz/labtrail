@@ -19,7 +19,7 @@ const Stations = () => {
   return (
     <Paper className={classes.paper}>
       <Typography className={classes.title} variant='h3' component='h1'>
-            Stations
+        Stations
       </Typography>
       <StationList />
     </Paper>

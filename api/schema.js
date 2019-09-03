@@ -49,7 +49,7 @@ type User {
 
 type Query {
   stations: [Station] @isAuthenticated
-  station(id: String): Station
+  station(id: String): Station @isAuthenticated
   currentUser: User @isAuthenticated
   users: [User] @isAuthenticated
   loginUser(email: String!, password: String!): Token

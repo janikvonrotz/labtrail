@@ -26,10 +26,7 @@ const FlexBoxGrid = ({ children }) => {
 }
 
 FlexBoxGrid.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.array
-  ])
+  children: PropTypes.element.isRequired
 }
 
 export default FlexBoxGrid
