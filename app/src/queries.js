@@ -34,8 +34,7 @@ const GET_STATIONS = gql`
 const GET_CURRENT_USER = gql`
 {
     currentUser {
-        firstname
-        lastname
+        name
     }
 }
 `

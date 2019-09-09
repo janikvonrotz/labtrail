@@ -7,38 +7,55 @@ let cachedDb = null
 
 // A function for connecting to MongoDB,
 // taking a single paramater of the connection string
-async function connectToDatabase(uri) {
-    // If the database connection is cached,
-    // use it instead of creating a new connection
-    if (cachedDb) {
-        return cachedDb
-    }
+async function connectToDatabase (uri) {
+  // If the database connection is cached,
+  // use it instead of creating a new connection
+  if (cachedDb) {
+    return cachedDb
+  }
 
-    // If no connection is cached, create a new one
-    const client = await MongoClient.connect(uri, { useNewUrlParser: true })
+  // If no connection is cached, create a new one
+  const client = await MongoClient.connect(uri, { useNewUrlParser: true })
 
-    // Select the database through the connection,
-    // using the database path of the connection string
-    const db = await client.db(url.parse(uri).pathname.substr(1))
+  // Select the database through the connection,
+  // using the database path of the connection string
+  const db = await client.db(new URL(uri).pathname.substr(1))
 
-    // Cache the database connection and return the connection
-    cachedDb = db
-    return db
+  // Cache the database connection and return the connection
+  cachedDb = db
+  return db
 }
 
 // Convert MongoDB object
-function prepare(object) {
-    if (object) {
-        object.id = object._id.toString()
-    }
-	return object
+function prepare (object) {
+  if (object) {
+    object.id = object._id.toString()
+  }
+  return object
 }
 
-// The main, exported, function of the endpoint,
+// The main function of the endpoint
 // dealing with the request and subsequent response
-module.exports = { mongo: async () => {
-    // Get a database connection, cached or otherwise,
-    // using the connection string environment variable as the argument
-    return await connectToDatabase(process.env.MONGODB_URI)
-    
-}, prepare}
+async function mongo () {
+  // Get a database connection, cached or otherwise,
+  // using the connection string environment variable as the argument
+  return connectToDatabase(process.env.MONGODB_URI)
+}
+
+// Function to access stations collection
+async function stationsCollection () {
+  const db = await mongo()
+  return db.collection('stations')
+}
+
+// Function to access users collection
+async function usersCollection () {
+  const db = await mongo()
+  return db.collection('users')
+}
+
+module.exports = {
+  stationsCollection,
+  usersCollection,
+  prepare
+}

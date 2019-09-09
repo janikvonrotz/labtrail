@@ -1,13 +1,16 @@
 {
   "name": "mongo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "dependencies": {
     "mongodb": "^3.3.0-beta2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "standard": "^14.1.0"
+  },
   "scripts": {
+    "lint": "standard",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

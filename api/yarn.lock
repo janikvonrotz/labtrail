@@ -2253,7 +2253,7 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
     minimist "0.0.8"
 
 mongo@../shared/mongo:
-  version "1.0.0"
+  version "1.0.1"
   dependencies:
     mongodb "^3.3.0-beta2"
 

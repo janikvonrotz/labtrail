@@ -1,22 +1,10 @@
-const { mongo, prepare } = require('mongo')
+const { stationsCollection, usersCollection, prepare } = require('mongo')
 const { ObjectId } = require('mongodb')
 const { GraphQLScalarType } = require('graphql')
 const { AuthenticationError, ForbiddenError } = require('apollo-server-micro')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { Kind } = require('graphql/language')
-
-// Function to access stations collection
-const stationsCollection = async () => {
-  const db = await mongo()
-  return db.collection('stations')
-}
-
-// Function to access users collection
-const usersCollection = async () => {
-  const db = await mongo()
-  return db.collection('users')
-}
 
 // Hash configuration
 const BCRYPT_ROUNDS = 12
@@ -91,6 +79,9 @@ const resolvers = {
         throw new ForbiddenError('User already exists.')
       }
 
+      // Default value
+      args.role = args.role ? args.role : 'USER'
+
       // Hash password
       args.password = await bcrypt.hash(args.password, BCRYPT_ROUNDS)
       args.created = new Date()
@@ -136,6 +127,17 @@ const resolvers = {
     // Hide password hash
     password () {
       return ''
+    },
+    // Generate display name
+    name (obj, args, context) {
+
+      // Return name from token if available,
+      // otherwise generate from first- and lastname
+      if (context.name) {
+        return context.name
+      } else {
+        return (obj.firstname + ' ' + obj.lastname)
+      }
     }
   }
 }

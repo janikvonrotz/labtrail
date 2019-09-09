@@ -30,7 +30,7 @@ const Profile = () => {
             Profil
       </Typography>
       <Typography component='p'>
-        {`${data.currentUser.firstname} ${data.currentUser.lastname}`}
+        {data.currentUser.name}
       </Typography>
     </Paper>
   )

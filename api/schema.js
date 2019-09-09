@@ -4,6 +4,7 @@ const { gql } = require('apollo-server-micro')
 const typeDefs = gql`
 
 directive @isAuthenticated on FIELD_DEFINITION
+directive @hasRole(roles: [Role!]) on FIELD_DEFINITION
 
 scalar Date
 
@@ -11,6 +12,11 @@ enum Color {
   RED
   GREEN
   BLUE
+}
+
+enum Role {
+  ADMIN
+  USER
 }
   
 type Response {
@@ -40,6 +46,8 @@ type User {
   password: String!
   firstname: String!
   lastname: String!
+  name: String
+  role: Role!
 
   created: Date
   created_by: String!
@@ -48,7 +56,7 @@ type User {
 }
 
 type Query {
-  stations: [Station] @isAuthenticated
+  stations: [Station] @hasRole(roles: [USER])
   station(id: String): Station @isAuthenticated
   currentUser: User @isAuthenticated
   users: [User] @isAuthenticated
@@ -60,8 +68,8 @@ type Mutation {
   updateStation(id: String!, name: String, location: String, color: Color): Response
   deleteStation(id: String!): Response
 
-  createUser(email: String!, password: String!, firstname: String!, lastname: String!): User
-  updateUser(id: String!, email: String, password: String, firstname: String, lastname: String): Response
+  createUser(email: String!, password: String!, firstname: String!, lastname: String!, role: Role): User
+  updateUser(id: String!, email: String, password: String, firstname: String, lastname: String, role: Role): Response
   deleteUser(id: String!): Response
 }
 `
