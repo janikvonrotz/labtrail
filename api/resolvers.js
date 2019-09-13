@@ -70,7 +70,7 @@ const resolvers = {
       delete args.id
 
       // Return succcess response
-      return { success: (await (await usersCollection()).deleteOne(args)).result.ok }
+      return { success: (await (await stationsCollection()).deleteOne(args)).result.ok }
     },
     createUser: async (obj, args, context) => {
       // Check if user already exists
