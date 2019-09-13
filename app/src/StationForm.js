@@ -62,6 +62,7 @@ const StationForm = ({ children, station, onSubmit }) => {
       <FormControl fullWidth required className={classes.formControl}>
         <InputLabel htmlFor='color'>Color</InputLabel>
         <Select
+          native
           inputProps={{
             name: 'color',
             id: 'color'
@@ -69,9 +70,10 @@ const StationForm = ({ children, station, onSubmit }) => {
           value={values.color}
           onChange={handleChange}
         >
-          <MenuItem value='RED'>RED</MenuItem>
-          <MenuItem value='GREEN'>GREEN</MenuItem>
-          <MenuItem value='BLUE'>BLUE</MenuItem>
+          <option value='' />
+          <option value='RED'>RED</option>
+          <option value='GREEN'>GREEN</option>
+          <option value='BLUE'>BLUE</option>
         </Select>
       </FormControl>
       {children}
