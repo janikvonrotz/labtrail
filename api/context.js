@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server-micro')
 const jwt = require('jsonwebtoken')
-const { usersCollection } = require('mongo')
+const { collection } = require('mongo')
 
 const context = async ({ req }) => {
 
@@ -16,7 +16,7 @@ const context = async ({ req }) => {
       token = jwt.verify(token, process.env.JWT_SECRET)
 
       // Get user from database
-      user = await (await usersCollection()).findOne({ email: token.email })
+      user = await (await collection('users')).findOne({ email: token.email })
     } catch (error) {
       throw new AuthenticationError(
         'Authentication token is invalid, please log in.'
@@ -27,7 +27,8 @@ const context = async ({ req }) => {
   return {
     email: token ? token.email : null,
     name: token ? token.name : null,
-    role: user ? user.role : 'USER'
+    role: user ? user.role : 'ANONYMOUS',
+    id: user ? user.id : null//, tenant_id: user ? user.tenant: null,
   }
 }
 
