@@ -42,20 +42,13 @@ async function mongo () {
   return connectToDatabase(process.env.MONGODB_URI)
 }
 
-// Function to access stations collection
-async function stationsCollection () {
+// Function to access collection
+async function collection (name) {
   const db = await mongo()
-  return db.collection('stations')
-}
-
-// Function to access users collection
-async function usersCollection () {
-  const db = await mongo()
-  return db.collection('users')
+  return db.collection(name)
 }
 
 module.exports = {
-  stationsCollection,
-  usersCollection,
+  collection,
   prepare
 }

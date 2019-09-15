@@ -5,6 +5,7 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import { makeStyles } from '@material-ui/core/styles'
+import { useForm } from './hooks'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -15,21 +16,7 @@ const useStyles = makeStyles(theme => ({
 const StationForm = ({ children, station, onSubmit }) => {
   const classes = useStyles()
 
-  // Station form state
-  const [values, setValues] = React.useState(station)
-
-  function handleChange (event) {
-    event.persist()
-    setValues(values => ({
-      ...values,
-      [event.target.name]: event.target.value
-    }))
-  }
-
-  function handleSubmit (event) {
-    event.preventDefault()
-    onSubmit(values)
-  }
+  const { values, handleChange, handleSubmit } = useForm(onSubmit, station)
 
   return (
     <form onSubmit={handleSubmit}>

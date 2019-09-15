@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 const GET_STATION = gql`
-query station($id: String) {
+query station($id: ObjectId) {
     station(id: $id) {
         id
         name
@@ -20,7 +20,7 @@ mutation createStation( $name: String!, $location: String!, $color: Color!) {
 `
 
 const UPDATE_STATION = gql`
-mutation updateStation($id: String!, $name: String, $location: String, $color: Color) {
+mutation updateStation($id: ObjectId!, $name: String, $location: String, $color: Color) {
     updateStation(id: $id, name: $name, location: $location, color: $color) {
         success
         message
@@ -29,7 +29,7 @@ mutation updateStation($id: String!, $name: String, $location: String, $color: C
 `
 
 const DELETE_STATION = gql`
-mutation deleteStation( $id: String!) {
+mutation deleteStation( $id: ObjectId!) {
     deleteStation(id: $id) {
         success
         message

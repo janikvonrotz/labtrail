@@ -14,10 +14,11 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const StationCreate = ({ station }) => {
+const StationCreate = () => {
   const classes = useStyles()
 
-  const defaultStation = { name: '', location: '', color: '' }
+  // Set default values
+  const station = { name: '', location: '', color: '' }
 
   const [createStation, { data }] = useMutation(CREATE_STATION, {
     refetchQueries: [{
@@ -31,7 +32,7 @@ const StationCreate = ({ station }) => {
   }
 
   return (
-    <StationForm station={defaultStation} onSubmit={(station) => createStation({ variables: station })}>
+    <StationForm station={station} onSubmit={(station) => createStation({ variables: station })}>
       <Link to='/stations'>
         <Button
           variant='contained'
@@ -54,7 +55,7 @@ const StationCreate = ({ station }) => {
 }
 
 StationCreate.propTypes = {
-  station: PropTypes.object.isRequired
+  station: PropTypes.object
 }
 
 export default StationCreate
