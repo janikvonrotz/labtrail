@@ -9,6 +9,7 @@ import Error from './Error'
 import { useLazyQuery } from '@apollo/react-hooks'
 import { LOGIN_USER } from './queries'
 import { Redirect } from 'react-router'
+import { useForm } from './hooks'
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -25,19 +26,14 @@ const useStyles = makeStyles(theme => ({
 const Login = () => {
   const classes = useStyles()
 
-  // State to store form values
-  const [values, setValues] = React.useState(false)
-
-  // Handle method for form fields
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value })
-  }
+  // Use form state
+  const { values, handleChange, handleSubmit } = useForm((credentials) => loginUser(), {
+    email: '',
+    password: ''
+  })
 
   // Lazy query for login user method
-  const [loginUser, { called, loading, data, error }] = useLazyQuery(
-    LOGIN_USER,
-    { variables: { email: values.email, password: values.password } }
-  )
+  const [loginUser, { called, loading, data, error }] = useLazyQuery(LOGIN_USER, { variables: values })
 
   // Wait for lazy query
   if (called && loading) return <Paper className={classes.paper}><Loading /></Paper>
@@ -58,10 +54,7 @@ const Login = () => {
       <Typography className={classes.title} variant='h3' component='h1'>
         Login
       </Typography>
-      <form onSubmit={(e) => {
-        e.preventDefault()
-        loginUser()
-      }}
+      <form onSubmit={handleSubmit}
       >
         <TextField
           variant='outlined'
@@ -72,7 +65,8 @@ const Login = () => {
           name='email'
           label='Email Address'
           type='email'
-          onChange={handleChange('email')}
+          value={values.email}
+          onChange={handleChange}
           autoFocus
         />
         <TextField
@@ -84,7 +78,8 @@ const Login = () => {
           name='password'
           label='Password'
           type='password'
-          onChange={handleChange('password')}
+          value={values.password}
+          onChange={handleChange}
         />
         <Button
           type='submit'
