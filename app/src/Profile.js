@@ -27,10 +27,13 @@ const Profile = () => {
   return (
     <Paper className={classes.paper}>
       <Typography className={classes.title} variant='h3' component='h1'>
-            Profil
+            Profile
       </Typography>
       <Typography component='p'>
-        {data.currentUser.name}
+        Name: {data.currentUser.name}
+      </Typography>
+      <Typography component='p'>
+        Role: {data.currentUser.role}
       </Typography>
     </Paper>
   )

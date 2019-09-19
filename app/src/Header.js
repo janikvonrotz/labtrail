@@ -12,6 +12,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import CloseIcon from '@material-ui/icons/Close'
 import HomeIcon from '@material-ui/icons/Home'
+import DirectionsIcon from '@material-ui/icons/Directions'
 import PermDeviceInformation from '@material-ui/icons/PermDeviceInformation'
 import Person from '@material-ui/icons/Person'
 import HeaderLoginButton from './HeaderLoginButton'
@@ -97,7 +98,7 @@ const Header = () => {
         <Link to='/documents' className={classes.link}>
           <MenuItem onClick={toggleDrawer}>
             <ListItemIcon>
-              <PermDeviceInformation />
+              <DirectionsIcon />
             </ListItemIcon>
             <ListItemText>Documents</ListItemText>
           </MenuItem>

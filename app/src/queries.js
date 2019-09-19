@@ -67,6 +67,7 @@ const GET_CURRENT_USER = gql`
 {
   currentUser {
     name
+    role
   }
 }
 `
