@@ -1,5 +1,6 @@
 const { collection, prepare } = require('mongo')
 const { ObjectId } = require('mongodb')
+const categoryResolvers = require('./resolvers-category')
 
 const resolvers = {
   Query: {
@@ -27,6 +28,11 @@ const resolvers = {
       args._id = ObjectId(args.id)
       delete args.id
       return { success: (await (await collection('documents')).deleteOne(args)).result.ok }
+    }
+  },
+  Document: {
+    category: async (obj, args, context) => {
+      return categoryResolvers.Query.category(obj, { id: obj.category }, context)
     }
   }
 }

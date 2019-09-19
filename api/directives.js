@@ -24,7 +24,6 @@ class isAuthenticated extends SchemaDirectiveVisitor {
 class hasRole extends SchemaDirectiveVisitor {
 
   visitObject (type) {
-    console.log('visitObject')
     this.ensureFieldsWrapped(type)
     type._requiredHasRole = this.args.requires
   }
@@ -33,7 +32,6 @@ class hasRole extends SchemaDirectiveVisitor {
   // also receive a details object that provides information about
   // the parent and grandparent types
   visitFieldDefinition (field, details) {
-    console.log('visitFieldDefinition')
     this.ensureFieldsWrapped(details.objectType)
     field._requiredHasRole = this.args.requires
   }

@@ -94,6 +94,14 @@ const Header = () => {
             <ListItemText>Stations</ListItemText>
           </MenuItem>
         </Link>
+        <Link to='/documents' className={classes.link}>
+          <MenuItem onClick={toggleDrawer}>
+            <ListItemIcon>
+              <PermDeviceInformation />
+            </ListItemIcon>
+            <ListItemText>Documents</ListItemText>
+          </MenuItem>
+        </Link>
         <Link to='/profile' className={classes.link}>
           <MenuItem onClick={toggleDrawer}>
             <ListItemIcon>
