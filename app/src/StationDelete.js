@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button'
 import { useMutation } from '@apollo/react-hooks'
 import { DELETE_STATION, GET_STATIONS } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
+import Prompt from './Prompt'
+import { useToggle } from './hooks'
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -21,20 +23,31 @@ const StationDelete = ({ station }) => {
     }]
   })
 
+  const { toggle, active } = useToggle(false)
+
   if (data && data.deleteStation.success) {
     return <Redirect to='/stations' />
   }
 
   return (
-    <Button
-      variant='contained'
-      color='secondary'
-      type='submit'
-      className={classes.button}
-      onClick={event => deleteStation({ variables: station })}
-    >
-      Delete
-    </Button>
+    <>
+      <Button
+        variant='contained'
+        color='secondary'
+        type='submit'
+        className={classes.button}
+        onClick={toggle}
+      >
+        Delete
+      </Button>
+      <Prompt
+        title='Delete Station'
+        content={`Do you really want to delete the station: ${station.name} ?`}
+        open={active}
+        onSubmit={event => deleteStation({ variables: station })}
+        onClose={toggle}
+      />
+    </>
   )
 }
 

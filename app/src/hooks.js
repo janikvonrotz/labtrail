@@ -23,4 +23,18 @@ const useForm = (callback, data) => {
   }
 }
 
-export { useForm }
+const useToggle = (data) => {
+  const [active, setActive] = useState(data)
+
+  const toggle = (event) => {
+    if (event) event.preventDefault()
+    setActive(!active)
+  }
+
+  return {
+    toggle,
+    active
+  }
+}
+
+export { useForm, useToggle }

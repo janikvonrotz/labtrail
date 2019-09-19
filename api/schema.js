@@ -4,7 +4,7 @@ const { gql } = require('apollo-server-micro')
 const typeDefs = gql`
 
 directive @isAuthenticated on FIELD_DEFINITION
-directive @hasRole(roles: [Role!]) on FIELD_DEFINITION
+directive @hasRole(roles: [Role!]) on OBJECT | FIELD_DEFINITION
 
 scalar Date
 scalar ObjectId
@@ -46,7 +46,7 @@ type Tenant {
   updated_by: String!
 }
 
-type Station {
+type Station @hasRole(roles: [ANONYMOUS, ADMIN, USER]) {
   id: ObjectId!
   name: String!
   location: String!
@@ -92,20 +92,20 @@ type User {
 }
 
 type Query {
-  stations: [Station] @hasRole(roles: [USER])
-  station(id: ObjectId): Station @isAuthenticated
+  stations: [Station]
+  station(id: ObjectId): Station
 
-  categories: [Category] @hasRole(roles: [USER])
-  category(id: ObjectId): Category @isAuthenticated
+  categories: [Category]
+  category(id: ObjectId): Category
 
-  tenants: [Tenant] @hasRole(roles: [ANONYMOUS])
-  tenant(id: ObjectId): Tenant @isAuthenticated
+  tenants: [Tenant]
+  tenant(id: ObjectId): Tenant
 
-  documents: [Document] @hasRole(roles: [USER])
-  document(id: ObjectId): Document @isAuthenticated
+  documents: [Document]
+  document(id: ObjectId): Document
 
-  currentUser: User @isAuthenticated
-  users: [User] @isAuthenticated
+  currentUser: User
+  users: [User]
   loginUser(email: String!, password: String!): Token
 }
 

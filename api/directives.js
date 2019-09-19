@@ -22,27 +22,53 @@ class isAuthenticated extends SchemaDirectiveVisitor {
 
 // Custom directive to check if user has role
 class hasRole extends SchemaDirectiveVisitor {
-  // Field definition directive
-  visitFieldDefinition (field) {
-    // Get field resolver
-    const { resolve = defaultFieldResolver } = field
 
-    // List of roles from directive declaration
-    const roles = this.args.roles
+  visitObject (type) {
+    console.log('visitObject')
+    this.ensureFieldsWrapped(type)
+    type._requiredHasRole = this.args.requires
+  }
 
-    field.resolve = async function (...args) {
+  // Visitor methods for nested types like fields and arguments
+  // also receive a details object that provides information about
+  // the parent and grandparent types
+  visitFieldDefinition (field, details) {
+    console.log('visitFieldDefinition')
+    this.ensureFieldsWrapped(details.objectType)
+    field._requiredHasRole = this.args.requires
+  }
 
-      // Get context
-      const [, , context] = args
+  ensureFieldsWrapped (objectType) {
+    // Mark the GraphQLObjectType object to avoid re-wrapping
+    if (objectType._hasRoleFieldsWrapped) return
+    objectType._hasRoleFieldsWrapped = true
 
-      // Check if user email is in context
-      if (roles.indexOf(context.role) === -1) {
-        throw new ForbiddenError('You are not authorized for this ressource.')
+    // Get fields from object type
+    const fields = objectType.getFields()
+
+    Object.keys(fields).forEach(fieldName => {
+      const field = fields[fieldName]
+
+      // Get field resolver
+      const { resolve = defaultFieldResolver } = field
+
+      // List of roles from directive declaration
+      const roles = this.args.roles
+
+      field.resolve = async function (...args) {
+
+        // Get context
+        const [, , context] = args
+
+        // Check if user email is in context
+        if (roles.indexOf(context.role) === -1) {
+          throw new ForbiddenError('You are not authorized for this ressource.')
+        }
+
+        // Resolve field
+        return resolve.apply(this, args)
       }
-
-      // Resolve field
-      return resolve.apply(this, args)
-    }
+    })
   }
 }
 
