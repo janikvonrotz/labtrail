@@ -14,12 +14,12 @@ const resolvers = {
   Mutation: {
     createDocument: async (obj, args, context) => {
       args.created = new Date()
-      args.created_by = context.name || 'system'
+      args.created_by = context.user.id
       return prepare((await (await collection('documents')).insertOne(args)).ops[0])
     },
     updateDocument: async (obj, args, context) => {
       args.updated = new Date()
-      args.updated_by = context.name || 'system'
+      args.updated_by = context.user.id
       const filter = { _id: ObjectId(args.id) }
       delete args.id
       return { success: (await (await collection('documents')).updateOne(filter, { $set: args })).result.ok }

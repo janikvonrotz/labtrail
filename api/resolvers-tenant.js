@@ -13,12 +13,12 @@ const resolvers = {
   Mutation: {
     createTenant: async (obj, args, context) => {
       args.created = new Date()
-      args.created_by = context.name || 'system'
+      args.created_by = context.user.id
       return prepare((await (await collection('tenants')).insertOne(args)).ops[0])
     },
     updateTenant: async (obj, args, context) => {
       args.updated = new Date()
-      args.updated_by = context.name || 'system'
+      args.updated_by = context.user.id
       const filter = { _id: ObjectId(args.id) }
       delete args.id
       return { success: (await (await collection('tenants')).updateOne(filter, { $set: args })).result.ok }

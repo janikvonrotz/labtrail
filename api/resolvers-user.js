@@ -12,6 +12,12 @@ const resolvers = {
     users: async (obj, args, context) => {
       return (await (await collection('users')).find({}).toArray()).map(prepare)
     },
+    createdBy: async (obj, args, context) => {
+      return (await (await collection('users')).find({}).toArray()).map(prepare)
+    },
+    updatedBy: async (obj, args, context) => {
+      return (await (await collection('users')).find({}).toArray()).map(prepare)
+    },
     currentUser: async (obj, args, context) => {
       return prepare(await (await collection('users')).findOne({ email: context.email }))
     },
@@ -44,12 +50,12 @@ const resolvers = {
       // Hash password
       args.password = await bcrypt.hash(args.password, BCRYPT_ROUNDS)
       args.created = new Date()
-      args.created_by = context.name || 'system'
+      args.created_by = context.user.id
       return prepare((await (await collection('users')).insertOne(args)).ops[0])
     },
     updateUser: async (obj, args, context) => {
       args.updated = new Date()
-      args.updated_by = context.name || 'system'
+      args.updated_by = context.user.id
 
       // Hash password if provided
       if (args.password) {

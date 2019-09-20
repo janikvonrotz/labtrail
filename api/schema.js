@@ -31,9 +31,9 @@ type Category {
   name: String!
 
   created: Date
-  created_by: String!
+  created_by: User!
   updated: Date
-  updated_by: String!
+  updated_by: User!
 }
 
 type Tenant {
@@ -41,21 +41,21 @@ type Tenant {
   name: String!
 
   created: Date
-  created_by: String!
+  created_by: User!
   updated: Date
-  updated_by: String!
+  updated_by: User!
 }
 
-type Station @hasRole(roles: [ANONYMOUS, ADMIN, USER]) {
+type Station {
   id: ObjectId!
   name: String!
   location: String!
   color: Color!
   
   created: Date
-  created_by: String!
+  created_by: User!
   updated: Date
-  updated_by: String!
+  updated_by: User!
 }
 
 type Document {
@@ -67,9 +67,9 @@ type Document {
   forward: Boolean!
 
   created: Date
-  created_by: String!
+  created_by: User!
   updated: Date
-  updated_by: String!
+  updated_by: User!
 }
 
 type Token {
@@ -86,9 +86,9 @@ type User {
   role: Role!
 
   created: Date
-  created_by: String!
+  created_by: User!
   updated: Date
-  updated_by: String!
+  updated_by: User!
 }
 
 type Query {
@@ -106,27 +106,29 @@ type Query {
 
   currentUser: User
   users: [User]
+  createdBy: User
+  updatedBy: User 
   loginUser(email: String!, password: String!): Token
 }
 
 type Mutation {
-  createStation(name: String!, location: String!, color: Color!): Station
+  createStation(name: String!, location: String!, color: Color!): Station @hasRole(roles: [ADMIN, USER])
   updateStation(id: ObjectId!, name: String, location: String, color: Color): Response
   deleteStation(id: ObjectId!): Response
 
-  createCategory(name: String!): Category
+  createCategory(name: String!): Category @hasRole(roles: [ADMIN, USER])
   updateCategory(id: ObjectId!, name: String): Response
   deleteCategory(id: ObjectId!): Response
 
-  createTenant(name: String!): Tenant
+  createTenant(name: String!): Tenant @hasRole(roles: [ADMIN, USER])
   updateTenant(id: ObjectId!, name: String): Response
   deleteTenant(id: ObjectId!): Response
 
-  createDocument(title: String!, link: String!, description: String, category: String!, forward: Boolean!): Document
+  createDocument(title: String!, link: String!, description: String, category: String!, forward: Boolean!): Document @hasRole(roles: [ADMIN, USER])
   updateDocument(id: ObjectId!, title: String, link: String, description: String, category: String, forward: Boolean): Response
   deleteDocument(id: ObjectId!): Response
 
-  createUser(email: String!, password: String!, firstname: String!, lastname: String!, role: Role): User
+  createUser(email: String!, password: String!, firstname: String!, lastname: String!, role: Role): User @hasRole(roles: [ADMIN, USER])
   updateUser(id: ObjectId!, email: String, password: String, firstname: String, lastname: String, role: Role): Response
   deleteUser(id: ObjectId!): Response
 }

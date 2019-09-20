@@ -17,7 +17,7 @@ const resolvers = {
     createStation: async (obj, args, context) => {
       // Set default values
       args.created = new Date()
-      args.created_by = context.name || 'system'
+      args.created_by = context.user.id
 
       // Add new document and return it
       return prepare((await (await collection('stations')).insertOne(args)).ops[0])
@@ -25,7 +25,7 @@ const resolvers = {
     updateStation: async (obj, args, context) => {
       // Set default values
       args.updated = new Date()
-      args.updated_by = context.name || 'system'
+      args.updated_by = context.user.id
 
       // Create update filter
       const filter = { _id: ObjectId(args.id) }

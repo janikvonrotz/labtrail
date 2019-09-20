@@ -10,7 +10,7 @@ class isAuthenticated extends SchemaDirectiveVisitor {
 
     field.resolve = async function (...args) {
       // Check if user email is in context
-      if (!args[2].email) {
+      if (!args[2].user.email) {
         throw new ForbiddenError('You are not authorized for this ressource.')
       }
 
@@ -59,7 +59,7 @@ class hasRole extends SchemaDirectiveVisitor {
         const [, , context] = args
 
         // Check if user email is in context
-        if (roles.indexOf(context.role) === -1) {
+        if (roles.indexOf(context.user.role) === -1) {
           throw new ForbiddenError('You are not authorized for this ressource.')
         }
 
