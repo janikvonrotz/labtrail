@@ -23,50 +23,26 @@ class isAuthenticated extends SchemaDirectiveVisitor {
 // Custom directive to check if user has role
 class hasRole extends SchemaDirectiveVisitor {
 
-  visitObject (type) {
-    this.ensureFieldsWrapped(type)
-    type._requiredHasRole = this.args.requires
-  }
+  visitFieldDefinition (field) {
+    // Get field resolver
+    const { resolve = defaultFieldResolver } = field
 
-  // Visitor methods for nested types like fields and arguments
-  // also receive a details object that provides information about
-  // the parent and grandparent types
-  visitFieldDefinition (field, details) {
-    this.ensureFieldsWrapped(details.objectType)
-    field._requiredHasRole = this.args.requires
-  }
+    // List of roles from directive param
+    const roles = this.args.roles
 
-  ensureFieldsWrapped (objectType) {
-    // Mark the GraphQLObjectType object to avoid re-wrapping
-    if (objectType._hasRoleFieldsWrapped) return
-    objectType._hasRoleFieldsWrapped = true
+    field.resolve = async function (...args) {
 
-    // Get fields from object type
-    const fields = objectType.getFields()
+      // Get context
+      const [, , context] = args
 
-    Object.keys(fields).forEach(fieldName => {
-      const field = fields[fieldName]
-
-      // Get field resolver
-      const { resolve = defaultFieldResolver } = field
-
-      // List of roles from directive declaration
-      const roles = this.args.roles
-
-      field.resolve = async function (...args) {
-
-        // Get context
-        const [, , context] = args
-
-        // User must exist in contest and roles must match
-        if (!context.user || roles.indexOf(context.user.role) === -1) {
-          throw new ForbiddenError('You are not authorized for this ressource.')
-        }
-
-        // Resolve field
-        return resolve.apply(this, args)
+      // User must exist in contest and roles must match
+      if (!context.user || roles.indexOf(context.user.role) === -1) {
+        throw new ForbiddenError('You are not authorized for this ressource.')
       }
-    })
+
+      // Resolve field
+      return resolve.apply(this, args)
+    }
   }
 }
 
