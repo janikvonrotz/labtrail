@@ -92,7 +92,7 @@ type User {
 }
 
 type Query {
-  stations: [Station]
+  stations: [Station] @hasRole(roles: [ADMIN, USER])
   station(id: ObjectId): Station
 
   categories: [Category]

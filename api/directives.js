@@ -58,8 +58,8 @@ class hasRole extends SchemaDirectiveVisitor {
         // Get context
         const [, , context] = args
 
-        // Check if user email is in context
-        if (roles.indexOf(context.user.role) === -1) {
+        // User must exist in contest and roles must match
+        if (!context.user || roles.indexOf(context.user.role) === -1) {
           throw new ForbiddenError('You are not authorized for this ressource.')
         }
 
