@@ -25,12 +25,7 @@ const context = async ({ req }) => {
   }
 
   return {
-    user: {
-      email: token ? token.email : null,
-      name: token ? token.name : null,
-      role: user ? user.role : 'ANONYMOUS',
-      id: user ? user.id : null
-    }//, tenant_id: user ? user.tenant: null,
+    user: user
   }
 }
 

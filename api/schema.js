@@ -106,8 +106,8 @@ type Query {
 
   currentUser: User
   users: [User]
-  createdBy: User
-  updatedBy: User 
+  createdBy(id: ObjectId): User
+  updatedBy(id: ObjectId): User 
   loginUser(email: String!, password: String!): Token
 }
 
@@ -125,7 +125,7 @@ type Mutation {
   deleteTenant(id: ObjectId!): Response
 
   createDocument(title: String!, link: String!, description: String, category: String!, forward: Boolean!): Document @hasRole(roles: [ADMIN, USER])
-  updateDocument(id: ObjectId!, title: String, link: String, description: String, category: String, forward: Boolean): Response
+  updateDocument(id: ObjectId!, title: String, link: String, description: String, category: ObjectId, forward: Boolean): Response
   deleteDocument(id: ObjectId!): Response
 
   createUser(email: String!, password: String!, firstname: String!, lastname: String!, role: Role): User @hasRole(roles: [ADMIN, USER])

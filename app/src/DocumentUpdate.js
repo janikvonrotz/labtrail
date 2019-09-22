@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
-import StationForm from './StationForm'
-import StationDelete from './StationDelete'
+import DocumentForm from './DocumentForm'
+import DocumentDelete from './DocumentDelete'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_STATION, GET_STATIONS } from './queries'
+import { UPDATE_DOCUMENT, GET_DOCUMENTS } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 import Error from './Error'
 
@@ -16,26 +16,36 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const StationUpdate = ({ station }) => {
+const DocumentUpdate = ({ document }) => {
   const classes = useStyles()
 
-  // Get hook for Station update
-  const [updateStation, { data, error }] = useMutation(UPDATE_STATION, {
+  // Get hook for Document update
+  const [updateDocument, { data, error }] = useMutation(UPDATE_DOCUMENT, {
     refetchQueries: [{
-      query: GET_STATIONS
+      query: GET_DOCUMENTS
     }]
   })
 
   if (error) return <Error message={error.message} />
 
   // Redirect if update is successful
-  if (data && data.updateStation.success) {
-    return <Redirect to='/stations' />
+  if (data && data.updateDocument.success) {
+    return <Redirect to='/documents' />
+  }
+
+  // Form on submit method
+  function onSubmit (document) {
+    // Set category id
+    if (document.category.id) {
+      document.category = document.category.id
+    }
+
+    updateDocument({ variables: document })
   }
 
   return (
-    <StationForm station={station} onSubmit={(station) => updateStation({ variables: station })}>
-      <Link to='/stations'>
+    <DocumentForm document={document} onSubmit={onSubmit}>
+      <Link to='/documents'>
         <Button
           variant='contained'
           color='secondary'
@@ -44,7 +54,7 @@ const StationUpdate = ({ station }) => {
           Cancel
         </Button>
       </Link>
-      <StationDelete station={station} />
+      <DocumentDelete document={document} />
       <Button
         variant='contained'
         color='primary'
@@ -53,12 +63,12 @@ const StationUpdate = ({ station }) => {
       >
         Save
       </Button>
-    </StationForm>
+    </DocumentForm>
   )
 }
 
-StationUpdate.propTypes = {
-  station: PropTypes.object.isRequired
+DocumentUpdate.propTypes = {
+  document: PropTypes.object.isRequired
 }
 
-export default StationUpdate
+export default DocumentUpdate

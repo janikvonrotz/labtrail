@@ -19,7 +19,7 @@ const resolvers = {
       return (await (await collection('users')).find({}).toArray()).map(prepare)
     },
     currentUser: async (obj, args, context) => {
-      return prepare(await (await collection('users')).findOne({ email: context.email }))
+      return context.user
     },
     loginUser: async (obj, args, context) => {
       // Find user by email and password

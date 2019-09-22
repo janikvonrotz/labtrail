@@ -54,8 +54,7 @@ const Login = () => {
       <Typography className={classes.title} variant='h3' component='h1'>
         Login
       </Typography>
-      <form onSubmit={handleSubmit}
-      >
+      <form onSubmit={handleSubmit}>
         <TextField
           variant='outlined'
           margin='normal'

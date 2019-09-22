@@ -48,6 +48,48 @@ const GET_STATIONS = gql`
 }
 `
 
+const GET_DOCUMENT = gql`
+query documents($id: ObjectId) {
+  document(id: $id) {
+    id
+    title
+    link
+    description
+    category {
+      id
+      name
+    }
+    forward
+  }
+}
+`
+
+const CREATE_DOCUMENT = gql`
+mutation createDocument($title: String!, $link: String!, $description: String, $category: ObjectId!, $forward: Boolean) {
+  createDocument(title: $title, link: $link, description: $description, category: $category, forward: $forward) {
+    id
+  }
+}
+`
+
+const UPDATE_DOCUMENT = gql`
+mutation updateDocument($id: ObjectId!, $title: String, $link: String, $description: String, $category: ObjectId, $forward: Boolean) {
+  updateDocument(id: $id, title: $title, link: $link, description: $description, category: $category, forward: $forward) {
+    success
+    message
+  }
+}
+`
+
+const DELETE_DOCUMENT = gql`
+mutation deleteDocument( $id: ObjectId!) {
+  deleteDocument(id: $id) {
+    success
+    message
+  }
+}
+`
+
 const GET_DOCUMENTS = gql`
 {
   documents {
@@ -56,6 +98,7 @@ const GET_DOCUMENTS = gql`
     link
     description
     category {
+      id
       name
     }
     forward
@@ -86,6 +129,10 @@ export {
   UPDATE_STATION,
   DELETE_STATION,
   GET_STATIONS,
+  GET_DOCUMENT,
+  CREATE_DOCUMENT,
+  UPDATE_DOCUMENT,
+  DELETE_DOCUMENT,
   GET_DOCUMENTS,
   GET_CURRENT_USER,
   LOGIN_USER
