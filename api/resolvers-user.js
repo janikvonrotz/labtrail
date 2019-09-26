@@ -28,7 +28,7 @@ const resolvers = {
       // Compare hash
       if (user && await bcrypt.compare(args.password, user.password)) {
         // Generate and return JWT token
-        const token = jwt.sign({ email: user.email, name: (user.firstname + ' ' + user.lastname) }, process.env.JWT_SECRET)
+        const token = jwt.sign({ email: user.email, name: (user.firstname + ' ' + user.lastname) }, process.env.JWT_SECRET, { expiresIn: '7d' })
         return { token: token }
       } else {
         // Throw authentication error
