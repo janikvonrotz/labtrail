@@ -5,10 +5,16 @@ import { useForm } from './hooks'
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormGroup from '@material-ui/core/FormGroup'
+import CategoryFormSelect from './CategoryFormSelect'
 
 const DocumentForm = ({ children, document, onSubmit }) => {
 
   const { values, handleChange, handleSubmit } = useForm(onSubmit, document)
+
+  // Get category id from nested object
+  if (values.category && values.category.id) {
+    values.category = values.category.id
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -48,10 +54,15 @@ const DocumentForm = ({ children, document, onSubmit }) => {
         value={values.description}
         onChange={handleChange}
       />
+      <CategoryFormSelect
+        value={values.category}
+        onChange={handleChange}
+      />
       <FormGroup>
         <FormControlLabel
           control={
             <Checkbox
+              checked={values.forward}
               value={values.forward}
               onChange={handleChange}
               name='forward'

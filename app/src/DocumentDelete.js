@@ -42,7 +42,7 @@ const DocumentDelete = ({ document }) => {
       </Button>
       <Prompt
         title='Delete Document'
-        content={`Do you really want to delete the document: ${document.name} ?`}
+        content={`Do you really want to delete the document: ${document.title} ?`}
         open={active}
         onSubmit={event => deleteDocument({ variables: document })}
         onClose={toggle}

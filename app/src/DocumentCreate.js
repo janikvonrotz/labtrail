@@ -18,7 +18,7 @@ const DocumentCreate = () => {
   const classes = useStyles()
 
   // Set default values
-  const document = { name: '', location: '', color: '' }
+  const document = { title: '', link: '', description: '', category: null, forward: false }
 
   const [createDocument, { data }] = useMutation(CREATE_DOCUMENT, {
     refetchQueries: [{
@@ -32,7 +32,7 @@ const DocumentCreate = () => {
   }
 
   return (
-    <DocumentForm document={document} onSubmit={(document) => createDocument({ variables: document })}>
+    <DocumentForm document={document} onSubmit={(document) => (createDocument({ variables: document }))}>
       <Link to='/documents'>
         <Button
           variant='contained'

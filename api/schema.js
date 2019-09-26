@@ -123,7 +123,7 @@ type Mutation {
   updateTenant(id: ObjectId!, name: String): Response @hasRole(roles: [ADMIN])
   deleteTenant(id: ObjectId!): Response @hasRole(roles: [ADMIN])
 
-  createDocument(title: String!, link: String!, description: String, category: String!, forward: Boolean!): Document @hasRole(roles: [ADMIN])
+  createDocument(title: String!, link: String!, description: String, category: ObjectId!, forward: Boolean!): Document @hasRole(roles: [ADMIN])
   updateDocument(id: ObjectId!, title: String, link: String, description: String, category: ObjectId, forward: Boolean): Response @hasRole(roles: [ADMIN])
   deleteDocument(id: ObjectId!): Response @hasRole(roles: [ADMIN])
 

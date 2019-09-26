@@ -65,7 +65,7 @@ query documents($id: ObjectId) {
 `
 
 const CREATE_DOCUMENT = gql`
-mutation createDocument($title: String!, $link: String!, $description: String, $category: ObjectId!, $forward: Boolean) {
+mutation createDocument($title: String!, $link: String!, $description: String, $category: ObjectId!, $forward: Boolean!) {
   createDocument(title: $title, link: $link, description: $description, category: $category, forward: $forward) {
     id
   }
@@ -106,6 +106,15 @@ const GET_DOCUMENTS = gql`
 }
 `
 
+const GET_CATEGORIES = gql`
+{
+  categories {
+    id
+    name
+  }
+}
+`
+
 const GET_CURRENT_USER = gql`
 {
   currentUser {
@@ -134,6 +143,7 @@ export {
   UPDATE_DOCUMENT,
   DELETE_DOCUMENT,
   GET_DOCUMENTS,
+  GET_CATEGORIES,
   GET_CURRENT_USER,
   LOGIN_USER
 }
