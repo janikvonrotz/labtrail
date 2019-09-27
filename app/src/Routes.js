@@ -12,10 +12,16 @@ import Document from './Document'
 import Category from './Category'
 import Categories from './Categories'
 import CategoryId from './CategoryId'
+import Tenants from './Tenants'
+import Tenant from './Tenant'
+import TenantId from './TenantId'
 
 const Routes = () => (
   <>
     <Route exact path='/' component={Home} />
+    <Route exact path='/tenants' component={Tenants} />
+    <Route exact path='/tenant' component={Tenant} />
+    <Route exact path='/tenant/:id' component={TenantId} />
     <Route exact path='/stations' component={Stations} />
     <Route exact path='/station' component={Station} />
     <Route exact path='/station/:id' component={StationId} />

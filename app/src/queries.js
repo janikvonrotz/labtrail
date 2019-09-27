@@ -1,5 +1,49 @@
 import gql from 'graphql-tag'
 
+const GET_TENANT = gql`
+query tenant($id: ObjectId) {
+  tenant(id: $id) {
+    id
+    name
+  }
+}
+`
+
+const CREATE_TENANT = gql`
+mutation createTenant( $name: String!) {
+  createTenant(name: $name) {
+    id
+  }
+}
+`
+
+const UPDATE_TENANT = gql`
+mutation updateTenant($id: ObjectId!, $name: String) {
+  updateTenant(id: $id, name: $name) {
+    success
+    message
+  }
+}
+`
+
+const DELETE_TENANT = gql`
+mutation deleteTenant( $id: ObjectId!) {
+  deleteTenant(id: $id) {
+    success
+    message
+  }
+}
+`
+
+const GET_TENANTS = gql`
+{
+  tenants {
+    id
+    name
+  }
+}
+`
+
 const GET_STATION = gql`
 query station($id: ObjectId) {
   station(id: $id) {
@@ -189,6 +233,11 @@ mutation deleteAlert {
 `
 
 export {
+  GET_TENANT,
+  CREATE_TENANT,
+  UPDATE_TENANT,
+  DELETE_TENANT,
+  GET_TENANTS,
   GET_STATION,
   CREATE_STATION,
   UPDATE_STATION,
