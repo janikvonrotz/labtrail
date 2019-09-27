@@ -50,6 +50,7 @@ type Station {
   name: String!
   location: String!
   color: Color!
+  documents: [Document]
   
   created: Date
   created_by: User!
@@ -111,8 +112,8 @@ type Query {
 }
 
 type Mutation {
-  createStation(name: String!, location: String!, color: Color!): Station @hasRole(roles: [ADMIN])
-  updateStation(id: ObjectId!, name: String, location: String, color: Color): Response @hasRole(roles: [ADMIN])
+  createStation(name: String!, location: String!, color: Color!, documents: [ObjectId]): Station @hasRole(roles: [ADMIN])
+  updateStation(id: ObjectId!, name: String, location: String, color: Color, documents: [ObjectId]): Response @hasRole(roles: [ADMIN])
   deleteStation(id: ObjectId!): Response @hasRole(roles: [ADMIN])
 
   createCategory(name: String!): Category @hasRole(roles: [ADMIN])

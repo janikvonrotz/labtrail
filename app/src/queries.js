@@ -12,16 +12,16 @@ query station($id: ObjectId) {
 `
 
 const CREATE_STATION = gql`
-mutation createStation( $name: String!, $location: String!, $color: Color!) {
-  createStation(name: $name, location: $location, color: $color) {
+mutation createStation( $name: String!, $location: String!, $color: Color!, $documents: [ObjectId]) {
+  createStation(name: $name, location: $location, color: $color, documents: $documents) {
     id
   }
 }
 `
 
 const UPDATE_STATION = gql`
-mutation updateStation($id: ObjectId!, $name: String, $location: String, $color: Color) {
-  updateStation(id: $id, name: $name, location: $location, color: $color) {
+mutation updateStation($id: ObjectId!, $name: String, $location: String, $color: Color, $documents: [ObjectId]) {
+  updateStation(id: $id, name: $name, location: $location, color: $color, documents: $documents) {
     success
     message
   }
