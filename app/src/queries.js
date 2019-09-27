@@ -106,6 +106,41 @@ const GET_DOCUMENTS = gql`
 }
 `
 
+const GET_CATEGORY = gql`
+query category($id: ObjectId) {
+  category(id: $id) {
+    id
+    name
+  }
+}
+`
+
+const CREATE_CATEGORY = gql`
+mutation createCategory( $name: String!) {
+  createCategory(name: $name) {
+    id
+  }
+}
+`
+
+const UPDATE_CATEGORY = gql`
+mutation updateCategory($id: ObjectId!, $name: String) {
+  updateCategory(id: $id, name: $name) {
+    success
+    message
+  }
+}
+`
+
+const DELETE_CATEGORY = gql`
+mutation deleteCategory( $id: ObjectId!) {
+  deleteCategory(id: $id) {
+    success
+    message
+  }
+}
+`
+
 const GET_CATEGORIES = gql`
 {
   categories {
@@ -143,6 +178,10 @@ export {
   UPDATE_DOCUMENT,
   DELETE_DOCUMENT,
   GET_DOCUMENTS,
+  GET_CATEGORY,
+  CREATE_CATEGORY,
+  UPDATE_CATEGORY,
+  DELETE_CATEGORY,
   GET_CATEGORIES,
   GET_CURRENT_USER,
   LOGIN_USER

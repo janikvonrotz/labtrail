@@ -9,6 +9,9 @@ import DocumentId from './DocumentId'
 import Login from './Login'
 import Profile from './Profile'
 import Document from './Document'
+import Category from './Category'
+import Categories from './Categories'
+import CategoryId from './CategoryId'
 
 const Routes = () => (
   <>
@@ -19,6 +22,9 @@ const Routes = () => (
     <Route exact path='/document' component={Document} />
     <Route exact path='/documents' component={Documents} />
     <Route exact path='/document/:id' component={DocumentId} />
+    <Route exact path='/category' component={Category} />
+    <Route exact path='/category/:id' component={CategoryId} />
+    <Route exact path='/categories' component={Categories} />
     <Route exact path='/login' component={Login} />
     <Route exact path='/profile' component={Profile} />
   </>
