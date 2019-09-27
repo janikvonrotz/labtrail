@@ -6,6 +6,7 @@ import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import { makeStyles } from '@material-ui/core/styles'
 import { useForm } from './hooks'
+import DocumentTransferList from './DocumentTransfer'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -62,6 +63,7 @@ const StationForm = ({ children, station, onSubmit }) => {
           <option value='BLUE'>BLUE</option>
         </Select>
       </FormControl>
+      <DocumentTransferList />
       {children}
     </form>
   )
