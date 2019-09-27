@@ -76,8 +76,6 @@ const DocumentTransfer = () => {
     setChecked(not(checked, rightChecked))
   }
 
-  console.log(data)
-
   const DocumentList = documents => (
     <Paper className={classes.paper}>
       <List dense component='div' role='list'>

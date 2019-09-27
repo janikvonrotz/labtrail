@@ -4,14 +4,14 @@ import FlexboxGrid from './FlexboxGrid'
 import Header from './Header'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Routes from './Routes'
-import AlertClient from './AlertClient'
+// import AlertClient from './AlertClient'
 
 function App () {
   return (
     <Apollo>
       <FlexboxGrid>
         <Router>
-          <AlertClient />
+          {/* <AlertClient /> */}
           <Header />
           <Routes />
         </Router>
