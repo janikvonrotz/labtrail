@@ -27,7 +27,7 @@ const StationDelete = ({ station }) => {
   const { toggle, active } = useToggle(false)
 
   if (data && data.deleteStation.success) {
-    createAlert()
+    // createAlert()
     return <Redirect to='/stations' />
   }
 

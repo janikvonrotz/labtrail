@@ -27,7 +27,7 @@ const TenantDelete = ({ tenant }) => {
   const { toggle, active } = useToggle(false)
 
   if (data && data.deleteTenant.success) {
-    createAlert()
+    // createAlert()
     return <Redirect to='/tenants' />
   }
 

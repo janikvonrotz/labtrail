@@ -31,7 +31,7 @@ const TenantUpdate = ({ tenant }) => {
 
   // Redirect if update is successful
   if (data && data.updateTenant.success) {
-    createAlert()
+    // createAlert()
     return <Redirect to='/tenants' />
   }
 

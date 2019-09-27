@@ -29,7 +29,7 @@ const TenantCreate = () => {
 
   // Redirect if update is successful
   if (data && data.createTenant.id) {
-    createAlert()
+    // createAlert()
     return <Redirect to='/tenants' />
   }
 

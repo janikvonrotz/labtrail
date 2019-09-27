@@ -29,7 +29,7 @@ const StationCreate = () => {
 
   // Redirect if update is successful
   if (data && data.createStation.id) {
-    createAlert()
+    // createAlert()
     return <Redirect to='/stations' />
   }
 

@@ -31,7 +31,7 @@ const StationUpdate = ({ station }) => {
 
   // Redirect if update is successful
   if (data && data.updateStation.success) {
-    createAlert()
+    // createAlert()
     return <Redirect to='/stations' />
   }
 

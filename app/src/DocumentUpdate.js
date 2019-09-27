@@ -33,7 +33,7 @@ const DocumentUpdate = ({ document }) => {
 
   // Redirect if update is successful
   if (data && data.updateDocument.success) {
-    createAlert()
+    // createAlert()
     return <Redirect to='/documents' />
   }
 

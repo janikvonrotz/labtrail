@@ -29,7 +29,7 @@ const DocumentCreate = () => {
 
   // Redirect if update is successful
   if (data && data.createDocument.id) {
-    createAlert()
+    // createAlert()
     return <Redirect to='/documents' />
   }
 

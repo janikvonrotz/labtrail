@@ -27,7 +27,7 @@ const DocumentDelete = ({ document }) => {
   const { toggle, active } = useToggle(false)
 
   if (data && data.deleteDocument.success) {
-    createAlert()
+    // createAlert()
     return <Redirect to='/documents' />
   }
 

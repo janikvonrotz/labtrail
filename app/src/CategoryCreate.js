@@ -29,7 +29,7 @@ const CategoryCreate = () => {
 
   // Redirect if update is successful
   if (data && data.createCategory.id) {
-    createAlert()
+    // createAlert()
     return <Redirect to='/categories' />
   }
 

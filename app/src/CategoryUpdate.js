@@ -31,7 +31,7 @@ const CategoryUpdate = ({ category }) => {
 
   // Redirect if update is successful
   if (data && data.updateCategory.success) {
-    createAlert()
+    // createAlert()
     return <Redirect to='/categories' />
   }
 
