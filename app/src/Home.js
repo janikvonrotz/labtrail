@@ -18,10 +18,13 @@ const Home = () => {
   return (
     <Paper className={classes.paper}>
       <Typography className={classes.title} variant='h3' component='h1'>
-            Home
+        Home
       </Typography>
       <Typography component='p'>
-            Paper can be used to build surface or other elements for your application.
+        Welcome to Labtrail
+      </Typography>
+      <Typography component='p'>
+        Here you can manage QR-code links. Every station has its own QR-code that links to a document. Documents are assigned to a category. The tenant defines which category is active.
       </Typography>
     </Paper>
   )

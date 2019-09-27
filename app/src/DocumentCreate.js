@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import DocumentForm from './DocumentForm'
 import { useMutation } from '@apollo/react-hooks'
-import { CREATE_DOCUMENT, GET_DOCUMENTS } from './queries'
+import { CREATE_DOCUMENT, GET_DOCUMENTS, CREATE_ALERTCLIENT } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
@@ -25,9 +25,11 @@ const DocumentCreate = () => {
       query: GET_DOCUMENTS
     }]
   })
+  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Document created!', type: 'SUCCESS' } })
 
   // Redirect if update is successful
   if (data && data.createDocument.id) {
+    createAlert()
     return <Redirect to='/documents' />
   }
 

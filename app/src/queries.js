@@ -167,6 +167,27 @@ query loginUser($email: String!, $password: String!) {
 }
 `
 
+const GET_ALERTCLIENT = gql`
+{
+  alert {
+    message @client
+    type @client
+  }
+}
+`
+
+const CREATE_ALERTCLIENT = gql`
+mutation createAlert($message: String!, $type: AlertType!) {
+  createAlert(message: $message, type: $type) @client
+}
+`
+
+const DELETE_CLIENTALERT = gql`
+mutation deleteAlert {
+  deleteAlert @client
+}
+`
+
 export {
   GET_STATION,
   CREATE_STATION,
@@ -184,5 +205,8 @@ export {
   DELETE_CATEGORY,
   GET_CATEGORIES,
   GET_CURRENT_USER,
-  LOGIN_USER
+  LOGIN_USER,
+  GET_ALERTCLIENT,
+  CREATE_ALERTCLIENT,
+  DELETE_CLIENTALERT
 }

@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import CategoryForm from './CategoryForm'
 import CategoryDelete from './CategoryDelete'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_CATEGORY, GET_CATEGORIES } from './queries'
+import { UPDATE_CATEGORY, GET_CATEGORIES, CREATE_ALERTCLIENT } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 import Error from './Error'
 
@@ -25,11 +25,13 @@ const CategoryUpdate = ({ category }) => {
       query: GET_CATEGORIES
     }]
   })
+  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Category saved!', type: 'SUCCESS' } })
 
   if (error) return <Error message={error.message} />
 
   // Redirect if update is successful
   if (data && data.updateCategory.success) {
+    createAlert()
     return <Redirect to='/categories' />
   }
 

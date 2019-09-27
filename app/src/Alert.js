@@ -10,8 +10,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Alert = ({open, content, onClose}) => {
-
+const Alert = ({ open, message, onClose }) => {
   const classes = useStyles()
 
   return (
@@ -21,12 +20,12 @@ const Alert = ({open, content, onClose}) => {
         horizontal: 'center'
       }}
       open={open}
-      autoHideDuration={3000}
+      autoHideDuration={2500}
       onClose={onClose}
       ContentProps={{
         'aria-describedby': 'message-id'
       }}
-      message={<span id='message-id'>{content}</span>}
+      message={<span id='message-id'>{message}</span>}
       action={
         <IconButton
           key='close'

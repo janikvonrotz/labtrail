@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import StationForm from './StationForm'
 import StationDelete from './StationDelete'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_STATION, GET_STATIONS } from './queries'
+import { UPDATE_STATION, GET_STATIONS, CREATE_ALERTCLIENT } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 import Error from './Error'
 
@@ -25,11 +25,13 @@ const StationUpdate = ({ station }) => {
       query: GET_STATIONS
     }]
   })
+  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Station saved!', type: 'SUCCESS' } })
 
   if (error) return <Error message={error.message} />
 
   // Redirect if update is successful
   if (data && data.updateStation.success) {
+    createAlert()
     return <Redirect to='/stations' />
   }
 

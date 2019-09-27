@@ -3,7 +3,7 @@ import { Redirect } from 'react-router'
 import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import { useMutation } from '@apollo/react-hooks'
-import { DELETE_DOCUMENT, GET_DOCUMENTS } from './queries'
+import { DELETE_DOCUMENT, GET_DOCUMENTS, CREATE_ALERTCLIENT } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 import Prompt from './Prompt'
 import { useToggle } from './hooks'
@@ -22,10 +22,12 @@ const DocumentDelete = ({ document }) => {
       query: GET_DOCUMENTS
     }]
   })
+  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Document deleted!', type: 'SUCCESS' } })
 
   const { toggle, active } = useToggle(false)
 
   if (data && data.deleteDocument.success) {
+    createAlert()
     return <Redirect to='/documents' />
   }
 

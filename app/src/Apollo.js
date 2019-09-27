@@ -2,6 +2,8 @@ import ApolloClient from 'apollo-boost'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ApolloProvider } from '@apollo/react-hooks'
+import typeDefs from './schema'
+import resolvers from './resolvers'
 
 // Initialize Apollo client
 const client = new ApolloClient({
@@ -16,7 +18,9 @@ const client = new ApolloClient({
         Authorization: token ? `Bearer ${token}` : ''
       }
     })
-  }
+  },
+  typeDefs,
+  resolvers
 })
 
 // Define Apollo component
