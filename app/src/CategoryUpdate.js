@@ -25,7 +25,7 @@ const CategoryUpdate = ({ category }) => {
       query: GET_CATEGORIES
     }]
   })
-  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Category saved!', type: 'SUCCESS' } })
+  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Category saved!', type: 'SUCCESS' } })
 
   if (error) return <Error message={error.message} />
 

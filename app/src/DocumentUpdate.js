@@ -27,7 +27,7 @@ const DocumentUpdate = ({ document }) => {
   })
 
   // Get hook for displaying alert
-  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Document saved!', type: 'SUCCESS' } })
+  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Document saved!', type: 'SUCCESS' } })
 
   if (error) return <Error message={error.message} />
 

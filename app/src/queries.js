@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 const GET_TENANT = gql`
-query tenant($id: ObjectId) {
+query tenant($id: String) {
   tenant(id: $id) {
     id
     name
@@ -18,7 +18,7 @@ mutation createTenant( $name: String!) {
 `
 
 const UPDATE_TENANT = gql`
-mutation updateTenant($id: ObjectId!, $name: String) {
+mutation updateTenant($id: String!, $name: String) {
   updateTenant(id: $id, name: $name) {
     success
     message
@@ -27,7 +27,7 @@ mutation updateTenant($id: ObjectId!, $name: String) {
 `
 
 const DELETE_TENANT = gql`
-mutation deleteTenant( $id: ObjectId!) {
+mutation deleteTenant( $id: String!) {
   deleteTenant(id: $id) {
     success
     message
@@ -45,18 +45,27 @@ const GET_TENANTS = gql`
 `
 
 const GET_STATION = gql`
-query station($id: ObjectId) {
+query station($id: String) {
   station(id: $id) {
     id
     name
     location
     color
+    documents {
+      id
+      title
+      description
+      category {
+        id
+        name
+      }
+    }
   }
 }
 `
 
 const CREATE_STATION = gql`
-mutation createStation( $name: String!, $location: String!, $color: Color!, $documents: [ObjectId]) {
+mutation createStation( $name: String!, $location: String!, $color: Color!, $documents: [String]) {
   createStation(name: $name, location: $location, color: $color, documents: $documents) {
     id
   }
@@ -64,7 +73,7 @@ mutation createStation( $name: String!, $location: String!, $color: Color!, $doc
 `
 
 const UPDATE_STATION = gql`
-mutation updateStation($id: ObjectId!, $name: String, $location: String, $color: Color, $documents: [ObjectId]) {
+mutation updateStation($id: String!, $name: String, $location: String, $color: Color, $documents: [String]) {
   updateStation(id: $id, name: $name, location: $location, color: $color, documents: $documents) {
     success
     message
@@ -73,7 +82,7 @@ mutation updateStation($id: ObjectId!, $name: String, $location: String, $color:
 `
 
 const DELETE_STATION = gql`
-mutation deleteStation( $id: ObjectId!) {
+mutation deleteStation( $id: String!) {
   deleteStation(id: $id) {
     success
     message
@@ -93,7 +102,7 @@ const GET_STATIONS = gql`
 `
 
 const GET_DOCUMENT = gql`
-query documents($id: ObjectId) {
+query documents($id: String) {
   document(id: $id) {
     id
     title
@@ -109,7 +118,7 @@ query documents($id: ObjectId) {
 `
 
 const CREATE_DOCUMENT = gql`
-mutation createDocument($title: String!, $link: String!, $description: String, $category: ObjectId!, $forward: Boolean!) {
+mutation createDocument($title: String!, $link: String!, $description: String, $category: String!, $forward: Boolean!) {
   createDocument(title: $title, link: $link, description: $description, category: $category, forward: $forward) {
     id
   }
@@ -117,7 +126,7 @@ mutation createDocument($title: String!, $link: String!, $description: String, $
 `
 
 const UPDATE_DOCUMENT = gql`
-mutation updateDocument($id: ObjectId!, $title: String, $link: String, $description: String, $category: ObjectId, $forward: Boolean) {
+mutation updateDocument($id: String!, $title: String, $link: String, $description: String, $category: String, $forward: Boolean) {
   updateDocument(id: $id, title: $title, link: $link, description: $description, category: $category, forward: $forward) {
     success
     message
@@ -126,7 +135,7 @@ mutation updateDocument($id: ObjectId!, $title: String, $link: String, $descript
 `
 
 const DELETE_DOCUMENT = gql`
-mutation deleteDocument( $id: ObjectId!) {
+mutation deleteDocument( $id: String!) {
   deleteDocument(id: $id) {
     success
     message
@@ -151,7 +160,7 @@ const GET_DOCUMENTS = gql`
 `
 
 const GET_CATEGORY = gql`
-query category($id: ObjectId) {
+query category($id: String) {
   category(id: $id) {
     id
     name
@@ -168,7 +177,7 @@ mutation createCategory( $name: String!) {
 `
 
 const UPDATE_CATEGORY = gql`
-mutation updateCategory($id: ObjectId!, $name: String) {
+mutation updateCategory($id: String!, $name: String) {
   updateCategory(id: $id, name: $name) {
     success
     message
@@ -177,7 +186,7 @@ mutation updateCategory($id: ObjectId!, $name: String) {
 `
 
 const DELETE_CATEGORY = gql`
-mutation deleteCategory( $id: ObjectId!) {
+mutation deleteCategory( $id: String!) {
   deleteCategory(id: $id) {
     success
     message

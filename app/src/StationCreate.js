@@ -18,14 +18,14 @@ const StationCreate = () => {
   const classes = useStyles()
 
   // Set default values
-  const station = { name: '', location: '', color: '' }
+  const station = { name: '', location: '', color: '', documents: [] }
 
   const [createStation, { data }] = useMutation(CREATE_STATION, {
     refetchQueries: [{
       query: GET_STATIONS
     }]
   })
-  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Station created!', type: 'SUCCESS' } })
+  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Station created!', type: 'SUCCESS' } })
 
   // Redirect if update is successful
   if (data && data.createStation.id) {

@@ -5,7 +5,12 @@ const categoryResolvers = require('./resolvers-category')
 const resolvers = {
   Query: {
     documents: async (obj, args, context) => {
-      return (await (await collection('documents')).find({}).toArray()).map(prepare)
+      // Set filter from args
+      let filter = {}
+      if (args) {
+        filter = args
+      }
+      return (await (await collection('documents')).find(filter).toArray()).map(prepare)
     },
     document: async (obj, args, context) => {
       return prepare(await (await collection('documents')).findOne({ _id: ObjectId(args.id) }))

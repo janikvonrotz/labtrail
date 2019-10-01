@@ -25,7 +25,7 @@ const CategoryCreate = () => {
       query: GET_CATEGORIES
     }]
   })
-  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Category created!', type: 'SUCCESS' } })
+  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Category created!', type: 'SUCCESS' } })
 
   // Redirect if update is successful
   if (data && data.createCategory.id) {

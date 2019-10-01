@@ -4,9 +4,18 @@ import PropTypes from 'prop-types'
 import { ApolloProvider } from '@apollo/react-hooks'
 import typeDefs from './schema'
 import resolvers from './resolvers'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+
+const cache = new InMemoryCache()
+cache.writeData({
+  data: {
+    alert: null
+  }
+})
 
 // Initialize Apollo client
 const client = new ApolloClient({
+  cache: cache,
   uri: process.env.REACT_APP_APOLLO_URL || 'http://localhost:3000/api',
   request: async operation => {
     // Get JWT token from local storage

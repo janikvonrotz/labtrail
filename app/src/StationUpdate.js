@@ -25,7 +25,7 @@ const StationUpdate = ({ station }) => {
       query: GET_STATIONS
     }]
   })
-  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Station saved!', type: 'SUCCESS' } })
+  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Station saved!', type: 'SUCCESS' } })
 
   if (error) return <Error message={error.message} />
 

@@ -7,7 +7,6 @@ directive @isAuthenticated on FIELD_DEFINITION
 directive @hasRole(roles: [Role!]) on FIELD_DEFINITION
 
 scalar Date
-scalar ObjectId
 
 enum Color {
   RED
@@ -26,7 +25,7 @@ type Response {
 }
 
 type Category {
-  id: ObjectId!
+  id: String!
   name: String!
 
   created: Date
@@ -36,7 +35,7 @@ type Category {
 }
 
 type Tenant {
-  id: ObjectId
+  id: String
   name: String!
 
   created: Date
@@ -46,7 +45,7 @@ type Tenant {
 }
 
 type Station {
-  id: ObjectId!
+  id: String!
   name: String!
   location: String!
   color: Color!
@@ -59,7 +58,7 @@ type Station {
 }
 
 type Document {
-  id: ObjectId!
+  id: String!
   title: String!
   link: String!
   description: String
@@ -77,7 +76,7 @@ type Token {
 }
 
 type User {
-  id: ObjectId!
+  id: String!
   email: String!
   password: String!
   firstname: String!
@@ -93,44 +92,44 @@ type User {
 
 type Query {
   stations: [Station]
-  station(id: ObjectId): Station
+  station(id: String): Station
 
   categories: [Category] @hasRole(roles: [ADMIN])
-  category(id: ObjectId): Category @hasRole(roles: [ADMIN])
+  category(id: String): Category @hasRole(roles: [ADMIN])
 
   tenants: [Tenant] @hasRole(roles: [ADMIN])
-  tenant(id: ObjectId): Tenant @hasRole(roles: [ADMIN])
+  tenant(id: String): Tenant @hasRole(roles: [ADMIN])
 
   documents: [Document]
-  document(id: ObjectId): Document
+  document(id: String): Document
 
   currentUser: User @hasRole(roles: [USER, ADMIN])
   users: [User] @hasRole(roles: [ADMIN])
-  createdBy(id: ObjectId): User @hasRole(roles: [ADMIN])
-  updatedBy(id: ObjectId): User @hasRole(roles: [ADMIN])
+  createdBy(id: String): User @hasRole(roles: [ADMIN])
+  updatedBy(id: String): User @hasRole(roles: [ADMIN])
   loginUser(email: String!, password: String!): Token
 }
 
 type Mutation {
-  createStation(name: String!, location: String!, color: Color!, documents: [ObjectId]): Station @hasRole(roles: [ADMIN])
-  updateStation(id: ObjectId!, name: String, location: String, color: Color, documents: [ObjectId]): Response @hasRole(roles: [ADMIN])
-  deleteStation(id: ObjectId!): Response @hasRole(roles: [ADMIN])
+  createStation(name: String!, location: String!, color: Color!, documents: [String]): Station @hasRole(roles: [ADMIN])
+  updateStation(id: String!, name: String, location: String, color: Color, documents: [String]): Response @hasRole(roles: [ADMIN])
+  deleteStation(id: String!): Response @hasRole(roles: [ADMIN])
 
   createCategory(name: String!): Category @hasRole(roles: [ADMIN])
-  updateCategory(id: ObjectId!, name: String): Response @hasRole(roles: [ADMIN])
-  deleteCategory(id: ObjectId!): Response @hasRole(roles: [ADMIN])
+  updateCategory(id: String!, name: String): Response @hasRole(roles: [ADMIN])
+  deleteCategory(id: String!): Response @hasRole(roles: [ADMIN])
 
   createTenant(name: String!): Tenant @hasRole(roles: [ADMIN])
-  updateTenant(id: ObjectId!, name: String): Response @hasRole(roles: [ADMIN])
-  deleteTenant(id: ObjectId!): Response @hasRole(roles: [ADMIN])
+  updateTenant(id: String!, name: String): Response @hasRole(roles: [ADMIN])
+  deleteTenant(id: String!): Response @hasRole(roles: [ADMIN])
 
-  createDocument(title: String!, link: String!, description: String, category: ObjectId!, forward: Boolean!): Document @hasRole(roles: [ADMIN])
-  updateDocument(id: ObjectId!, title: String, link: String, description: String, category: ObjectId, forward: Boolean): Response @hasRole(roles: [ADMIN])
-  deleteDocument(id: ObjectId!): Response @hasRole(roles: [ADMIN])
+  createDocument(title: String!, link: String!, description: String, category: String!, forward: Boolean!): Document @hasRole(roles: [ADMIN])
+  updateDocument(id: String!, title: String, link: String, description: String, category: String, forward: Boolean): Response @hasRole(roles: [ADMIN])
+  deleteDocument(id: String!): Response @hasRole(roles: [ADMIN])
 
   createUser(email: String!, password: String!, firstname: String!, lastname: String!, role: Role): User @hasRole(roles: [ADMIN])
-  updateUser(id: ObjectId!, email: String, password: String, firstname: String, lastname: String, role: Role): Response @hasRole(roles: [ADMIN])
-  deleteUser(id: ObjectId!): Response @hasRole(roles: [ADMIN])
+  updateUser(id: String!, email: String, password: String, firstname: String, lastname: String, role: Role): Response @hasRole(roles: [ADMIN])
+  deleteUser(id: String!): Response @hasRole(roles: [ADMIN])
 }
 `
 

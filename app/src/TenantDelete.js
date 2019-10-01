@@ -22,7 +22,7 @@ const TenantDelete = ({ tenant }) => {
       query: GET_TENANTS
     }]
   })
-  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Tenant deleted!', type: 'SUCCESS' } })
+  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Tenant deleted!', type: 'SUCCESS' } })
 
   const { toggle, active } = useToggle(false)
 

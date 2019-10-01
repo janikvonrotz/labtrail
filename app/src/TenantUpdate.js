@@ -25,7 +25,7 @@ const TenantUpdate = ({ tenant }) => {
       query: GET_TENANTS
     }]
   })
-  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Tenant saved!', type: 'SUCCESS' } })
+  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Tenant saved!', type: 'SUCCESS' } })
 
   if (error) return <Error message={error.message} />
 

@@ -4,7 +4,9 @@ const useForm = (callback, data) => {
   const [values, setValues] = useState(data)
 
   const handleChange = (event) => {
-    event.persist()
+    if (event.persist) {
+      event.persist()
+    }
     if (event.target.type === 'checkbox') {
       setValues(values => ({
         ...values,

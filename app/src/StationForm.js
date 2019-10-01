@@ -5,12 +5,19 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import { makeStyles } from '@material-ui/core/styles'
-import { useForm } from './hooks'
-import DocumentTransferList from './DocumentTransfer'
+import { useForm, useToggle } from './hooks'
+import DocumentSortableList from './DocumentSortableList'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import Prompt from './Prompt'
+import DocumentSelectList from './DocumentSelectList'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1, 0)
+  },
+  title: {
+    margin: theme.spacing(2, 0)
   }
 }))
 
@@ -18,6 +25,20 @@ const StationForm = ({ children, station, onSubmit }) => {
   const classes = useStyles()
 
   const { values, handleChange, handleSubmit } = useForm(onSubmit, station)
+  const [selectedDocuments, setSelectedDocuments] = React.useState(station.documents)
+  const { toggle, active } = useToggle(false)
+
+  const handleSelectDocuments = () => {
+    // Set documents array of station
+    const event = { target: { name: 'documents', value: selectedDocuments.map(({ id }) => id) } }
+    handleChange(event)
+    toggle()
+  }
+
+  const resetSelectedDocuments = () => {
+    setSelectedDocuments(station.documents)
+    toggle()
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -63,7 +84,31 @@ const StationForm = ({ children, station, onSubmit }) => {
           <option value='BLUE'>BLUE</option>
         </Select>
       </FormControl>
-      <DocumentTransferList />
+      <Typography className={classes.title} variant='h4' component='h2'>
+        Documents
+      </Typography>
+      <Button
+        variant='contained'
+        color='primary'
+        className={classes.button}
+        onClick={toggle}
+      >
+        Select
+      </Button>
+      <Prompt
+        title='Select Documents'
+        content='Please select the documents to add:'
+        open={active}
+        onSubmit={handleSelectDocuments}
+        onClose={resetSelectedDocuments}
+        confirmLabel='Ok'
+      >
+        <DocumentSelectList
+          selectedDocuments={selectedDocuments}
+          setSelectedDocuments={setSelectedDocuments}
+        />
+      </Prompt>
+      <DocumentSortableList documents={selectedDocuments} />
       {children}
     </form>
   )

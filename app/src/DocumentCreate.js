@@ -25,7 +25,7 @@ const DocumentCreate = () => {
       query: GET_DOCUMENTS
     }]
   })
-  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Document created!', type: 'SUCCESS' } })
+  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Document created!', type: 'SUCCESS' } })
 
   // Redirect if update is successful
   if (data && data.createDocument.id) {

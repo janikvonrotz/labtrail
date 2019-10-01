@@ -25,7 +25,7 @@ const TenantCreate = () => {
       query: GET_TENANTS
     }]
   })
-  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Tenant created!', type: 'SUCCESS' } })
+  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Tenant created!', type: 'SUCCESS' } })
 
   // Redirect if update is successful
   if (data && data.createTenant.id) {

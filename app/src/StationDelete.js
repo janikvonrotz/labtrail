@@ -22,7 +22,7 @@ const StationDelete = ({ station }) => {
       query: GET_STATIONS
     }]
   })
-  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Station deleted!', type: 'SUCCESS' } })
+  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Station deleted!', type: 'SUCCESS' } })
 
   const { toggle, active } = useToggle(false)
 

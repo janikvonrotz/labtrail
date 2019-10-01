@@ -1,5 +1,6 @@
 const { collection, prepare } = require('mongo')
 const { ObjectId } = require('mongodb')
+const documentResolver = require('./resolvers-document')
 
 // Resolve GraphQL queries, mutations and graph paths
 const resolvers = {
@@ -33,6 +34,8 @@ const resolvers = {
       // Remove id property
       delete args.id
 
+      console.log(args)
+
       // Return success response
       return { success: (await (await collection('stations')).updateOne(filter, { $set: args })).result.ok }
     },
@@ -43,6 +46,13 @@ const resolvers = {
 
       // Return succcess response
       return { success: (await (await collection('stations')).deleteOne(args)).result.ok }
+    }
+  },
+  Station: {
+    documents: async (obj, args, context) => {
+      // Return document object searched by id in documents array
+      const ids = obj.documents.map((id) => (ObjectId(id)))
+      return documentResolver.Query.documents(obj, { _id: { $in: ids } }, context)
     }
   }
 }

@@ -22,7 +22,7 @@ const CategoryDelete = ({ category }) => {
       query: GET_CATEGORIES
     }]
   })
-  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Category deleted!', type: 'SUCCESS' } })
+  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Category deleted!', type: 'SUCCESS' } })
 
   const { toggle, active } = useToggle(false)
 

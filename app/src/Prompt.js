@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
-const Prompt = ({ title, content, open, onSubmit, onClose }) => {
+const Prompt = ({ title, content, open, onSubmit, onClose, children, confirmLabel, cancelLabel }) => {
   return (
     <Dialog
       open={open}
@@ -19,13 +19,14 @@ const Prompt = ({ title, content, open, onSubmit, onClose }) => {
         <DialogContentText id='alert-dialog-description'>
           {content}
         </DialogContentText>
+        {children}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color='secondary'>
-          Cancel
+          {cancelLabel || 'Cancel'}
         </Button>
         <Button onClick={onSubmit} color='primary' autoFocus>
-          Ok
+          {confirmLabel || 'Ok'}
         </Button>
       </DialogActions>
     </Dialog>
@@ -37,7 +38,10 @@ Prompt.propTypes = {
   content: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.element,
+  confirmLabel: PropTypes.string,
+  cancelLabel: PropTypes.string
 }
 
 export default Prompt

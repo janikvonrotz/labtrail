@@ -22,7 +22,7 @@ const DocumentDelete = ({ document }) => {
       query: GET_DOCUMENTS
     }]
   })
-  const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Document deleted!', type: 'SUCCESS' } })
+  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Document deleted!', type: 'SUCCESS' } })
 
   const { toggle, active } = useToggle(false)
 
