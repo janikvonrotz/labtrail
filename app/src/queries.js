@@ -206,6 +206,7 @@ const GET_CATEGORIES = gql`
 const GET_CURRENT_USER = gql`
 {
   currentUser {
+    id
     firstname
     lastname
     role

@@ -8,12 +8,22 @@ const tenantResolver = require('./resolvers-tenant')
 const resolvers = {
   Query: {
     stations: async (obj, args, context) => {
+      const filter = {}
+      // Filter by tenant if user is logged in
+      if (context.user && context.user.tenant) {
+        filter.tenant = context.user.tenant
+      }
       // Open database connection, access stations collection and return all documents
-      return (await (await collection('stations')).find({}).toArray()).map(prepare)
+      return (await (await collection('stations')).find(filter).toArray()).map(prepare)
     },
     station: async (obj, args, context) => {
+      const filter = { _id: ObjectId(args.id) }
+      // Filter by tenant if user is logged in
+      if (context.user && context.user.tenant) {
+        filter.tenant = context.user.tenant
+      }
       // Open database connection, access stations collection and return one document
-      return prepare(await (await collection('stations')).findOne({ _id: ObjectId(args.id) }))
+      return prepare(await (await collection('stations')).findOne(filter))
     }
   },
   Mutation: {

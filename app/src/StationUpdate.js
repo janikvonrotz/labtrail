@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import StationForm from './StationForm'
 import StationDelete from './StationDelete'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_STATION, GET_STATIONS, CREATE_ALERTCLIENT } from './queries'
+import { UPDATE_STATION, GET_STATIONS, GET_STATION } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 import Error from './Error'
 
@@ -21,9 +21,15 @@ const StationUpdate = ({ station }) => {
 
   // Get hook for Station update
   const [updateStation, { data, error }] = useMutation(UPDATE_STATION, {
-    refetchQueries: [{
-      query: GET_STATIONS
-    }]
+    refetchQueries: [
+      {
+        query: GET_STATIONS
+      },
+      {
+        query: GET_STATION,
+        variables: { id: station.id }
+      }
+    ]
   })
   // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Station saved!', type: 'SUCCESS' } })
 

@@ -24,7 +24,9 @@ const HeaderLoginButton = () => {
 
   if (data && data.currentUser) {
     return (
-      <Button onClick={logout} color='inherit'>Logout</Button>
+      <Link to='/login' className={classes.link}>
+        <Button onClick={logout} color='inherit'>Logout</Button>
+      </Link>
     )
   }
   return (

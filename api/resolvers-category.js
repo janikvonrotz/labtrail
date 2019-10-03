@@ -6,10 +6,20 @@ const tenantResolver = require('./resolvers-tenant')
 const resolvers = {
   Query: {
     categories: async (obj, args, context) => {
-      return (await (await collection('categories')).find({}).toArray()).map(prepare)
+      const filter = {}
+      // Filter by tenant if user is logged in
+      if (context.user && context.user.tenant) {
+        filter.tenant = context.user.tenant
+      }
+      return (await (await collection('categories')).find(filter).toArray()).map(prepare)
     },
     category: async (obj, args, context) => {
-      return prepare(await (await collection('categories')).findOne({ _id: ObjectId(args.id) }))
+      const filter = { _id: ObjectId(args.id) }
+      // Filter by tenant if user is logged in
+      if (context.user && context.user.tenant) {
+        filter.tenant = context.user.tenant
+      }
+      return prepare(await (await collection('categories')).findOne(filter))
     }
   },
   Mutation: {

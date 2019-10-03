@@ -8,14 +8,20 @@ const resolvers = {
   Query: {
     documents: async (obj, args, context) => {
       // Set filter from args
-      let filter = {}
-      if (args) {
-        filter = args
+      const filter = args
+      // Filter by tenant if user is logged in
+      if (context.user && context.user.tenant) {
+        filter.tenant = context.user.tenant
       }
       return (await (await collection('documents')).find(filter).toArray()).map(prepare)
     },
     document: async (obj, args, context) => {
-      return prepare(await (await collection('documents')).findOne({ _id: ObjectId(args.id) }))
+      const filter = { _id: ObjectId(args.id) }
+      // Filter by tenant if user is logged in
+      if (context.user && context.user.tenant) {
+        filter.tenant = context.user.tenant
+      }
+      return prepare(await (await collection('documents')).findOne(filter))
     }
   },
   Mutation: {

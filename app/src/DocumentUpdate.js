@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import DocumentForm from './DocumentForm'
 import DocumentDelete from './DocumentDelete'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_DOCUMENT, GET_DOCUMENTS, CREATE_ALERTCLIENT } from './queries'
+import { UPDATE_DOCUMENT, GET_DOCUMENTS } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 import Error from './Error'
 

@@ -98,16 +98,17 @@ type Query {
   stations: [Station]
   station(id: String): Station
 
-  categories: [Category] @hasRole(roles: [ADMIN])
-  category(id: String): Category @hasRole(roles: [ADMIN])
+  categories: [Category] @hasRole(roles: [ADMIN, MANAGER])
+  category(id: String): Category @hasRole(roles: [ADMIN, MANAGER])
 
+  assignedTenants: [Tenant] @hasRole(roles: [MANAGER])
   tenants: [Tenant] @hasRole(roles: [ADMIN])
   tenant(id: String): Tenant @hasRole(roles: [ADMIN])
 
   documents: [Document]
   document(id: String): Document
 
-  currentUser: User @hasRole(roles: [USER, ADMIN])
+  currentUser: User @hasRole(roles: [USER, MANAGER, ADMIN])
   users: [User] @hasRole(roles: [ADMIN])
   createdBy(id: String): User @hasRole(roles: [ADMIN])
   updatedBy(id: String): User @hasRole(roles: [ADMIN])
@@ -115,26 +116,75 @@ type Query {
 }
 
 type Mutation {
-  createStation(name: String!, location: String!, color: Color!, documents: [String]): Station @hasRole(roles: [ADMIN])
-  updateStation(id: String!, name: String, location: String, color: Color, documents: [String]): Response @hasRole(roles: [ADMIN])
-  deleteStation(id: String!): Response @hasRole(roles: [ADMIN])
+  createStation(
+    name: String!, 
+    location: String!, 
+    color: Color!, 
+    documents: [String]
+  ): Station @hasRole(roles: [ADMIN, MANAGER])
+  updateStation(
+    id: String!, 
+    name: String, 
+    location: String, 
+    color: Color, 
+    documents: [String]
+  ): Response @hasRole(roles: [ADMIN, MANAGER])
+  deleteStation(id: String!): Response @hasRole(roles: [ADMIN, MANAGER])
 
-  createCategory(name: String!): Category @hasRole(roles: [ADMIN])
-  updateCategory(id: String!, name: String): Response @hasRole(roles: [ADMIN])
-  deleteCategory(id: String!): Response @hasRole(roles: [ADMIN])
+  createCategory(name: String!): Category @hasRole(roles: [ADMIN, MANAGER])
+  updateCategory(
+    id: String!, 
+    name: String
+  ): Response @hasRole(roles: [ADMIN, MANAGER])
+  deleteCategory(id: String!): Response @hasRole(roles: [ADMIN, MANAGER])
 
   createTenant(name: String!): Tenant @hasRole(roles: [ADMIN])
-  updateTenant(id: String!, name: String): Response @hasRole(roles: [ADMIN])
+  updateTenant(
+    id: String!,
+    name: String
+  ): Response @hasRole(roles: [ADMIN])
   deleteTenant(id: String!): Response @hasRole(roles: [ADMIN])
 
-  createDocument(title: String!, link: String!, description: String, category: String!, forward: Boolean!): Document @hasRole(roles: [ADMIN])
-  updateDocument(id: String!, title: String, link: String, description: String, category: String, forward: Boolean): Response @hasRole(roles: [ADMIN])
-  deleteDocument(id: String!): Response @hasRole(roles: [ADMIN])
+  createDocument(
+    title: String!,
+    link: String!,
+    description: String,
+    category: String!,
+    forward: Boolean!
+  ): Document @hasRole(roles: [ADMIN, MANAGER])
+  updateDocument(
+    id: String!,
+    title: String,
+    link: String,
+    description: String,
+    category: String,
+    forward: Boolean
+  ): Response @hasRole(roles: [ADMIN, MANAGER])
+  deleteDocument(id: String!): Response @hasRole(roles: [ADMIN, MANAGER])
 
-  createUser(email: String!, password: String!, firstname: String!, lastname: String!, role: Role, tenant: String!): User @hasRole(roles: [ADMIN])
-  updateUser(id: String!, email: String, password: String, firstname: String, lastname: String, role: Role, tenant: String): Response @hasRole(roles: [ADMIN])
+  createUser(
+    email: String!,
+    password: String!,
+    firstname: String!,
+    lastname: String!,
+    role: Role,
+    tenant: String!
+  ): User @hasRole(roles: [ADMIN])
+  updateUser(
+    id: String!,
+    email: String,
+    password: String,
+    firstname: String,
+    lastname: String,
+    role: Role,
+    tenant: String
+  ): Response @hasRole(roles: [ADMIN])
   deleteUser(id: String!): Response @hasRole(roles: [ADMIN])
-  updateUserProfile(firstname: String, lastname: String, tenant: String): Response @hasRole(roles: [USER,MANAGER,ADMIN])
+  updateUserProfile(
+    firstname: String,
+    lastname: String,
+    tenant: String
+  ): Response @hasRole(roles: [USER,MANAGER,ADMIN])
 
 }
 `

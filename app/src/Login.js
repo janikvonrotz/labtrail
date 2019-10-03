@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button'
 import Loading from './Loading'
 import Error from './Error'
 import { useLazyQuery } from '@apollo/react-hooks'
-import { LOGIN_USER } from './queries'
+import { LOGIN_USER, GET_CURRENT_USER } from './queries'
 import { Redirect } from 'react-router'
 import { useForm } from './hooks'
 
@@ -33,7 +33,12 @@ const Login = () => {
   })
 
   // Lazy query for login user method
-  const [loginUser, { called, loading, data, error }] = useLazyQuery(LOGIN_USER, { variables: values })
+  const [loginUser, { called, loading, data, error, client }] = useLazyQuery(LOGIN_USER, {
+    variables: values,
+    refetchQueries: [{
+      query: GET_CURRENT_USER
+    }]
+  })
 
   // Wait for lazy query
   if (called && loading) return <Paper className={classes.paper}><Loading /></Paper>
@@ -44,6 +49,7 @@ const Login = () => {
   // Store token if login is successful
   if (data) {
     window.localStorage.setItem('token', data.loginUser.token)
+    client.resetStore()
 
     // Redirect to home page
     return <Redirect to='/' />

@@ -37,9 +37,9 @@ const CategoryFormSelect = ({ value, onChange }) => {
         onChange={onChange}
       >
         {!value ? <option value='' /> : null}
-        {data.categories.map(category => (
+        {data.categories ? data.categories.map(category => (
           <option key={category.id} value={category.id}>{category.name}</option>
-        ))}
+        )) : null}
       </Select>
     </FormControl>
   )

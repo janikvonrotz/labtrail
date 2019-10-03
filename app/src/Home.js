@@ -9,6 +9,10 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     padding: theme.spacing(3, 2)
+  },
+  logo: {
+    height: '100px',
+    width: '100px'
   }
 }))
 
@@ -17,14 +21,16 @@ const Home = () => {
 
   return (
     <Paper className={classes.paper}>
+      <img src='/favicon.png' className={classes.logo} alt='Logo' />
       <Typography className={classes.title} variant='h3' component='h1'>
-        Home
+        LabTrail
       </Typography>
       <Typography component='p'>
-        Welcome to Labtrail
-      </Typography>
-      <Typography component='p'>
-        Here you can manage QR-code links. Every station has its own QR-code that links to a document. Documents are assigned to a category. The tenant defines which category is active.
+        Here you can manage QR-code links.
+        Login and create documents that link to an url.
+        Assign the document to a station.
+        Tell which document category must be active for your current tenant.
+        Switch tenants easily from your profile.
       </Typography>
     </Paper>
   )

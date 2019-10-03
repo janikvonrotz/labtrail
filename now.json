@@ -39,7 +39,7 @@
 			"headers": { "cache-control": "s-maxage=31536000,immutable" },
 			"dest": "app/static/$1"
 		},
-		{ "src": "/favicon.ico", "dest": "app/favicon.ico" },
+		{ "src": "/favicon.(.*)", "dest": "app/favicon.$1" },
 		{ "src": "/asset-manifest.json", "dest": "app/asset-manifest.json" },
 		{ "src": "/manifest.json", "dest": "app/manifest.json" },
 		{ "src": "/precache-manifest.(.*)", "dest": "app/precache-manifest.$1" },
