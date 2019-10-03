@@ -6,12 +6,15 @@ import typeDefs from './schema'
 import resolvers from './resolvers'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
+// Create and write default cache
 const cache = new InMemoryCache()
-cache.writeData({
+const data = {
   data: {
+    __typename: 'Alert',
     alert: null
   }
-})
+}
+cache.writeData({ data })
 
 // Initialize Apollo client
 const client = new ApolloClient({
@@ -31,6 +34,9 @@ const client = new ApolloClient({
   typeDefs,
   resolvers
 })
+
+// Rewrite default cache on reset
+client.onResetStore(() => cache.writeData({ data }))
 
 // Define Apollo component
 const Apollo = ({ children }) => (
