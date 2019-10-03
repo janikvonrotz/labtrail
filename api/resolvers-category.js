@@ -1,6 +1,7 @@
 const { collection, prepare } = require('mongo')
 const { ObjectId } = require('mongodb')
 const userResolver = require('./resolvers-user')
+const tenantResolver = require('./resolvers-tenant')
 
 const resolvers = {
   Query: {
@@ -15,6 +16,7 @@ const resolvers = {
     createCategory: async (obj, args, context) => {
       args.created = new Date()
       args.created_by = context.user.id
+      args.tenant = context.user.tenant
       return prepare((await (await collection('categories')).insertOne(args)).ops[0])
     },
     updateCategory: async (obj, args, context) => {
@@ -36,6 +38,9 @@ const resolvers = {
     },
     updated_by: async (obj, args, context) => {
       return userResolver.Query.updatedBy(obj, { id: obj.updated_by }, context)
+    },
+    tenant: async (obj, args, context) => {
+      return tenantResolver.Query.tenant(obj, { id: obj.tenant }, context)
     }
   }
 }

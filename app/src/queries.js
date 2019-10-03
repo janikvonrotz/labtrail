@@ -206,8 +206,13 @@ const GET_CATEGORIES = gql`
 const GET_CURRENT_USER = gql`
 {
   currentUser {
-    name
+    firstname
+    lastname
     role
+    tenant {
+      id
+      name
+    }
   }
 }
 `
@@ -216,6 +221,15 @@ const LOGIN_USER = gql`
 query loginUser($email: String!, $password: String!) {
   loginUser(email: $email, password: $password) {
     token
+  }
+}
+`
+
+const UPDATE_USERPROFILE = gql`
+mutation updateUserProfile($firstname: String, $lastname: String, $tenant: String) {
+  updateUserProfile(firstname: $firstname, lastname: $lastname, tenant: $tenant) {
+    success
+    message
   }
 }
 `
@@ -264,6 +278,7 @@ export {
   GET_CATEGORIES,
   GET_CURRENT_USER,
   LOGIN_USER,
+  UPDATE_USERPROFILE,
   GET_ALERTCLIENT,
   CREATE_ALERTCLIENT,
   DELETE_CLIENTALERT

@@ -3,6 +3,7 @@ const { ObjectId } = require('mongodb')
 const { AuthenticationError, ForbiddenError } = require('apollo-server-micro')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const tenantResolver = require('./resolvers-tenant')
 
 // Hash configuration
 const BCRYPT_ROUNDS = 12
@@ -65,6 +66,13 @@ const resolvers = {
       delete args.id
       return { success: (await (await collection('users')).updateOne(filter, { $set: args })).result.ok }
     },
+    updateUserProfile: async (obj, args, context) => {
+      args.updated = new Date()
+      args.updated_by = context.user.id
+
+      const filter = { _id: ObjectId(context.user.id) }
+      return { success: (await (await collection('users')).updateOne(filter, { $set: args })).result.ok }
+    },
     deleteUser: async (obj, args, context) => {
       args._id = ObjectId(args.id)
       delete args.id
@@ -76,16 +84,8 @@ const resolvers = {
     password () {
       return ''
     },
-    // Generate display name
-    name (obj, args, context) {
-
-      // Return name from token if available,
-      // otherwise generate from first- and lastname
-      if (context.name) {
-        return context.name
-      } else {
-        return (obj.firstname + ' ' + obj.lastname)
-      }
+    tenant: async (obj, args, context) => {
+      return tenantResolver.Query.tenant(obj, { id: obj.tenant }, context)
     }
   }
 }

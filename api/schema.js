@@ -16,6 +16,7 @@ enum Color {
 
 enum Role {
   ADMIN
+  MANAGER
   USER
 }
 
@@ -28,6 +29,7 @@ type Category {
   id: String!
   name: String!
 
+  tenant: Tenant!
   created: Date
   created_by: User!
   updated: Date
@@ -51,6 +53,7 @@ type Station {
   color: Color!
   documents: [Document]
   
+  tenant: Tenant!
   created: Date
   created_by: User!
   updated: Date
@@ -65,6 +68,7 @@ type Document {
   category: Category!
   forward: Boolean!
 
+  tenant: Tenant!
   created: Date
   created_by: User!
   updated: Date
@@ -81,9 +85,9 @@ type User {
   password: String!
   firstname: String!
   lastname: String!
-  name: String
   role: Role!
 
+  tenant: Tenant!
   created: Date
   created_by: User!
   updated: Date
@@ -127,9 +131,11 @@ type Mutation {
   updateDocument(id: String!, title: String, link: String, description: String, category: String, forward: Boolean): Response @hasRole(roles: [ADMIN])
   deleteDocument(id: String!): Response @hasRole(roles: [ADMIN])
 
-  createUser(email: String!, password: String!, firstname: String!, lastname: String!, role: Role): User @hasRole(roles: [ADMIN])
-  updateUser(id: String!, email: String, password: String, firstname: String, lastname: String, role: Role): Response @hasRole(roles: [ADMIN])
+  createUser(email: String!, password: String!, firstname: String!, lastname: String!, role: Role, tenant: String!): User @hasRole(roles: [ADMIN])
+  updateUser(id: String!, email: String, password: String, firstname: String, lastname: String, role: Role, tenant: String): Response @hasRole(roles: [ADMIN])
   deleteUser(id: String!): Response @hasRole(roles: [ADMIN])
+  updateUserProfile(firstname: String, lastname: String, tenant: String): Response @hasRole(roles: [USER,MANAGER,ADMIN])
+
 }
 `
 

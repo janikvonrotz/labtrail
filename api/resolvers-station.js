@@ -1,6 +1,8 @@
 const { collection, prepare } = require('mongo')
 const { ObjectId } = require('mongodb')
 const documentResolver = require('./resolvers-document')
+const userResolver = require('./resolvers-user')
+const tenantResolver = require('./resolvers-tenant')
 
 // Resolve GraphQL queries, mutations and graph paths
 const resolvers = {
@@ -19,6 +21,7 @@ const resolvers = {
       // Set default values
       args.created = new Date()
       args.created_by = context.user.id
+      args.tenant = context.user.tenant
 
       // Add new document and return it
       return prepare((await (await collection('stations')).insertOne(args)).ops[0])
@@ -51,8 +54,17 @@ const resolvers = {
   Station: {
     documents: async (obj, args, context) => {
       // Return document object searched by id in documents array
-      const ids = obj.documents.map((id) => (ObjectId(id)))
+      const ids = obj.documents ? obj.documents.map((id) => (ObjectId(id))) : []
       return documentResolver.Query.documents(obj, { _id: { $in: ids } }, context)
+    },
+    created_by: async (obj, args, context) => {
+      return userResolver.Query.createdBy(obj, { id: obj.created_by }, context)
+    },
+    updated_by: async (obj, args, context) => {
+      return userResolver.Query.updatedBy(obj, { id: obj.updated_by }, context)
+    },
+    tenant: async (obj, args, context) => {
+      return tenantResolver.Query.tenant(obj, { id: obj.tenant }, context)
     }
   }
 }

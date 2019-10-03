@@ -36,7 +36,7 @@ const TenantUpdate = ({ tenant }) => {
   }
 
   // Form on submit method
-  function onSubmit (tenant) {
+  const onSubmit = (tenant) => {
     updateTenant({ variables: tenant })
   }
 

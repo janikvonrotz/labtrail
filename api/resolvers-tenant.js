@@ -1,5 +1,6 @@
 const { collection, prepare } = require('mongo')
 const { ObjectId } = require('mongodb')
+const userResolver = require('./resolvers-user')
 
 const resolvers = {
   Query: {
@@ -27,6 +28,14 @@ const resolvers = {
       args._id = ObjectId(args.id)
       delete args.id
       return { success: (await (await collection('tenants')).deleteOne(args)).result.ok }
+    }
+  },
+  Tenant: {
+    created_by: async (obj, args, context) => {
+      return userResolver.Query.createdBy(obj, { id: obj.created_by }, context)
+    },
+    updated_by: async (obj, args, context) => {
+      return userResolver.Query.updatedBy(obj, { id: obj.updated_by }, context)
     }
   }
 }
