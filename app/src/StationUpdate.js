@@ -9,10 +9,15 @@ import { useMutation } from '@apollo/react-hooks'
 import { UPDATE_STATION, GET_STATIONS, GET_STATION } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 import Error from './Error'
+import QRCode from 'qrcode.react'
+import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1)
+  },
+  title: {
+    margin: theme.spacing(2, 0)
   }
 }))
 
@@ -42,26 +47,32 @@ const StationUpdate = ({ station }) => {
   }
 
   return (
-    <StationForm station={station} onSubmit={(station) => updateStation({ variables: station })}>
-      <Link to='/stations'>
+    <>
+      <StationForm station={station} onSubmit={(station) => updateStation({ variables: station })}>
+        <Link to='/stations'>
+          <Button
+            variant='contained'
+            color='secondary'
+            className={classes.button}
+          >
+            Cancel
+          </Button>
+        </Link>
+        <StationDelete station={station} />
         <Button
           variant='contained'
-          color='secondary'
+          color='primary'
+          type='submit'
           className={classes.button}
         >
-          Cancel
+          Save
         </Button>
-      </Link>
-      <StationDelete station={station} />
-      <Button
-        variant='contained'
-        color='primary'
-        type='submit'
-        className={classes.button}
-      >
-        Save
-      </Button>
-    </StationForm>
+      </StationForm>
+      <Typography className={classes.title} variant='h4' component='h2'>
+        QR-Code
+      </Typography>
+      <QRCode value={`https://labtrail.now.sh/qr/${station.id}`} fgColor={station.color} />
+    </>
   )
 }
 
