@@ -44,7 +44,7 @@ const DocumentList = () => {
             </TableCell>
             <TableCell align='right'>{document.link}</TableCell>
             <TableCell align='right'>{document.description}</TableCell>
-            <TableCell align='right'>{document.category.name}</TableCell>
+            <TableCell align='right'>{document.category ? document.category.name : ''}</TableCell>
             <TableCell align='right'>{document.forward ? 'true' : 'false'}</TableCell>
           </TableRow>
         ))}

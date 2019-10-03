@@ -65,7 +65,7 @@ type Document {
   title: String!
   link: String!
   description: String
-  category: Category!
+  category: Category
   forward: Boolean!
 
   tenant: Tenant!
