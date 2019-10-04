@@ -44,6 +44,15 @@ const GET_TENANTS = gql`
 }
 `
 
+const GET_ASSIGNEDTENANTS = gql`
+{
+  assignedTenants {
+    id
+    name
+  }
+}
+`
+
 const GET_STATION = gql`
 query station($id: String) {
   station(id: $id) {
@@ -262,6 +271,7 @@ export {
   UPDATE_TENANT,
   DELETE_TENANT,
   GET_TENANTS,
+  GET_ASSIGNEDTENANTS,
   GET_STATION,
   CREATE_STATION,
   UPDATE_STATION,

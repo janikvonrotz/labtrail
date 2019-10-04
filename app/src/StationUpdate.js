@@ -51,7 +51,6 @@ const StationUpdate = ({ station }) => {
     if (station.documents && station.documents[0] && station.documents[0].id) {
       station.documents = station.documents.map(({ id }) => id)
     }
-    console.log(station)
     updateStation({ variables: station })
   }
 

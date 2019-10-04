@@ -49,10 +49,10 @@ const resolvers = {
       return categoryResolvers.Query.category(obj, { id: obj.category }, context)
     },
     created_by: async (obj, args, context) => {
-      return userResolver.Query.createdBy(obj, { id: obj.created_by }, context)
+      return userResolver.Query.user(obj, { id: obj.created_by }, context)
     },
     updated_by: async (obj, args, context) => {
-      return userResolver.Query.updatedBy(obj, { id: obj.updated_by }, context)
+      return userResolver.Query.user(obj, { id: obj.updated_by }, context)
     },
     tenant: async (obj, args, context) => {
       return tenantResolver.Query.tenant(obj, { id: obj.tenant }, context)

@@ -39,6 +39,7 @@ type Category {
 type Tenant {
   id: String
   name: String!
+  assigned_users: [User]
 
   created: Date
   created_by: User!
@@ -101,15 +102,16 @@ type Query {
   categories: [Category] @hasRole(roles: [ADMIN, MANAGER])
   category(id: String): Category @hasRole(roles: [ADMIN, MANAGER])
 
-  assignedTenants: [Tenant] @hasRole(roles: [MANAGER])
   tenants: [Tenant] @hasRole(roles: [ADMIN])
   tenant(id: String): Tenant @hasRole(roles: [ADMIN])
+  assignedTenants: [Tenant] @hasRole(roles: [USER, MANAGER, ADMIN])
 
   documents: [Document]
   document(id: String): Document
 
   currentUser: User @hasRole(roles: [USER, MANAGER, ADMIN])
   users: [User] @hasRole(roles: [ADMIN])
+  user: User @hasRole(roles: [ADMIN])
   createdBy(id: String): User @hasRole(roles: [ADMIN])
   updatedBy(id: String): User @hasRole(roles: [ADMIN])
   loginUser(email: String!, password: String!): Token
@@ -144,6 +146,10 @@ type Mutation {
     name: String
   ): Response @hasRole(roles: [ADMIN])
   deleteTenant(id: String!): Response @hasRole(roles: [ADMIN])
+  assignTenant(
+    id: String!, 
+    user: String!
+  ): Response @hasRole(roles: [ADMIN])
 
   createDocument(
     title: String!,

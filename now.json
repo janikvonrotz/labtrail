@@ -1,6 +1,7 @@
 {
 	"version": 2,
 	"name": "LabTrail",
+	"alias": "labtrail.now.sh",
     "env": {
 		"MONGODB_URI": "@mongodb_uri",
 		"JWT_SECRET": "@jwt_secret"

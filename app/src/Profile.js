@@ -23,7 +23,7 @@ const Profile = () => {
 
   const { loading: queryLoading, error: queryError, data } = useQuery(GET_CURRENT_USER)
 
-  const [updateUserProfile, { loading: mutationLoading, error: mutationError }] = useMutation(UPDATE_USERPROFILE, {
+  const [updateUserProfile, { loading: mutationLoading, error: mutationError, client }] = useMutation(UPDATE_USERPROFILE, {
     refetchQueries: [{
       query: GET_CURRENT_USER
     }]
@@ -37,6 +37,7 @@ const Profile = () => {
 
   const onSubmit = (user) => {
     updateUserProfile({ variables: user })
+    client.resetStore()
   }
 
   return (

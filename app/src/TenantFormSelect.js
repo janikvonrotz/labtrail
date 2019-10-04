@@ -6,7 +6,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Error from './Error'
 import Loading from './Loading'
 import { makeStyles } from '@material-ui/core/styles'
-import { GET_TENANTS } from './queries'
+import { GET_ASSIGNEDTENANTS } from './queries'
 import { useQuery } from '@apollo/react-hooks'
 
 const useStyles = makeStyles(theme => ({
@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 const TenantFormSelect = ({ value, onChange }) => {
   const classes = useStyles()
 
-  const { loading, error, data } = useQuery(GET_TENANTS)
+  const { loading, error, data } = useQuery(GET_ASSIGNEDTENANTS)
 
   if (loading) return <Loading />
   if (error) return <Error message={error.message} />
@@ -37,7 +37,7 @@ const TenantFormSelect = ({ value, onChange }) => {
         onChange={onChange}
       >
         {!value ? <option value='' /> : null}
-        {data.tenants.map(tenant => (
+        {data.assignedTenants.map(tenant => (
           <option key={tenant.id} value={tenant.id}>{tenant.name}</option>
         ))}
       </Select>

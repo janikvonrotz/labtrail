@@ -1,6 +1,6 @@
 const { collection, prepare } = require('mongo')
 const { ObjectId } = require('mongodb')
-const userResolver = require('./resolvers-user')
+// const userResolver = require('./resolvers-user') is not possible as this would result in require loop
 
 const resolvers = {
   Query: {
@@ -9,6 +9,10 @@ const resolvers = {
     },
     tenant: async (obj, args, context) => {
       return prepare(await (await collection('tenants')).findOne({ _id: ObjectId(args.id) }))
+    },
+    assignedTenants: async (obj, args, context) => {
+      // Find tenants which are assigned to user from context
+      return (await (await collection('tenants')).find({ assigned_users: context.user.id }).toArray()).map(prepare)
     }
   },
   Mutation: {
@@ -28,15 +32,18 @@ const resolvers = {
       args._id = ObjectId(args.id)
       delete args.id
       return { success: (await (await collection('tenants')).deleteOne(args)).result.ok }
+    },
+    assignTenant: async (obj, args, context) => {
+      args.updated = new Date()
+      args.updated_by = context.user.id
+      const filter = { _id: ObjectId(args.id) }
+      return { success: (await (await collection('tenants')).updateOne(filter, { $push: { assigned_users: args.user } })).result.ok }
     }
   },
   Tenant: {
-    created_by: async (obj, args, context) => {
-      return userResolver.Query.createdBy(obj, { id: obj.created_by }, context)
-    },
-    updated_by: async (obj, args, context) => {
-      return userResolver.Query.updatedBy(obj, { id: obj.updated_by }, context)
-    }
+    created_by: () => ({}),
+    updated_by: () => ({}),
+    assigned_users: () => ([])
   }
 }
 

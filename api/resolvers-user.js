@@ -11,13 +11,12 @@ const BCRYPT_ROUNDS = 12
 const resolvers = {
   Query: {
     users: async (obj, args, context) => {
-      return (await (await collection('users')).find({}).toArray()).map(prepare)
+      // Set filter from args
+      const filter = args
+      return (await (await collection('users')).find(filter).toArray()).map(prepare)
     },
-    createdBy: async (obj, args, context) => {
-      return (await (await collection('users')).find({}).toArray()).map(prepare)
-    },
-    updatedBy: async (obj, args, context) => {
-      return (await (await collection('users')).find({}).toArray()).map(prepare)
+    user: async (obj, args, context) => {
+      return prepare(await (await collection('users')).findOne({ _id: ObjectId(args.id) }))
     },
     currentUser: async (obj, args, context) => {
       return context.user
