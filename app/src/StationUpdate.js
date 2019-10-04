@@ -46,9 +46,20 @@ const StationUpdate = ({ station }) => {
     return <Redirect to='/stations' />
   }
 
+  const onSubmit = (station) => {
+    // Ensure document array is list of ids
+    if (station.documents && station.documents[0] && station.documents[0].id) {
+      station.documents = station.documents.map(({ id }) => id)
+    }
+    console.log(station)
+    updateStation({ variables: station })
+  }
+
+  const qrUrl = `https://${window.location.hostname}/qr/${station.id}`
+
   return (
     <>
-      <StationForm station={station} onSubmit={(station) => updateStation({ variables: station })}>
+      <StationForm station={station} onSubmit={onSubmit}>
         <Link to='/stations'>
           <Button
             variant='contained'
@@ -71,7 +82,10 @@ const StationUpdate = ({ station }) => {
       <Typography className={classes.title} variant='h4' component='h2'>
         QR-Code
       </Typography>
-      <QRCode value={`https://labtrail.now.sh/qr/${station.id}`} fgColor={station.color} />
+      <QRCode value={qrUrl} fgColor={station.color} />
+      <Typography component='p'>
+        <a href={qrUrl}>{qrUrl}</a>
+      </Typography>
     </>
   )
 }
