@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import CategoryForm from './CategoryForm'
 import CategoryDelete from './CategoryDelete'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_CATEGORY, GET_CATEGORIES, CREATE_ALERTCLIENT } from './queries'
+import { UPDATE_CATEGORY, GET_CATEGORIES } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 import Error from './Error'
 
