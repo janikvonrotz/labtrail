@@ -5,6 +5,10 @@ query tenant($id: String) {
   tenant(id: $id) {
     id
     name
+    assigned_category {
+      id
+      name
+    }
   }
 }
 `
@@ -40,6 +44,10 @@ const GET_TENANTS = gql`
   tenants {
     id
     name
+    assigned_category {
+      id
+      name
+    }
   }
 }
 `
@@ -49,6 +57,15 @@ const GET_ASSIGNEDTENANTS = gql`
   assignedTenants {
     id
     name
+  }
+}
+`
+
+const ASSIGN_CATEGORY = gql`
+mutation assignCategory( $category: String!) {
+  assignCategory(category: $category) {
+    success
+    message
   }
 }
 `
@@ -222,6 +239,10 @@ const GET_CURRENT_USER = gql`
     tenant {
       id
       name
+      assigned_category {
+        id
+        name
+      }
     }
   }
 }
@@ -272,6 +293,7 @@ export {
   DELETE_TENANT,
   GET_TENANTS,
   GET_ASSIGNEDTENANTS,
+  ASSIGN_CATEGORY,
   GET_STATION,
   CREATE_STATION,
   UPDATE_STATION,

@@ -40,6 +40,7 @@ type Tenant {
   id: String
   name: String!
   assigned_users: [User]
+  assigned_category: Category
 
   created: Date
   created_by: User!
@@ -150,6 +151,9 @@ type Mutation {
     id: String!, 
     user: String!
   ): Response @hasRole(roles: [ADMIN])
+  assignCategory(
+    category: String!
+  ): Response @hasRole(roles: [MANAGER, ADMIN])
 
   createDocument(
     title: String!,

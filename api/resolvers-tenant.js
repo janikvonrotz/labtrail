@@ -1,5 +1,6 @@
 const { collection, prepare } = require('mongo')
 const { ObjectId } = require('mongodb')
+const categoryResolvers = require('./resolvers-category')
 // const userResolver = require('./resolvers-user') is not possible as this would result in require loop
 
 const resolvers = {
@@ -38,12 +39,21 @@ const resolvers = {
       args.updated_by = context.user.id
       const filter = { _id: ObjectId(args.id) }
       return { success: (await (await collection('tenants')).updateOne(filter, { $push: { assigned_users: args.user } })).result.ok }
+    },
+    assignCategory: async (obj, args, context) => {
+      args.updated = new Date()
+      args.updated_by = context.user.id
+      const filter = { _id: ObjectId(context.user.tenant) }
+      return { success: (await (await collection('tenants')).updateOne(filter, { $set: { assigned_category: args.category } })).result.ok }
     }
   },
   Tenant: {
     created_by: () => ({}),
     updated_by: () => ({}),
-    assigned_users: () => ([])
+    assigned_users: () => ([]),
+    assigned_category: async (obj, args, context) => {
+      return categoryResolvers.Query.category(obj, { id: obj.assigned_category }, context)
+    }
   }
 }
 

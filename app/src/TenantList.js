@@ -30,6 +30,7 @@ const TenantList = () => {
       <TableHead>
         <TableRow>
           <TableCell>name</TableCell>
+          <TableCell align='right'>assigned category</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -38,6 +39,7 @@ const TenantList = () => {
             <TableCell component='th' scope='row'>
               <Link to={`/tenant/${tenant.id}`}>{tenant.name}</Link>
             </TableCell>
+            <TableCell align='right'>{tenant.assigned_category ? tenant.assigned_category.name : ''}</TableCell>
           </TableRow>
         ))}
       </TableBody>

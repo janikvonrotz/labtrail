@@ -15,6 +15,7 @@ import CategoryId from './CategoryId'
 import Tenants from './Tenants'
 import Tenant from './Tenant'
 import TenantId from './TenantId'
+import Settings from './Settings'
 
 const Routes = () => (
   <>
@@ -32,6 +33,7 @@ const Routes = () => (
     <Route exact path='/category/:id' component={CategoryId} />
     <Route exact path='/categories' component={Categories} />
     <Route exact path='/login' component={Login} />
+    <Route exact path='/settings' component={Settings} />
     <Route exact path='/profile' component={Profile} />
   </>
 )

@@ -1,13 +1,14 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import PropTypes from 'prop-types'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
-import { useQuery, useMutation } from '@apollo/react-hooks'
-import { GET_CURRENT_USER, UPDATE_USERPROFILE } from './queries'
 import Loading from './Loading'
 import Error from './Error'
-import ProfileForm from './ProfileForm'
+import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { GET_CURRENT_USER, ASSIGN_CATEGORY } from './queries'
+import SettingsForm from './SettingsForm'
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -18,44 +19,33 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Profile = () => {
+const Settings = () => {
   const classes = useStyles()
 
   const { loading: queryLoading, error: queryError, data } = useQuery(GET_CURRENT_USER)
-
-  const [updateUserProfile, { loading: mutationLoading, error: mutationError, client }] = useMutation(UPDATE_USERPROFILE, {
+  const [assignCategory, { loading: mutationLoading, error: mutationError }] = useMutation(ASSIGN_CATEGORY, {
     refetchQueries: [{
       query: GET_CURRENT_USER
     }]
   })
 
+  const handleSubmit = (category) => {
+    assignCategory({ variables: category })
+  }
+
   if (queryLoading || mutationLoading) return <Paper className={classes.paper}><Loading /></Paper>
   if (queryError) return <Paper className={classes.paper}><Error message={queryError.message} /></Paper>
   if (mutationError) return <Paper className={classes.paper}><Error message={mutationError.message} /></Paper>
 
-  const onSubmit = (user) => {
-    updateUserProfile({ variables: user })
-    client.resetStore()
-  }
-
   return (
     <Paper className={classes.paper}>
       <Typography className={classes.title} variant='h3' component='h1'>
-            Profile
-      </Typography>
-      <Typography component='p'>
-        Name: {`${data.currentUser.firstname} ${data.currentUser.lastname}`}
-      </Typography>
-      <Typography component='p'>
-        Role: {data.currentUser.role}
-      </Typography>
-      <Typography component='p'>
-        Tenant: {data.currentUser.tenant.name}
-      </Typography>
-      <Typography className={classes.title} variant='h4' component='h2'>
         Settings
       </Typography>
-      <ProfileForm user={data.currentUser} onSubmit={onSubmit}>
+      <SettingsForm
+        onSubmit={handleSubmit}
+        user={data.currentUser}
+      >
         <Button
           variant='contained'
           color='primary'
@@ -64,9 +54,13 @@ const Profile = () => {
         >
           Save
         </Button>
-      </ProfileForm>
+      </SettingsForm>
     </Paper>
   )
 }
 
-export default Profile
+Settings.propTypes = {
+  match: PropTypes.object.isRequired
+}
+
+export default Settings

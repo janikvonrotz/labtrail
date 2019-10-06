@@ -18,6 +18,9 @@ import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle'
 import PermDeviceInformation from '@material-ui/icons/PermDeviceInformation'
 import Person from '@material-ui/icons/Person'
 import HeaderLoginButton from './HeaderLoginButton'
+import { GET_CURRENT_USER } from './queries'
+import { useQuery } from '@apollo/react-hooks'
+import SettingsIcon from '@material-ui/icons/Settings'
 
 const drawerWidth = 240
 
@@ -43,8 +46,9 @@ const useStyles = makeStyles(theme => ({
 const Header = () => {
   const classes = useStyles()
 
-  // Set function states
+  // Hooks
   const [open, setOpen] = React.useState(false)
+  const { data } = useQuery(GET_CURRENT_USER)
 
   // Function to toggle drawer menu via open state
   const toggleDrawer = () => {
@@ -64,9 +68,9 @@ const Header = () => {
           <MenuIcon />
         </IconButton>
         <Typography variant='h6' className={classes.title}>
-                    LabTrail
+          LabTrail
         </Typography>
-        <HeaderLoginButton />
+        <HeaderLoginButton user={data ? data.currentUser : null} />
       </Toolbar>
       <Drawer
         open={open}
@@ -119,6 +123,14 @@ const Header = () => {
               <SupervisedUserCircleIcon />
             </ListItemIcon>
             <ListItemText>Tenants</ListItemText>
+          </MenuItem>
+        </Link>
+        <Link to='/settings' className={classes.link}>
+          <MenuItem onClick={toggleDrawer}>
+            <ListItemIcon>
+              <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText>Settings</ListItemText>
           </MenuItem>
         </Link>
         <Link to='/profile' className={classes.link}>
