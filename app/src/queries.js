@@ -85,6 +85,9 @@ query station($id: String) {
         id
         name
       }
+    },
+    redirect_document {
+      link
     }
   }
 }

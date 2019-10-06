@@ -54,6 +54,7 @@ type Station {
   location: String!
   color: Color!
   documents: [Document]
+  redirect_document: Document
   
   tenant: Tenant!
   created: Date

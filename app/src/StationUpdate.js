@@ -55,6 +55,7 @@ const StationUpdate = ({ station }) => {
   }
 
   const qrUrl = `https://${window.location.hostname}/qr/${station.id}`
+  const documentUrl = station.redirect_document ? station.redirect_document.link : null
 
   return (
     <>
@@ -83,7 +84,10 @@ const StationUpdate = ({ station }) => {
       </Typography>
       <QRCode value={qrUrl} fgColor={station.color} />
       <Typography component='p'>
-        <a href={qrUrl}>{qrUrl}</a>
+        This station link:
+        <a href={qrUrl}>{qrUrl}</a><br />
+        Redirects to:
+        <a href={documentUrl}>{documentUrl}</a>
       </Typography>
     </>
   )
