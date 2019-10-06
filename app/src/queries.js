@@ -232,6 +232,95 @@ const GET_CATEGORIES = gql`
 }
 `
 
+const CREATE_USER = gql`
+mutation createUser(
+  $firstname: String!
+  $lastname: String! 
+  $email: String!
+  $password: String!
+  $role: Role!
+  $tenant: String!
+) {
+  createUser(
+    firstname: $firstname
+    lastname: $lastname
+    email: $email
+    password: $password
+    role: $role
+    tenant: $tenant
+  ) {
+    id
+  }
+}
+`
+
+const UPDATE_USER = gql`
+mutation updateUser(
+  $id: String!
+  $email: String
+  $password: String
+  $firstname: String
+  $lastname: String
+  $role: Role
+  $tenant: String
+) {
+  updateUser(
+    id: $id
+    firstname: $firstname
+    lastname: $lastname
+    email: $email
+    password: $password
+    role: $role
+    tenant: $tenant
+  ) {
+    success
+    message
+  }
+}
+`
+
+const DELETE_USER = gql`
+mutation deleteUser( $id: String!) {
+  deleteUser(id: $id) {
+    success
+    message
+  }
+}
+`
+
+const GET_USER = gql`
+query user($id: String) {
+  user(id: $id) {
+    id
+    email
+    password
+    firstname
+    lastname
+    role
+    tenant {
+      id
+      name
+    }
+  }
+}
+`
+
+const GET_USERS = gql`
+{
+  users {
+    id
+    email
+    firstname
+    lastname
+    role
+    tenant {
+      id
+      name
+    }
+  }
+}
+`
+
 const GET_CURRENT_USER = gql`
 {
   currentUser {
@@ -312,6 +401,11 @@ export {
   UPDATE_CATEGORY,
   DELETE_CATEGORY,
   GET_CATEGORIES,
+  CREATE_USER,
+  UPDATE_USER,
+  DELETE_USER,
+  GET_USER,
+  GET_USERS,
   GET_CURRENT_USER,
   LOGIN_USER,
   UPDATE_USERPROFILE,

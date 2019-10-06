@@ -113,7 +113,7 @@ type Query {
 
   currentUser: User @hasRole(roles: [USER, MANAGER, ADMIN])
   users: [User] @hasRole(roles: [ADMIN])
-  user: User @hasRole(roles: [ADMIN])
+  user(id: String): User @hasRole(roles: [ADMIN])
   createdBy(id: String): User @hasRole(roles: [ADMIN])
   updatedBy(id: String): User @hasRole(roles: [ADMIN])
   loginUser(email: String!, password: String!): Token

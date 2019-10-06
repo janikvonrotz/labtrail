@@ -15,6 +15,7 @@ import HomeIcon from '@material-ui/icons/Home'
 import DirectionsIcon from '@material-ui/icons/Directions'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle'
+import PeopleIcon from '@material-ui/icons/People'
 import PermDeviceInformation from '@material-ui/icons/PermDeviceInformation'
 import Person from '@material-ui/icons/Person'
 import HeaderLoginButton from './HeaderLoginButton'
@@ -123,6 +124,14 @@ const Header = () => {
               <SupervisedUserCircleIcon />
             </ListItemIcon>
             <ListItemText>Tenants</ListItemText>
+          </MenuItem>
+        </Link>
+        <Link to='/users' className={classes.link}>
+          <MenuItem onClick={toggleDrawer}>
+            <ListItemIcon>
+              <PeopleIcon />
+            </ListItemIcon>
+            <ListItemText>Users</ListItemText>
           </MenuItem>
         </Link>
         <Link to='/settings' className={classes.link}>

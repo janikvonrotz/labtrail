@@ -47,7 +47,7 @@ const Login = () => {
   if (error) return <Paper className={classes.paper}><Error message={error.message} /></Paper>
 
   // Store token if login is successful
-  if (data) {
+  if (data && data.loginUser.token) {
     window.localStorage.setItem('token', data.loginUser.token)
     client.resetStore()
 
