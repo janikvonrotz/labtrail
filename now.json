@@ -17,6 +17,10 @@
 			"use": "@now/node"
 		},
 		{ 
+			"src": "qr/index.js", 
+			"use": "@now/node"
+		},
+		{ 
 			"src": "api/index.js", 
 			"use": "@now/node"
 		},
@@ -30,6 +34,10 @@
 		{
 			"src": "/api",
 			"dest": "api/index.js"
+		},
+		{
+			"src": "/qr/(.*)",
+			"dest": "qr/index.js"
         },
         {
 			"src": "/sso/(.*)",

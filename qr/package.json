@@ -1,0 +1,19 @@
+{
+  "name": "qr",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "micro index.js",
+    "dev": "micro-dev index.js",
+    "lint": "standard"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "micro": "^9.3.4",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "micro-dev": "^3.0.0",
+    "standard": "^14.3.1"
+  }
+}

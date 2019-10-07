@@ -77,12 +77,10 @@ const resolvers = {
     redirect_document: async (obj, args, context) => {
       // Get tenant of station
       const tenant = await tenantResolver.Query.tenant(obj, { id: obj.tenant }, context)
-      console.log('TENANT', tenant)
       // Get documents from station and filter by tenant category
       if (tenant.assigned_category) {
         const ids = obj.documents ? obj.documents.map((id) => (ObjectId(id))) : []
         const documents = await documentResolver.Query.documents(obj, { _id: { $in: ids }, category: tenant.assigned_category }, context)
-        console.log('DOCUMENTS', documents)
         return documents ? documents[0] : null
       } else {
         return null
