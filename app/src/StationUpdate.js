@@ -55,7 +55,7 @@ const StationUpdate = ({ station }) => {
   }
 
   var port = window.location.port
-  port = (port !== 80 && port !== 443) ? `:${port}` : ''
+  port = (port && port !== 80 && port !== 443) ? `:${port}` : ''
   const qrUrl = `${window.location.protocol}//${window.location.hostname}${port}/qr/${station.id}`
   const documentUrl = station.redirect_document ? station.redirect_document.link : null
 
