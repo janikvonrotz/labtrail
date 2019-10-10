@@ -1,15 +1,17 @@
 {
+  "name": "auth",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "micro index.js",
+    "dev": "micro-dev index.js",
+    "lint": "standard"
+  },
   "dependencies": {
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "micro": "^9.3.4",
     "samlify": "^2.6.0"
-  },
-  "scripts": {
-    "start": "micro index.js",
-    "dev": "micro-dev index.js",
-    "lint": "standard"
   },
   "devDependencies": {
     "micro-dev": "^3.0.0",
