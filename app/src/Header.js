@@ -22,6 +22,7 @@ import HeaderLoginButton from './HeaderLoginButton'
 import { GET_CURRENT_USER } from './queries'
 import { useQuery } from '@apollo/react-hooks'
 import SettingsIcon from '@material-ui/icons/Settings'
+import hasRole from './helpers'
 
 const drawerWidth = 240
 
@@ -94,62 +95,62 @@ const Header = () => {
             <ListItemText>Home</ListItemText>
           </MenuItem>
         </Link>
-        <Link to='/stations' className={classes.link}>
+        {hasRole((data && data.currentUser), ['ADMIN', 'MANAGER']) && <Link to='/stations' className={classes.link}>
           <MenuItem onClick={toggleDrawer}>
             <ListItemIcon>
               <PermDeviceInformation />
             </ListItemIcon>
             <ListItemText>Stations</ListItemText>
           </MenuItem>
-        </Link>
-        <Link to='/documents' className={classes.link}>
+        </Link>}
+        {hasRole((data && data.currentUser), ['ADMIN', 'MANAGER']) && <Link to='/documents' className={classes.link}>
           <MenuItem onClick={toggleDrawer}>
             <ListItemIcon>
               <DirectionsIcon />
             </ListItemIcon>
             <ListItemText>Documents</ListItemText>
           </MenuItem>
-        </Link>
-        <Link to='/categories' className={classes.link}>
+        </Link>}
+        {hasRole((data && data.currentUser), ['ADMIN', 'MANAGER']) && <Link to='/categories' className={classes.link}>
           <MenuItem onClick={toggleDrawer}>
             <ListItemIcon>
               <BookmarkIcon />
             </ListItemIcon>
             <ListItemText>Categories</ListItemText>
           </MenuItem>
-        </Link>
-        <Link to='/tenants' className={classes.link}>
+        </Link> }
+        {hasRole((data && data.currentUser), ['ADMIN']) && <Link to='/tenants' className={classes.link}>
           <MenuItem onClick={toggleDrawer}>
             <ListItemIcon>
               <SupervisedUserCircleIcon />
             </ListItemIcon>
             <ListItemText>Tenants</ListItemText>
           </MenuItem>
-        </Link>
-        <Link to='/users' className={classes.link}>
+        </Link>}
+        {hasRole((data && data.currentUser), ['ADMIN']) && <Link to='/users' className={classes.link}>
           <MenuItem onClick={toggleDrawer}>
             <ListItemIcon>
               <PeopleIcon />
             </ListItemIcon>
             <ListItemText>Users</ListItemText>
           </MenuItem>
-        </Link>
-        <Link to='/settings' className={classes.link}>
+        </Link>}
+        {hasRole((data && data.currentUser), ['ADMIN', 'MANAGER']) && <Link to='/settings' className={classes.link}>
           <MenuItem onClick={toggleDrawer}>
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
             <ListItemText>Settings</ListItemText>
           </MenuItem>
-        </Link>
-        <Link to='/profile' className={classes.link}>
+        </Link>}
+        {(data && data.currentUser) && <Link to='/profile' className={classes.link}>
           <MenuItem onClick={toggleDrawer}>
             <ListItemIcon>
               <Person />
             </ListItemIcon>
             <ListItemText>Profile</ListItemText>
           </MenuItem>
-        </Link>
+        </Link>}
       </Drawer>
     </AppBar>
   )
