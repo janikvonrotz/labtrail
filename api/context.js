@@ -3,15 +3,14 @@ const jwt = require('jsonwebtoken')
 const { collection, prepare } = require('mongo')
 
 const context = async ({ req }) => {
-
   // Get the user token from the headers
   let token = req.headers.authorization ? req.headers.authorization.split(' ')[1] : null
 
   // Create null user
   let user
 
-  // Verify token if available
-  if (token) {
+  // Verify token if available and query is not login user.
+  if (token && !req.body.query.includes('loginUser')) {
     try {
       token = jwt.verify(token, process.env.JWT_SECRET)
 
