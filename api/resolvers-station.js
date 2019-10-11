@@ -24,6 +24,21 @@ const resolvers = {
       }
       // Open database connection, access stations collection and return one document
       return prepare(await (await collection('stations')).findOne(filter))
+    },
+    redirectLink: async (obj, args, context) => {
+      // Get station
+      const station = prepare(await (await collection('stations')).findOne({ _id: ObjectId(args.id) }))
+      // Get tenant of station without context
+      const tenant = await tenantResolver.Query.tenant(obj, { id: station.tenant }, {})
+      // Get documents from station and filter by tenant category
+      if (tenant.assigned_category) {
+        const ids = station.documents ? station.documents.map((id) => (ObjectId(id))) : []
+        // Get documents without context
+        const documents = await documentResolver.Query.documents(obj, { _id: { $in: ids }, category: tenant.assigned_category }, {})
+        return documents ? { url: documents[0].link } : null
+      } else {
+        return null
+      }
     }
   },
   Mutation: {

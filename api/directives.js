@@ -31,7 +31,6 @@ class hasRole extends SchemaDirectiveVisitor {
     const roles = this.args.roles
 
     field.resolve = async function (...args) {
-
       // Get context
       const [, , context] = args
 

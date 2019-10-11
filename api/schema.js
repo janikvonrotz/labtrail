@@ -82,6 +82,10 @@ type Token {
   token: String!
 }
 
+type Link {
+  url: String
+}
+
 type User {
   id: String!
   email: String!
@@ -98,8 +102,9 @@ type User {
 }
 
 type Query {
-  stations: [Station]
-  station(id: String): Station
+  stations: [Station] @hasRole(roles: [ADMIN, MANAGER])
+  station(id: String): Station @hasRole(roles: [ADMIN, MANAGER])
+  redirectLink(id: String): Link
 
   categories: [Category] @hasRole(roles: [ADMIN, MANAGER])
   category(id: String): Category @hasRole(roles: [ADMIN, MANAGER])
@@ -108,8 +113,8 @@ type Query {
   tenant(id: String): Tenant @hasRole(roles: [ADMIN])
   assignedTenants: [Tenant] @hasRole(roles: [USER, MANAGER, ADMIN])
 
-  documents: [Document]
-  document(id: String): Document
+  documents: [Document] @hasRole(roles: [ADMIN, MANAGER])
+  document(id: String): Document @hasRole(roles: [ADMIN, MANAGER])
 
   currentUser: User @hasRole(roles: [USER, MANAGER, ADMIN])
   users: [User] @hasRole(roles: [ADMIN])
