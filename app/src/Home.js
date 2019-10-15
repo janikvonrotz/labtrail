@@ -28,6 +28,9 @@ const Home = () => {
       <Typography component='p'>
         LabTrail is the central platform to manage the destinations of QR-Codes. Register new QR-Codes and define multiple link targets. Manage users and assign them to tenants. Switch easily between tenants and their active QR-Code category.
       </Typography>
+      <Typography component='p'>
+        Report any issues to: <a href='https://github.com/janikvonrotz/labtrail/issues'>GitHub - LabTrail Issues</a>
+      </Typography>
     </Paper>
   )
 }
