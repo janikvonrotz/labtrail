@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { GET_CURRENT_USER, UPDATE_USERPROFILE } from './queries'
+import { GET_CURRENT_USER, UPDATE_USERPROFILE, UPDATE_USERPASSWORD } from './queries'
 import Loading from './Loading'
 import Error from './Error'
 import ProfileForm from './ProfileForm'
 import Button from '@material-ui/core/Button'
+import { useToggle, useForm } from './hooks'
+import Prompt from './Prompt'
+import ProfilePasswordForm from './ProfilePasswordForm'
+import { Redirect } from 'react-router'
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -21,21 +25,41 @@ const useStyles = makeStyles(theme => ({
 const Profile = () => {
   const classes = useStyles()
 
-  const { loading: queryLoading, error: queryError, data } = useQuery(GET_CURRENT_USER)
-
-  const [updateUserProfile, { loading: mutationLoading, error: mutationError, client }] = useMutation(UPDATE_USERPROFILE, {
-    refetchQueries: [{
-      query: GET_CURRENT_USER
-    }]
+  // Password reset form
+  const { toggle, active } = useToggle(false)
+  const { values, handleChange } = useForm(null, { new_password: '', new_password_repeated: '' })
+  const [redirectToLogin, setRedirectToLogin] = useState(false)
+  const [updateUserPassword, { loading: updateUserPasswordLoading, error: updateUserPasswordError }] = useMutation(UPDATE_USERPASSWORD, {
+    onCompleted: () => {
+      window.localStorage.clear()
+      client.resetStore()
+      setRedirectToLogin(true)
+    }
   })
 
-  if (queryLoading || mutationLoading) return <Paper className={classes.paper}><Loading /></Paper>
-  if (queryError) return <Paper className={classes.paper}><Error message={queryError.message} /></Paper>
-  if (mutationError) return <Paper className={classes.paper}><Error message={mutationError.message} /></Paper>
+  // User settings
+  const { loading: queryLoading, error: queryError, data } = useQuery(GET_CURRENT_USER)
+  const [updateUserProfile, { loading: updateUserProfileLoading, error: updateUserProfileError, client }] = useMutation(UPDATE_USERPROFILE, {
+    onCompleted: () => {
+      client.resetStore()
+    }
+  })
 
+  if (queryLoading || updateUserPasswordLoading || updateUserProfileLoading ) return <Paper className={classes.paper}><Loading /></Paper>
+  if (queryError) return <Paper className={classes.paper}><Error message={queryError.message} /></Paper>
+  if (updateUserPasswordError) return <Paper className={classes.paper}><Error message={updateUserPasswordError.message} /></Paper>
+  if (updateUserProfileError) return <Paper className={classes.paper}><Error message={updateUserProfileError.message} /></Paper>
+  if (redirectToLogin) return <Redirect to='/login' />
+
+  // Update user profile data
   const onSubmit = (user) => {
     updateUserProfile({ variables: user })
-    client.resetStore()
+  }
+
+  // Reset password
+  const updatePassword = () => {
+    updateUserPassword({ variables: values })
+    toggle()
   }
 
   return (
@@ -65,6 +89,27 @@ const Profile = () => {
           Save
         </Button>
       </ProfileForm>
+      <Typography className={classes.title} variant='h4' component='h2'>
+        Password
+      </Typography>
+      <Button
+        variant='contained'
+        color='secondary'
+        type='submit'
+        className={classes.button}
+        onClick={toggle}
+      >
+        Set Password
+      </Button>
+      <Prompt
+        title='Set Password'
+        content='Please enter the new passwords:'
+        open={active}
+        onSubmit={event => updatePassword()}
+        onClose={toggle}
+      >
+        <ProfilePasswordForm values={values} handleChange={handleChange} />
+      </Prompt>
     </Paper>
   )
 }

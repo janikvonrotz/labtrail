@@ -199,7 +199,12 @@ type Mutation {
   updateUserProfile(
     firstname: String,
     lastname: String,
-    tenant: String
+    tenant: String,
+  ): Response @hasRole(roles: [USER,MANAGER,ADMIN])
+
+  updateUserPassword(
+    new_password: String,
+    new_password_repeated: String
   ): Response @hasRole(roles: [USER,MANAGER,ADMIN])
 
 }

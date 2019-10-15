@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField'
 import { useForm } from './hooks'
 import TenantFormSelect from './TenantFormSelect'
 
-const TenantForm = ({ children, user, onSubmit }) => {
+const ProfileForm = ({ children, user, onSubmit }) => {
   const { values, handleChange, handleSubmit } = useForm(onSubmit, user)
 
   // Get tenant id from nested object
@@ -47,10 +47,10 @@ const TenantForm = ({ children, user, onSubmit }) => {
   )
 }
 
-TenantForm.propTypes = {
-  tenant: PropTypes.object,
+ProfileForm.propTypes = {
+  user: PropTypes.object,
   children: PropTypes.element.isRequired,
   onSubmit: PropTypes.func.isRequired
 }
 
-export default TenantForm
+export default ProfileForm

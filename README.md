@@ -2,13 +2,9 @@
 
 # LabTrail
 
-QR-code manager with multi-tenant support
+QR-code manager with multi-tenant support.
 
-* Here you can manage QR-code links.
-* Login and create documents that link to an url.
-* Assign the document to a station.
-* Tell which document category must be active for your current tenant.
-* Switch tenants easily from your profile.
+LabTrail is the central platform to manage the destinations of QR-Codes. Register new QR-Codes and define multiple link targets. Manage users and assign them to tenants. Switch easily between tenants and their active QR-Code category.
 
 ![Screenshot](/screenshot.png)
 

@@ -72,6 +72,20 @@ const resolvers = {
       const filter = { _id: ObjectId(context.user.id) }
       return { success: (await (await collection('users')).updateOne(filter, { $set: args })).result.ok }
     },
+    updateUserPassword: async (obj, args, context) => {
+      args.updated = new Date()
+      args.updated_by = context.user.id
+
+      if (args.new_password !== args.new_password_repeated) {
+        throw new ForbiddenError('New passwords do not match.')
+      }
+
+      // Set enw password
+      args.password = await bcrypt.hash(args.new_password, BCRYPT_ROUNDS)
+
+      const filter = { _id: ObjectId(context.user.id) }
+      return { success: (await (await collection('users')).updateOne(filter, { $set: args })).result.ok }
+    },
     deleteUser: async (obj, args, context) => {
       args._id = ObjectId(args.id)
       delete args.id
