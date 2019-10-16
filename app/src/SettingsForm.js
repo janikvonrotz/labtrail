@@ -5,7 +5,7 @@ import { useForm } from './hooks'
 import Typography from '@material-ui/core/Typography'
 
 const SettingsForm = ({ children, user, onSubmit }) => {
-  const { values, handleChange, handleSubmit } = useForm(onSubmit, { category: user.tenant.assigned_category.id })
+  const { values, handleChange, handleSubmit } = useForm(onSubmit, { category: user.tenant.assigned_category })
 
   if (values.category && values.category.id) {
     values.category = values.category.id

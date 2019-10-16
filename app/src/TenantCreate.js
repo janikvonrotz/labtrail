@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import TenantForm from './TenantForm'
 import { useMutation } from '@apollo/react-hooks'
-import { CREATE_TENANT, GET_TENANTS } from './queries'
+import { CREATE_TENANT, GET_TENANTS, CREATE_ALERTCLIENT } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
@@ -20,16 +20,16 @@ const TenantCreate = () => {
   // Set default values
   const tenant = { name: '' }
 
+  const [createAlert] = useMutation(CREATE_ALERTCLIENT)
   const [createTenant, { data }] = useMutation(CREATE_TENANT, {
     refetchQueries: [{
       query: GET_TENANTS
-    }]
+    }],
+    onCompleted: () => createAlert({ variables: { message: 'Tenant created!', type: 'SUCCESS' } })
   })
-  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Tenant created!', type: 'SUCCESS' } })
 
   // Redirect if update is successful
   if (data && data.createTenant.id) {
-    // createAlert()
     return <Redirect to='/tenants' />
   }
 

@@ -22,7 +22,7 @@ import HeaderLoginButton from './HeaderLoginButton'
 import { GET_CURRENT_USER } from './queries'
 import { useQuery } from '@apollo/react-hooks'
 import SettingsIcon from '@material-ui/icons/Settings'
-import hasRole from './helpers'
+import { hasRole } from './helpers'
 
 const drawerWidth = 240
 

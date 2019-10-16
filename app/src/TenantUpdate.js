@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import TenantForm from './TenantForm'
 import TenantDelete from './TenantDelete'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_TENANT, GET_TENANTS } from './queries'
+import { UPDATE_TENANT, GET_TENANTS, CREATE_ALERTCLIENT } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 import Error from './Error'
 
@@ -19,19 +19,19 @@ const useStyles = makeStyles(theme => ({
 const TenantUpdate = ({ tenant }) => {
   const classes = useStyles()
 
+  const [createAlert] = useMutation(CREATE_ALERTCLIENT)
   // Get hook for Tenant update
   const [updateTenant, { data, error }] = useMutation(UPDATE_TENANT, {
     refetchQueries: [{
       query: GET_TENANTS
-    }]
+    }],
+    onCompleted: () => createAlert({ variables: { message: 'Tenant saved!', type: 'SUCCESS' } })
   })
-  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Tenant saved!', type: 'SUCCESS' } })
 
   if (error) return <Error message={error.message} />
 
   // Redirect if update is successful
   if (data && data.updateTenant.success) {
-    // createAlert()
     return <Redirect to='/tenants' />
   }
 

@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import DocumentForm from './DocumentForm'
 import DocumentDelete from './DocumentDelete'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_DOCUMENT, GET_DOCUMENTS } from './queries'
+import { UPDATE_DOCUMENT, GET_DOCUMENTS, CREATE_ALERTCLIENT } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 import Error from './Error'
 
@@ -19,21 +19,19 @@ const useStyles = makeStyles(theme => ({
 const DocumentUpdate = ({ document }) => {
   const classes = useStyles()
 
+  const [createAlert] = useMutation(CREATE_ALERTCLIENT)
   // Get hook for Document update
   const [updateDocument, { data, error }] = useMutation(UPDATE_DOCUMENT, {
     refetchQueries: [{
       query: GET_DOCUMENTS
-    }]
+    }],
+    onCompleted: () => createAlert({ variables: { message: 'Document saved!', type: 'SUCCESS' } })
   })
-
-  // Get hook for displaying alert
-  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Document saved!', type: 'SUCCESS' } })
 
   if (error) return <Error message={error.message} />
 
   // Redirect if update is successful
   if (data && data.updateDocument.success) {
-    // createAlert()
     return <Redirect to='/documents' />
   }
 

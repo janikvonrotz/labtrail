@@ -4,4 +4,4 @@ const hasRole = (obj, args) => {
   }
 }
 
-export default hasRole
+export { hasRole }

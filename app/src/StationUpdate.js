@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import StationForm from './StationForm'
 import StationDelete from './StationDelete'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_STATION, GET_STATIONS, GET_STATION } from './queries'
+import { UPDATE_STATION, GET_STATIONS, GET_STATION, CREATE_ALERTCLIENT } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 import Error from './Error'
 import QRCode from 'qrcode.react'
@@ -24,6 +24,8 @@ const useStyles = makeStyles(theme => ({
 const StationUpdate = ({ station }) => {
   const classes = useStyles()
 
+  const [createAlert] = useMutation(CREATE_ALERTCLIENT)
+
   // Get hook for Station update
   const [updateStation, { data, error }] = useMutation(UPDATE_STATION, {
     refetchQueries: [
@@ -34,15 +36,14 @@ const StationUpdate = ({ station }) => {
         query: GET_STATION,
         variables: { id: station.id }
       }
-    ]
+    ],
+    onCompleted: () => createAlert({ variables: { message: 'Station saved!', type: 'SUCCESS' } })
   })
-  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Station saved!', type: 'SUCCESS' } })
 
   if (error) return <Error message={error.message} />
 
   // Redirect if update is successful
   if (data && data.updateStation.success) {
-    // createAlert()
     return <Redirect to='/stations' />
   }
 

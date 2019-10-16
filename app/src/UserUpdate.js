@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import UserForm from './UserForm'
 import UserDelete from './UserDelete'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_USER, GET_USERS } from './queries'
+import { UPDATE_USER, GET_USERS, CREATE_ALERTCLIENT } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 import Error from './Error'
 
@@ -22,21 +22,21 @@ const useStyles = makeStyles(theme => ({
 const UserUpdate = ({ user }) => {
   const classes = useStyles()
 
+  const [createAlert] = useMutation(CREATE_ALERTCLIENT)
   // Get hook for User update
   const [updateUser, { data, error }] = useMutation(UPDATE_USER, {
     refetchQueries: [
       {
         query: GET_USERS
       }
-    ]
+    ],
+    onCompleted: () => createAlert({ variables: { message: 'User saved!', type: 'SUCCESS' } })
   })
-  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'User saved!', type: 'SUCCESS' } })
 
   if (error) return <Error message={error.message} />
 
   // Redirect if update is successful
   if (data && data.updateUser.success) {
-    // createAlert()
     return <Redirect to='/users' />
   }
 

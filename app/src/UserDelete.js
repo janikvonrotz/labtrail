@@ -3,7 +3,7 @@ import { Redirect } from 'react-router'
 import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import { useMutation } from '@apollo/react-hooks'
-import { DELETE_USER, GET_USERS } from './queries'
+import { DELETE_USER, GET_USERS, CREATE_ALERTCLIENT } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 import Prompt from './Prompt'
 import { useToggle } from './hooks'
@@ -17,17 +17,17 @@ const useStyles = makeStyles(theme => ({
 const UserDelete = ({ user }) => {
   const classes = useStyles()
 
+  const [createAlert] = useMutation(CREATE_ALERTCLIENT)
   const [deleteUser, { data }] = useMutation(DELETE_USER, {
     refetchQueries: [{
       query: GET_USERS
-    }]
+    }],
+    onCompleted: () => createAlert({ variables: { message: 'User deleted!', type: 'SUCCESS' } })
   })
-  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'User deleted!', type: 'SUCCESS' } })
 
   const { toggle, active } = useToggle(false)
 
   if (data && data.deleteUser.success) {
-    // createAlert()
     return <Redirect to='/users' />
   }
 

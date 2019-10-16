@@ -7,7 +7,7 @@ import Error from './Error'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { GET_CURRENT_USER, ASSIGN_CATEGORY } from './queries'
+import { GET_CURRENT_USER, ASSIGN_CATEGORY, CREATE_ALERTCLIENT } from './queries'
 import SettingsForm from './SettingsForm'
 
 const useStyles = makeStyles(theme => ({
@@ -22,11 +22,16 @@ const useStyles = makeStyles(theme => ({
 const Settings = () => {
   const classes = useStyles()
 
-  const { loading: queryLoading, error: queryError, data } = useQuery(GET_CURRENT_USER)
+  const [createAlert] = useMutation(CREATE_ALERTCLIENT)
+  const { loading: queryLoading, error: queryError, data, client } = useQuery(GET_CURRENT_USER)
   const [assignCategory, { loading: mutationLoading, error: mutationError }] = useMutation(ASSIGN_CATEGORY, {
     refetchQueries: [{
       query: GET_CURRENT_USER
-    }]
+    }],
+    onCompleted: () => {
+      client.resetStore()
+      createAlert({ variables: { message: 'Settings saved! Reseted cache.', type: 'SUCCESS' } })
+    }
   })
 
   const handleSubmit = (category) => {

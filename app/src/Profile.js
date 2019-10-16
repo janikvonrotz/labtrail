@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import { useQuery, useMutation } from '@apollo/react-hooks'
-import { GET_CURRENT_USER, UPDATE_USERPROFILE, UPDATE_USERPASSWORD } from './queries'
+import { GET_CURRENT_USER, UPDATE_USERPROFILE, UPDATE_USERPASSWORD, CREATE_ALERTCLIENT } from './queries'
 import Loading from './Loading'
 import Error from './Error'
 import ProfileForm from './ProfileForm'
@@ -25,15 +25,16 @@ const useStyles = makeStyles(theme => ({
 const Profile = () => {
   const classes = useStyles()
 
+  const [createAlert] = useMutation(CREATE_ALERTCLIENT)
+
   // Password reset form
   const { toggle, active } = useToggle(false)
   const { values, handleChange } = useForm(null, { new_password: '', new_password_repeated: '' })
-  const [redirectToLogin, setRedirectToLogin] = useState(false)
-  const [updateUserPassword, { loading: updateUserPasswordLoading, error: updateUserPasswordError }] = useMutation(UPDATE_USERPASSWORD, {
+  const [updateUserPassword, { loading: updateUserPasswordLoading, error: updateUserPasswordError, data: updateUserPasswordData }] = useMutation(UPDATE_USERPASSWORD, {
     onCompleted: () => {
       window.localStorage.clear()
       client.resetStore()
-      setRedirectToLogin(true)
+      createAlert({ variables: { message: 'Password saved. Login again!', type: 'SUCCESS' } })
     }
   })
 
@@ -42,6 +43,7 @@ const Profile = () => {
   const [updateUserProfile, { loading: updateUserProfileLoading, error: updateUserProfileError, client }] = useMutation(UPDATE_USERPROFILE, {
     onCompleted: () => {
       client.resetStore()
+      createAlert({ variables: { message: 'Profile saved! Reseted cache.', type: 'SUCCESS' } })
     }
   })
 
@@ -49,7 +51,7 @@ const Profile = () => {
   if (queryError) return <Paper className={classes.paper}><Error message={queryError.message} /></Paper>
   if (updateUserPasswordError) return <Paper className={classes.paper}><Error message={updateUserPasswordError.message} /></Paper>
   if (updateUserProfileError) return <Paper className={classes.paper}><Error message={updateUserProfileError.message} /></Paper>
-  if (redirectToLogin) return <Redirect to='/login' />
+  if (updateUserPasswordData && updateUserPasswordData.updateUserPassword && updateUserPasswordData.updateUserPassword.success) return <Redirect to='/login' />
 
   // Update user profile data
   const onSubmit = (user) => {

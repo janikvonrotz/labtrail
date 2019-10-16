@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import UserForm from './UserForm'
 import { useMutation } from '@apollo/react-hooks'
-import { CREATE_USER, GET_USERS } from './queries'
+import { CREATE_USER, GET_USERS, CREATE_ALERTCLIENT } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
@@ -17,19 +17,19 @@ const useStyles = makeStyles(theme => ({
 const UserCreate = () => {
   const classes = useStyles()
 
+  const [createAlert] = useMutation(CREATE_ALERTCLIENT)
   // Set default values
   const user = { firstname: '', lastname: '', email: '', password: '', role: 'USER' }
 
   const [createUser, { data }] = useMutation(CREATE_USER, {
     refetchQueries: [{
       query: GET_USERS
-    }]
+    }],
+    onCompleted: () => createAlert({ variables: { message: 'User created!', type: 'SUCCESS' } })
   })
-  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'User created!', type: 'SUCCESS' } })
 
   // Redirect if update is successful
   if (data && data.createUser.id) {
-    // createAlert()
     return <Redirect to='/users' />
   }
 

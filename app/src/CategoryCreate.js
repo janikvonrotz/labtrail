@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import CategoryForm from './CategoryForm'
 import { useMutation } from '@apollo/react-hooks'
-import { CREATE_CATEGORY, GET_CATEGORIES } from './queries'
+import { CREATE_CATEGORY, GET_CATEGORIES, CREATE_ALERTCLIENT } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
@@ -20,16 +20,16 @@ const CategoryCreate = () => {
   // Set default values
   const category = { name: '' }
 
+  const [createAlert] = useMutation(CREATE_ALERTCLIENT)
   const [createCategory, { data }] = useMutation(CREATE_CATEGORY, {
     refetchQueries: [{
       query: GET_CATEGORIES
-    }]
+    }],
+    onCompleted: () => createAlert({ variables: { message: 'Category created!', type: 'SUCCESS' } })
   })
-  // const [createAlert] = useMutation(CREATE_ALERTCLIENT, { variables: { message: 'Category created!', type: 'SUCCESS' } })
 
   // Redirect if update is successful
   if (data && data.createCategory.id) {
-    // createAlert()
     return <Redirect to='/categories' />
   }
 
