@@ -10,6 +10,7 @@ const stationResolvers = require('./resolvers-station')
 const categoryResolvers = require('./resolvers-category')
 const documentResolvers = require('./resolvers-document')
 const tenantResolvers = require('./resolvers-tenant')
+const searchResolvers = require('./resolvers-search')
 
 // Load environment configuration
 require('dotenv').config()
@@ -23,7 +24,8 @@ const server = new ApolloServer({
     stationResolvers,
     documentResolvers,
     categoryResolvers,
-    tenantResolvers
+    tenantResolvers,
+    searchResolvers
   ),
   context: context,
   introspection: true,

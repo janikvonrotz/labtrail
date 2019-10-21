@@ -401,6 +401,39 @@ mutation deleteAlert {
 }
 `
 
+const SEARCH = gql`
+query search(
+  $query: String
+) {
+  search(query: $query) {
+    __typename
+    ... on Category {
+      id
+      name
+    }
+    ... on Tenant {
+      id
+      name
+    }
+    ... on Station {
+      id
+      name
+      location
+    }
+    ... on Document {
+      id
+      title
+    }
+    ... on User {
+      id
+      firstname
+      lastname
+      email
+    }
+  }
+}
+`
+
 export {
   GET_TENANT,
   CREATE_TENANT,

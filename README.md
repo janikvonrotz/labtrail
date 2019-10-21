@@ -8,6 +8,20 @@ LabTrail is the central platform to manage the destinations of QR-Codes. Registe
 
 ![Screenshot](/screenshot.png)
 
+## Setup
+
+For search performance text indexes are required on every mongodb collection. Index the following fields:
+
+```
+categories.name
+documents.title
+tenants.name
+stations.name
+user.firstname
+user.lastname
+user.email
+```
+
 ## Deployment
 
 Configure environment variables and deploy with [now](https://zeit.co/now).

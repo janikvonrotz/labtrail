@@ -18,6 +18,11 @@ const resolvers = {
     user: async (obj, args, context) => {
       return prepare(await (await collection('users')).findOne({ _id: ObjectId(args.id) }))
     },
+    userSearch: async (obj, args, context) => {
+      const filter = { $text: { $search: args.query } }
+      const field = { score: { $meta: 'textScore' } }
+      return (await (await collection('users')).find(filter).project(field).sort(field).toArray()).map(prepare)
+    },
     currentUser: async (obj, args, context) => {
       return context.user
     },

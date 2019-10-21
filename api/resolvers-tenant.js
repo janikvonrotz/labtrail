@@ -8,6 +8,11 @@ const resolvers = {
     tenants: async (obj, args, context) => {
       return (await (await collection('tenants')).find({}).toArray()).map(prepare)
     },
+    tenantSearch: async (obj, args, context) => {
+      const filter = { $text: { $search: args.query } }
+      const field = { score: { $meta: 'textScore' } }
+      return (await (await collection('tenants')).find(filter).project(field).sort(field).toArray()).map(prepare)
+    },
     tenant: async (obj, args, context) => {
       return prepare(await (await collection('tenants')).findOne({ _id: ObjectId(args.id) }))
     },

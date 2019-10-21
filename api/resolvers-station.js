@@ -25,6 +25,11 @@ const resolvers = {
       // Open database connection, access stations collection and return one document
       return prepare(await (await collection('stations')).findOne(filter))
     },
+    stationSearch: async (obj, args, context) => {
+      const filter = { $text: { $search: args.query } }
+      const field = { score: { $meta: 'textScore' } }
+      return (await (await collection('stations')).find(filter).project(field).sort(field).toArray()).map(prepare)
+    },
     redirectLink: async (obj, args, context) => {
       // Get station
       const station = prepare(await (await collection('stations')).findOne({ _id: ObjectId(args.id) }))
