@@ -10,7 +10,6 @@ import Drawer from '@material-ui/core/Drawer'
 import MenuItem from '@material-ui/core/MenuItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import CloseIcon from '@material-ui/icons/Close'
 import HomeIcon from '@material-ui/icons/Home'
 import DirectionsIcon from '@material-ui/icons/Directions'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
@@ -23,6 +22,9 @@ import { GET_CURRENT_USER } from './queries'
 import { useQuery } from '@apollo/react-hooks'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { hasRole } from './helpers'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import Divider from '@material-ui/core/Divider'
+import HeaderSearch from './HeaderSearch'
 
 const drawerWidth = 240
 
@@ -39,6 +41,13 @@ const useStyles = makeStyles(theme => ({
   },
   drawerPaper: {
     width: drawerWidth
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end'
   },
   link: {
     textDecoration: 'none'
@@ -59,6 +68,7 @@ const Header = () => {
 
   return (
     <AppBar position='static'>
+
       <Toolbar>
         <IconButton
           onClick={toggleDrawer}
@@ -72,23 +82,27 @@ const Header = () => {
         <Typography variant='h6' className={classes.title}>
           LabTrail
         </Typography>
+        <HeaderSearch />
         <HeaderLoginButton user={data ? data.currentUser : null} />
       </Toolbar>
+
       <Drawer
         open={open}
         className={classes.drawer}
         classes={{
           paper: classes.drawerPaper
         }}
+        onClick={toggleDrawer}
       >
-        <MenuItem onClick={toggleDrawer}>
-          <ListItemIcon>
-            <CloseIcon />
-          </ListItemIcon>
-          <ListItemText>Close</ListItemText>
+
+        <MenuItem className={classes.drawerHeader} onClick={toggleDrawer}>
+          <IconButton>
+            <ChevronLeftIcon />
+          </IconButton>
         </MenuItem>
+        <Divider />
         <Link to='/' className={classes.link}>
-          <MenuItem onClick={toggleDrawer}>
+          <MenuItem>
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
@@ -96,7 +110,7 @@ const Header = () => {
           </MenuItem>
         </Link>
         {hasRole((data && data.currentUser), ['ADMIN', 'MANAGER']) && <Link to='/stations' className={classes.link}>
-          <MenuItem onClick={toggleDrawer}>
+          <MenuItem>
             <ListItemIcon>
               <PermDeviceInformation />
             </ListItemIcon>
@@ -104,7 +118,7 @@ const Header = () => {
           </MenuItem>
         </Link>}
         {hasRole((data && data.currentUser), ['ADMIN', 'MANAGER']) && <Link to='/documents' className={classes.link}>
-          <MenuItem onClick={toggleDrawer}>
+          <MenuItem>
             <ListItemIcon>
               <DirectionsIcon />
             </ListItemIcon>
@@ -112,7 +126,7 @@ const Header = () => {
           </MenuItem>
         </Link>}
         {hasRole((data && data.currentUser), ['ADMIN', 'MANAGER']) && <Link to='/categories' className={classes.link}>
-          <MenuItem onClick={toggleDrawer}>
+          <MenuItem>
             <ListItemIcon>
               <BookmarkIcon />
             </ListItemIcon>
@@ -120,7 +134,7 @@ const Header = () => {
           </MenuItem>
         </Link> }
         {hasRole((data && data.currentUser), ['ADMIN']) && <Link to='/tenants' className={classes.link}>
-          <MenuItem onClick={toggleDrawer}>
+          <MenuItem>
             <ListItemIcon>
               <SupervisedUserCircleIcon />
             </ListItemIcon>
@@ -128,7 +142,7 @@ const Header = () => {
           </MenuItem>
         </Link>}
         {hasRole((data && data.currentUser), ['ADMIN']) && <Link to='/users' className={classes.link}>
-          <MenuItem onClick={toggleDrawer}>
+          <MenuItem>
             <ListItemIcon>
               <PeopleIcon />
             </ListItemIcon>
@@ -136,7 +150,7 @@ const Header = () => {
           </MenuItem>
         </Link>}
         {hasRole((data && data.currentUser), ['ADMIN', 'MANAGER']) && <Link to='/settings' className={classes.link}>
-          <MenuItem onClick={toggleDrawer}>
+          <MenuItem>
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
@@ -144,13 +158,14 @@ const Header = () => {
           </MenuItem>
         </Link>}
         {(data && data.currentUser) && <Link to='/profile' className={classes.link}>
-          <MenuItem onClick={toggleDrawer}>
+          <MenuItem>
             <ListItemIcon>
               <Person />
             </ListItemIcon>
             <ListItemText>Profile</ListItemText>
           </MenuItem>
         </Link>}
+
       </Drawer>
     </AppBar>
   )

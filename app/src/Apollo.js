@@ -4,10 +4,19 @@ import PropTypes from 'prop-types'
 import { ApolloProvider } from '@apollo/react-hooks'
 import typeDefs from './schema'
 import resolvers from './resolvers'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory'
+
+// This will get rid of: WARNING: heuristic fragment matching going on!
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+  introspectionQueryResultData: {
+    __schema: {
+      types: [] // no types provided
+    }
+  }
+})
 
 // Create and write default cache
-const cache = new InMemoryCache()
+const cache = new InMemoryCache({ fragmentMatcher })
 const data = {
   data: {
     __typename: 'Alert',
