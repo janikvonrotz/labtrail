@@ -22,7 +22,6 @@ const resolvers = {
       users = users.map((obj) => { obj.type = 'User'; return obj })
       var documents = await documentResolver.Query.documentSearch(obj, args, context)
       documents = documents.map((obj) => { obj.type = 'Document'; return obj })
-      console.log(documents)
       return [...categories, ...tenants, ...stations, ...users, ...documents]
     }
   }

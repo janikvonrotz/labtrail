@@ -48,7 +48,7 @@ const HeaderSearch = () => {
 
   // State for search query
   const [query, setQuery] = useState('')
-  const debouncedQuery = useDebounce(query, 500)
+  const debouncedQuery = useDebounce(query, 1000)
 
   return (
     <>
