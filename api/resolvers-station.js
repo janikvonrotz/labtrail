@@ -27,6 +27,9 @@ const resolvers = {
     },
     stationSearch: async (obj, args, context) => {
       const filter = { $text: { $search: args.query } }
+      if (context.user && context.user.tenant) {
+        filter.tenant = context.user.tenant
+      }
       const field = { score: { $meta: 'textScore' } }
       return (await (await collection('stations')).find(filter).project(field).sort(field).toArray()).map(prepare)
     },

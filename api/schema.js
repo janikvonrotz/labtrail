@@ -129,7 +129,7 @@ type Query {
   loginUser(email: String!, password: String!): Token
   userSearch(query: String): [User]
 
-  search(query: String): [Result]
+  search(query: String): [Result] @hasRole(roles: [USER, MANAGER, ADMIN])
 }
 
 type Mutation {

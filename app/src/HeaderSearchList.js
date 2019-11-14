@@ -10,7 +10,6 @@ import ListItem from '@material-ui/core/ListItem'
 import Divider from '@material-ui/core/Divider'
 import ListItemText from '@material-ui/core/ListItemText'
 import Link from 'react-router-dom/Link'
-import { groupBy } from './helpers'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,12 +34,10 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const HeaderSearchList = ({ query }) => {
+const HeaderSearchList = ({ setQuery, query }) => {
   const classes = useStyles()
 
   const { data } = useQuery(SEARCH, { variables: { query: query } })
-
-  console.log(data)
 
   // By default do not show any results
   var result = null
@@ -54,7 +51,7 @@ const HeaderSearchList = ({ query }) => {
         </Typography>
         <Divider />
         <List className={classes.list}>
-          <ListItem button>
+          <ListItem>
             <ListItemText
               primary='Empty'
               secondary='No resuls for your search query.'
@@ -67,30 +64,62 @@ const HeaderSearchList = ({ query }) => {
 
   if (query && data && data.search && data.search.length !== 0) {
     // group search results
-    console.log(data)
+    let grouped = {}
+    if (data.search.length > 1) {
+      grouped = data.search.reduce((objectsByKeyValue, obj) => {
+        const value = obj.__typename
+        objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj)
+        return objectsByKeyValue
+      }, {})
+    } else {
+      // Create custom result array if there is only one result
+      const key = data.search[0].__typename
+      grouped[key] = data.search
+    }
 
-    data.search = groupBy('__typename')(data.search)
+    // Generate result items for each group
     const items = []
-    for (const key in data.search) {
+    for (const key in grouped) {
       items.push(
-        <>
+        <React.Fragment key={key}>
           <Typography className={classes.title} variant='h5' component='h3'>
             {key}
           </Typography>
           <Divider />
           <List className={classes.list}>
-            {data.search[key].map(item => (
-              <Link key={item.id} to={`${key.toLowerCase()}/${item.id}`} className={classes.link}>
-                <ListItem button>
-                  <ListItemText
-                    primary={item.title || item.name}
-                    secondary='Test with search results.'
-                  />
-                </ListItem>
-              </Link>
-            ))}
+            {grouped[key].map(item => {
+
+              let primary = ''
+              let secondary = ''
+              switch (key) {
+                case 'Document':
+                  primary = item.title
+                  break
+                case 'Station':
+                  primary = item.name
+                  secondary = item.location
+                  break
+                case 'User':
+                  primary = item.firstname + ' ' + item.lastname
+                  secondary = item.email
+                  break
+                default:
+                  primary = item.name
+              }
+
+              return (
+                <Link key={item.id} to={`/${key.toLowerCase()}/${item.id}`} className={classes.link}>
+                  <ListItem onClick={event => setQuery('')} button>
+                    <ListItemText
+                      primary={primary}
+                      secondary={secondary}
+                    />
+                  </ListItem>
+                </Link>
+              )  
+            })}
           </List>
-        </>
+        </React.Fragment>
       )
     }
     result = items
@@ -110,7 +139,8 @@ const HeaderSearchList = ({ query }) => {
 }
 
 HeaderSearchList.propTypes = {
-  user: PropTypes.string
+  setQuery: PropTypes.func,
+  query: PropTypes.string
 }
 
 export default HeaderSearchList

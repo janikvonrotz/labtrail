@@ -67,7 +67,7 @@ const HeaderSearch = () => {
           onChange={(event) => { setQuery(event.target.value) }}
         />
       </div>
-      <HeaderSearchList query={debouncedQuery} />
+      <HeaderSearchList setQuery={setQuery} query={debouncedQuery} />
     </>
   )
 }
