@@ -10,6 +10,7 @@ import ListItem from '@material-ui/core/ListItem'
 import Divider from '@material-ui/core/Divider'
 import ListItemText from '@material-ui/core/ListItemText'
 import Link from 'react-router-dom/Link'
+import { groupBy } from './helpers'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,70 +40,73 @@ const HeaderSearchList = ({ query }) => {
 
   const { data } = useQuery(SEARCH, { variables: { query: query } })
 
-  console.log(data, query)
+  console.log(data)
 
-  var result = (
-    <>
-      <Typography className={classes.title} variant='h5' component='h3'>
-        Type
-      </Typography>
-      <Divider />
-      <List className={classes.list}>
-        <Link to='/' className={classes.link}>
-          <ListItem button>
-            <ListItemText
-              primary='Numera'
-              secondary='Test with search results.'
-            />
-          </ListItem>
-          <ListItem button>
-            <ListItemText
-              primary='Numera Info'
-              secondary='Test with search results.'
-            />
-          </ListItem>
-        </Link>
-      </List>
-    </>
-  )
-  if (data && query) {
+  // By default do not show any results
+  var result = null
+
+  // If query is present and result set is empty show empty results
+  if (query && data && data.search && data.search.length === 0) {
     result = (
       <>
-        {data.search.map(result => (
-          <>
-            <Typography className={classes.title} variant='h5' component='h3'>
-              {result.__typename}
-            </Typography>
-            <Divider />
-            <List className={classes.list}>
-              <Link to='/' className={classes.link}>
-                <ListItem button>
-                  <ListItemText
-                    primary='Numera'
-                    secondary='Test with search results.'
-                  />
-                </ListItem>
-                <ListItem button>
-                  <ListItemText
-                    primary='Numera Info'
-                    secondary='Test with search results.'
-                  />
-                </ListItem>
-              </Link>
-            </List>
-          </>
-        ))}
+        <Typography className={classes.title} variant='h5' component='h3'>
+          No Results
+        </Typography>
+        <Divider />
+        <List className={classes.list}>
+          <ListItem button>
+            <ListItemText
+              primary='Empty'
+              secondary='No resuls for your search query.'
+            />
+          </ListItem>
+        </List>
       </>
     )
   }
 
-  return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        {result}
-      </Paper>
-    </div>
-  )
+  if (query && data && data.search && data.search.length !== 0) {
+    // group search results
+    console.log(data)
+
+    data.search = groupBy('__typename')(data.search)
+    const items = []
+    for (const key in data.search) {
+      items.push(
+        <>
+          <Typography className={classes.title} variant='h5' component='h3'>
+            {key}
+          </Typography>
+          <Divider />
+          <List className={classes.list}>
+            {data.search[key].map(item => (
+              <Link key={item.id} to={`${key.toLowerCase()}/${item.id}`} className={classes.link}>
+                <ListItem button>
+                  <ListItemText
+                    primary={item.title || item.name}
+                    secondary='Test with search results.'
+                  />
+                </ListItem>
+              </Link>
+            ))}
+          </List>
+        </>
+      )
+    }
+    result = items
+  }
+
+  if (result) {
+    return (
+      <div className={classes.root}>
+        <Paper className={classes.paper}>
+          {result}
+        </Paper>
+      </div>
+    )
+  } else {
+    return null
+  }
 }
 
 HeaderSearchList.propTypes = {
