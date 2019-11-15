@@ -13,7 +13,7 @@ const searchResolvers = require('./resolvers-search')
 const test = require('ava')
 
 // Load environment configuration
-require('dotenv').config()
+require('dotenv').config({ path: `${__dirname}/.env.${process.env.NODE_ENV}` })
 
 test('fetch all tenants', async t => {
   // Initialize Apollo server
