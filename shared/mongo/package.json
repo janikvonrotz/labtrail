@@ -1,21 +1,19 @@
 {
   "name": "mongo",
   "version": "1.0.1",
-  "description": "",
   "main": "index.js",
+  "scripts": {
+    "lint": "standard"
+  },
   "dependencies": {
     "mongodb": "^3.3.0-beta2"
   },
   "devDependencies": {
     "standard": "^14.1.0"
   },
-  "scripts": {
-    "lint": "standard",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "engines" : { 
     "node" : ">=8.0.0 <11.0.0" 
   },
-  "author": "",
+  "author": "Janik von Rotz",
   "license": "MIT"
 }

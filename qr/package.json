@@ -15,5 +15,7 @@
   "devDependencies": {
     "micro-dev": "^3.0.0",
     "standard": "^14.3.1"
-  }
+  },
+  "author": "Janik von Rotz",
+  "license": "MIT"
 }
