@@ -22,7 +22,6 @@ class isAuthenticated extends SchemaDirectiveVisitor {
 
 // Custom directive to check if user has role
 class hasRole extends SchemaDirectiveVisitor {
-
   visitFieldDefinition (field) {
     // Get field resolver
     const { resolve = defaultFieldResolver } = field
