@@ -12,7 +12,6 @@ const resolvers = {
   },
   Query: {
     search: async (obj, args, context) => {
-      console.log('Run query')
       var categories = await categoryResolvers.Query.categorySearch(obj, args, context)
       categories = categories.map((obj) => { obj.type = 'Category'; return obj })
       var tenants = await tenantResolver.Query.tenantSearch(obj, args, context)

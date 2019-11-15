@@ -20,6 +20,8 @@ const resolvers = {
     },
     userSearch: async (obj, args, context) => {
       const filter = { $text: { $search: args.query } }
+      // Filter by tenant
+      filter.tenant = context.user.tenant
       const field = { score: { $meta: 'textScore' } }
       return (await (await collection('users')).find(filter).project(field).sort(field).toArray()).map(prepare)
     },

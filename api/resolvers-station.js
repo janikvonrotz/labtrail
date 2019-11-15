@@ -18,10 +18,8 @@ const resolvers = {
     },
     station: async (obj, args, context) => {
       const filter = { _id: ObjectId(args.id) }
-      // Filter by tenant if user is logged in
-      if (context.user && context.user.tenant) {
-        filter.tenant = context.user.tenant
-      }
+      // Filter by tenant
+      filter.tenant = context.user.tenant
       // Open database connection, access stations collection and return one document
       return prepare(await (await collection('stations')).findOne(filter))
     },
