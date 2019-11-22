@@ -36,63 +36,75 @@ const { query, mutate } = createTestClient(server)
 // Share context between tests
 var result = {}
 
-test.serial('Create tenant: Acme', async t => {
-  const CREATE_TENANT = gql`
-  mutation createTenant( $name: String!) {
-    createTenant(name: $name) {
+test.serial('Create station: Infopoint', async t => {
+  const CREATE_STATION = gql`
+  mutation createStation(
+    $name: String!
+    $location: String!
+    $color: Color!
+  ) {
+    createStation(
+      name: $name
+      location: $location
+      color: $color
+     ) {
       id
     }
   }
   `
   result = merge(result, await mutate({
-    mutation: CREATE_TENANT,
-    variables: { name: 'Acme' }
+    mutation: CREATE_STATION,
+    variables: {
+      name: 'Infopoint',
+      location: 'Outer Galaxy',
+      color: 'RED'
+    }
   }))
-  t.assert(ObjectId.isValid(result.data.createTenant.id))
+  t.assert(ObjectId.isValid(result.data.createStation.id))
 })
 
-test.serial('Get tenant by Id: Acme', async t => {
-  const GET_TENANT = gql`
-  query tenant($id: String) {
-    tenant(id: $id) {
+test.serial('Get station by Id: Infopoint', async t => {
+  const GET_STATION = gql`
+  query station($id: String) {
+    station(id: $id) {
       id
       name
     }
   }
   `
   result = merge(result, await query({
-    query: GET_TENANT,
-    variables: { id: result.data.createTenant.id }
+    query: GET_STATION,
+    variables: { id: result.data.createStation.id }
   }))
-  t.is(result.data.tenant.name, 'Acme')
+  t.is(result.data.station.name, 'Infopoint')
 })
 
-test.serial('Mutate tenant: Acme -> AcmeX', async t => {
-  const UPDATE_TENANT = gql`
-  mutation updateTenant($id: String!, $name: String) {
-    updateTenant(id: $id, name: $name) {
+test.serial('Mutate station: Infopoint -> InfopointX', async t => {
+  const UPDATE_STATION = gql`
+  mutation updateStation($id: String!, $name: String) {
+    updateStation(id: $id, name: $name) {
       success
     }
   }
   `
   result = merge(result, await mutate({
-    mutation: UPDATE_TENANT,
-    variables: { id: result.data.createTenant.id, name: 'AcmeX' }
+    mutation: UPDATE_STATION,
+    variables: { id: result.data.createStation.id, name: 'InfopointX' }
   }))
-  t.assert(result.data.updateTenant.success)
+  t.assert(result.data.updateStation.success)
 })
 
-test.serial('Delete tenant by Id: Acme', async t => {
-  const DELETE_TENANT = gql`
-  mutation deleteTenant( $id: String!) {
-    deleteTenant(id: $id) {
+test.serial('Delete station by Id: Infopoint', async t => {
+  const DELETE_STATION = gql`
+  mutation deleteStation( $id: String!) {
+    deleteStation(id: $id) {
       success
     }
   }
   `
   result = merge(result, await mutate({
-    mutation: DELETE_TENANT,
-    variables: { id: result.data.createTenant.id }
+    mutation: DELETE_STATION,
+    variables: { id: result.data.createStation.id }
   }))
-  t.assert(result.data.deleteTenant.success)
+  t.assert(result.data.deleteStation.success)
 })

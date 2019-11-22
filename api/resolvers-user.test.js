@@ -45,12 +45,10 @@ test.serial('Create tenant: Acme', async t => {
     }
   }
   `
-
   result = merge(result, await mutate({
     mutation: CREATE_TENANT,
     variables: { name: 'Acme' }
   }))
-
   t.assert(ObjectId.isValid(result.data.createTenant.id))
 })
 
@@ -76,7 +74,6 @@ test.serial('Create user: User', async t => {
     }
   }
   `
-
   result = merge(result, await mutate({
     mutation: CREATE_USER,
     variables: {
@@ -88,7 +85,6 @@ test.serial('Create user: User', async t => {
       tenant: result.data.createTenant.id
     }
   }))
-
   t.assert(ObjectId.isValid(result.data.createUser.id))
 })
 
@@ -101,12 +97,10 @@ test.serial('Get user by Id: User', async t => {
     }
   }
   `
-
   result = merge(result, await query({
     query: GET_USER,
     variables: { id: result.data.createUser.id }
   }))
-
   t.is(result.data.user.firstname, 'User')
 })
 
@@ -124,12 +118,10 @@ test.serial('Mutate user: User -> Userx', async t => {
     }
   }
   `
-
   result = merge(result, await mutate({
     mutation: UPDATE_USER,
     variables: { id: result.data.createUser.id, firstname: 'UserX' }
   }))
-
   t.assert(result.data.updateUser.success)
 })
 
@@ -141,12 +133,10 @@ test.serial('Login with user: User', async t => {
     }
   }
   `
-
   result = merge(result, await query({
     query: LOGIN_USER,
     variables: { email: 'user@labtrail.app', password: 'userpass' }
   }))
-
   t.assert(result.data.loginUser.token)
 })
 
@@ -158,12 +148,10 @@ test.serial('Delete user by Id: User', async t => {
     }
   }
   `
-
   result = merge(result, await mutate({
     mutation: DELETE_USER,
     variables: { id: result.data.createUser.id }
   }))
-
   t.assert(result.data.deleteUser.success)
 })
 
@@ -175,11 +163,9 @@ test.serial('Delete tenant by Id: Acme', async t => {
     }
   }
   `
-
   result = merge(result, await mutate({
     mutation: DELETE_TENANT,
     variables: { id: result.data.createTenant.id }
   }))
-
   t.assert(result.data.deleteTenant.success)
 })

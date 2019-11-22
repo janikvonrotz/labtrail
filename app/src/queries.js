@@ -94,8 +94,18 @@ query station($id: String) {
 `
 
 const CREATE_STATION = gql`
-mutation createStation( $name: String!, $location: String!, $color: Color!, $documents: [String]) {
-  createStation(name: $name, location: $location, color: $color, documents: $documents) {
+mutation createStation(
+  $name: String!
+  $location: String!
+  $color: Color!
+  $documents: [String]
+) {
+  createStation(
+    name: $name
+    location: $location
+    color: $color
+    documents: $documents
+   ) {
     id
   }
 }
@@ -147,16 +157,42 @@ query documents($id: String) {
 `
 
 const CREATE_DOCUMENT = gql`
-mutation createDocument($title: String!, $link: String!, $description: String, $category: String!, $forward: Boolean!) {
-  createDocument(title: $title, link: $link, description: $description, category: $category, forward: $forward) {
+mutation createDocument(
+  $title: String!
+  $link: String! 
+  $description: String
+  $category: String!
+  $forward: Boolean!
+) {
+  createDocument(
+    title: $title
+    link: $link
+    description: $description
+    category: $category
+    forward: $forward
+  ) {
     id
   }
 }
 `
 
 const UPDATE_DOCUMENT = gql`
-mutation updateDocument($id: String!, $title: String, $link: String, $description: String, $category: String, $forward: Boolean) {
-  updateDocument(id: $id, title: $title, link: $link, description: $description, category: $category, forward: $forward) {
+mutation updateDocument(
+  $id: String!
+  $title: String
+  $link: String
+  $description: String
+  $category: String
+  $forward: Boolean
+) {
+  updateDocument(
+    id: $id
+    title: $title
+    link: $link
+    description: $description
+    category: $category
+    forward: $forward
+  ) {
     success
     message
   }

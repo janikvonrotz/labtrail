@@ -51,35 +51,86 @@ test.serial('Create category: Support', async t => {
   t.assert(ObjectId.isValid(result.data.createCategory.id))
 })
 
-test.serial('Get category by Id: Support', async t => {
-  const GET_CATEGORY = gql`
-  query category($id: String) {
-    category(id: $id) {
+test.serial('Create document: EnteEnteLos', async t => {
+  const CREATE_DOCUMENT = gql`
+  mutation createDocument(
+    $title: String!
+    $link: String! 
+    $category: String!
+    $forward: Boolean!
+  ) {
+    createDocument(
+      title: $title
+      link: $link
+      category: $category
+      forward: $forward
+    ) {
       id
-      name
+    }
+  }
+  `
+  result = merge(result, await mutate({
+    mutation: CREATE_DOCUMENT,
+    variables: {
+      title: 'EnteEnteLos',
+      link: 'https://enteentelos.ch',
+      category: result.data.createCategory.id,
+      forward: true
+    }
+  }))
+  t.assert(ObjectId.isValid(result.data.createDocument.id))
+})
+
+test.serial('Get document by Id: EnteEnteLos', async t => {
+  const GET_DOCUMENT = gql`
+  query document($id: String) {
+    document(id: $id) {
+      id
+      title
     }
   }
   `
   result = merge(result, await query({
-    query: GET_CATEGORY,
-    variables: { id: result.data.createCategory.id }
+    query: GET_DOCUMENT,
+    variables: { id: result.data.createDocument.id }
   }))
-  t.is(result.data.category.name, 'Support')
+  t.is(result.data.document.title, 'EnteEnteLos')
 })
 
-test.serial('Mutate category: Support -> SupportX', async t => {
-  const UPDATE_CATEGORY = gql`
-  mutation updateCategory($id: String!, $name: String) {
-    updateCategory(id: $id, name: $name) {
+test.serial('Mutate document: EnteEnteLos -> EnteEnteLosX', async t => {
+  const UPDATE_DOCUMENT = gql`
+  mutation updateDocument(
+    $id: String!
+    $title: String
+  ) {
+    updateDocument(
+      id: $id
+      title: $title
+    ) {
       success
     }
   }
   `
   result = merge(result, await mutate({
-    mutation: UPDATE_CATEGORY,
-    variables: { id: result.data.createCategory.id, name: 'SupportX' }
+    mutation: UPDATE_DOCUMENT,
+    variables: { id: result.data.createDocument.id, title: 'EnteEnteLosX' }
   }))
-  t.assert(result.data.updateCategory.success)
+  t.assert(result.data.updateDocument.success)
+})
+
+test.serial('Delete document by Id: EnteEnteLos', async t => {
+  const DELETE_DOCUMENT = gql`
+  mutation deleteDocument( $id: String!) {
+    deleteDocument(id: $id) {
+      success
+    }
+  }
+  `
+  result = merge(result, await mutate({
+    mutation: DELETE_DOCUMENT,
+    variables: { id: result.data.createDocument.id }
+  }))
+  t.assert(result.data.deleteDocument.success)
 })
 
 test.serial('Delete category by Id: Support', async t => {
