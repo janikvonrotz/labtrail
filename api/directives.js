@@ -33,9 +33,14 @@ class hasRole extends SchemaDirectiveVisitor {
       // Get context
       const [, , context] = args
 
-      // User must exist in contest and roles must match
+      // User must exist in context and roles must match
       if (!context.user || roles.indexOf(context.user.role) === -1) {
         throw new ForbiddenError('You are not authorized for this ressource.')
+      }
+
+      // User must be assigned to tenant
+      if (!context.user.tenant) {
+        throw new ForbiddenError('You are not assigned to a tenant.')
       }
 
       // Resolve field
