@@ -4,7 +4,8 @@
   "scripts": {
     "start": "micro index.js",
     "dev": "micro-dev index.js",
-    "lint": "standard"
+    "lint": "standard",
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "dependencies": {
     "dotenv": "^8.1.0",

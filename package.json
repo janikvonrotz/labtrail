@@ -1,0 +1,13 @@
+{
+  "name": "labtrail",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "now dev",
+    "lint": "yarn workspaces run lint",
+    "test": "yarn workspaces run test"
+  },
+  "private": true,
+  "workspaces": ["api", "app", "auth", "qr", "mongo", "scripts"],
+  "author": "Janik von Rotz",
+  "license": "MIT"
+}

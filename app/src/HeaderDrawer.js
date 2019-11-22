@@ -68,62 +68,75 @@ const HeaderDrawer = ({ open, toggleDrawer, user }) => {
           <ListItemText>Home</ListItemText>
         </MenuItem>
       </Link>
-      {hasRole(user, ['ADMIN', 'MANAGER']) && <Link to='/stations' className={classes.link}>
-        <MenuItem>
-          <ListItemIcon>
-            <PermDeviceInformation />
-          </ListItemIcon>
-          <ListItemText>Stations</ListItemText>
-        </MenuItem>
-      </Link>}
-      {hasRole(user, ['ADMIN', 'MANAGER']) && <Link to='/documents' className={classes.link}>
-        <MenuItem>
-          <ListItemIcon>
-            <DirectionsIcon />
-          </ListItemIcon>
-          <ListItemText>Documents</ListItemText>
-        </MenuItem>
-      </Link>}
-      {hasRole(user, ['ADMIN', 'MANAGER']) && <Link to='/categories' className={classes.link}>
-        <MenuItem>
-          <ListItemIcon>
-            <BookmarkIcon />
-          </ListItemIcon>
-          <ListItemText>Categories</ListItemText>
-        </MenuItem>
-      </Link>}
-      {hasRole(user, ['ADMIN']) && <Link to='/tenants' className={classes.link}>
-        <MenuItem>
-          <ListItemIcon>
-            <SupervisedUserCircleIcon />
-          </ListItemIcon>
-          <ListItemText>Tenants</ListItemText>
-        </MenuItem>
-      </Link>}
-      {hasRole(user, ['ADMIN']) && <Link to='/users' className={classes.link}>
-        <MenuItem>
-          <ListItemIcon>
-            <PeopleIcon />
-          </ListItemIcon>
-          <ListItemText>Users</ListItemText>
-        </MenuItem>
-      </Link>}
-      {hasRole(user, ['ADMIN', 'MANAGER']) && <Link to='/settings' className={classes.link}>
-        <MenuItem>
-          <ListItemIcon>
-            <SettingsIcon />
-          </ListItemIcon>
-          <ListItemText>Settings</ListItemText>
-        </MenuItem>
-      </Link>}
-      {user && <Link to='/profile' className={classes.link}>
-        <MenuItem>
-          <ListItemIcon>
-            <Person />
-          </ListItemIcon>
-          <ListItemText>Profile</ListItemText>
-        </MenuItem>
-      </Link>}
+      {hasRole(user, ['ADMIN', 'MANAGER']) && (
+        <Link to='/stations' className={classes.link}>
+          <MenuItem>
+            <ListItemIcon>
+              <PermDeviceInformation />
+            </ListItemIcon>
+            <ListItemText>Stations</ListItemText>
+          </MenuItem>
+        </Link>
+      )}
+      {hasRole(user, ['ADMIN', 'MANAGER']) && (
+        <Link to='/documents' className={classes.link}>
+          <MenuItem>
+            <ListItemIcon>
+              <DirectionsIcon />
+            </ListItemIcon>
+            <ListItemText>Documents</ListItemText>
+          </MenuItem>
+        </Link>
+      )}
+      {hasRole(user, ['ADMIN', 'MANAGER']) && (
+        <Link to='/categories' className={classes.link}>
+          <MenuItem>
+            <ListItemIcon>
+              <BookmarkIcon />
+            </ListItemIcon>
+            <ListItemText>Categories</ListItemText>
+          </MenuItem>
+        </Link>
+      )}
+      {hasRole(user, ['ADMIN']) && (
+        <Link to='/tenants' className={classes.link}>
+          <MenuItem>
+            <ListItemIcon>
+              <SupervisedUserCircleIcon />
+            </ListItemIcon>
+            <ListItemText>Tenants</ListItemText>
+          </MenuItem>
+        </Link>
+      )}
+      {hasRole(user, ['ADMIN']) && (
+        <Link to='/users' className={classes.link}>
+          <MenuItem>
+            <ListItemIcon>
+              <PeopleIcon />
+            </ListItemIcon>
+            <ListItemText>Users</ListItemText>
+          </MenuItem>
+        </Link>)}
+      {hasRole(user, ['ADMIN', 'MANAGER']) && (
+        <Link to='/settings' className={classes.link}>
+          <MenuItem>
+            <ListItemIcon>
+              <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText>Settings</ListItemText>
+          </MenuItem>
+        </Link>
+      )}
+      {user && (
+        <Link to='/profile' className={classes.link}>
+          <MenuItem>
+            <ListItemIcon>
+              <Person />
+            </ListItemIcon>
+            <ListItemText>Profile</ListItemText>
+          </MenuItem>
+        </Link>
+      )}
 
     </Drawer>
   )

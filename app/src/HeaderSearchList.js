@@ -88,7 +88,6 @@ const HeaderSearchList = ({ setQuery, query }) => {
           <Divider />
           <List className={classes.list}>
             {grouped[key].map(item => {
-
               let primary = ''
               let secondary = ''
               switch (key) {
@@ -116,7 +115,7 @@ const HeaderSearchList = ({ setQuery, query }) => {
                     />
                   </ListItem>
                 </Link>
-              )  
+              )
             })}
           </List>
         </React.Fragment>

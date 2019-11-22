@@ -5,7 +5,8 @@
   "scripts": {
     "start": "micro index.js",
     "dev": "micro-dev index.js",
-    "lint": "standard"
+    "lint": "standard",
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "dependencies": {
     "express": "^4.17.1",

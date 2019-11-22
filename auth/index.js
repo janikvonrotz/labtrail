@@ -27,7 +27,7 @@ router.get('/metadata', (req, res) => res.header('Content-Type', 'text/xml').sen
 
 // Access URL for implementing SP-init SSO
 router.get('/spinitsso-redirect', (req, res) => {
-  const { id, context } = sp.createLoginRequest(idp, 'redirect')
+  const { context } = sp.createLoginRequest(idp, 'redirect')
   return res.redirect(context)
 })
 
@@ -35,7 +35,7 @@ router.get('/spinitsso-redirect', (req, res) => {
 // This is the assertion service url where SAML Response is sent to
 router.post('/acs', async (req, res) => {
   try {
-    const { id, context: SAMLResponse } = await sp.createLoginRequest(idp, 'post')
+    const { context: SAMLResponse } = await sp.createLoginRequest(idp, 'post')
     console.log(SAMLResponse)
     const { extract } = await sp.parseLoginResponse(idp, 'post', { body: { SAMLResponse } })
     console.log(extract.attributes)

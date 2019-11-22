@@ -47,7 +47,7 @@ const Profile = () => {
     }
   })
 
-  if (queryLoading || updateUserPasswordLoading || updateUserProfileLoading ) return <Paper className={classes.paper}><Loading /></Paper>
+  if (queryLoading || updateUserPasswordLoading || updateUserProfileLoading) return <Paper className={classes.paper}><Loading /></Paper>
   if (queryError) return <Paper className={classes.paper}><Error message={queryError.message} /></Paper>
   if (updateUserPasswordError) return <Paper className={classes.paper}><Error message={updateUserPasswordError.message} /></Paper>
   if (updateUserProfileError) return <Paper className={classes.paper}><Error message={updateUserProfileError.message} /></Paper>
