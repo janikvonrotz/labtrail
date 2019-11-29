@@ -4,6 +4,8 @@
 
 QR-code manager with multi-tenant support.
 
+This project is sponsored by the [bioprocess technology division of the ZHAW](https://www.zhaw.ch/en/lsfm/institutes-centres/icbt/biocatalysis-and-process-technology/).
+
 LabTrail is the central platform to manage the destinations of QR-Codes. Register new QR-Codes and define multiple link targets. Manage users and assign them to tenants. Switch easily between tenants and their active QR-Code category.
 
 ![Screenshot](/screenshot.png)

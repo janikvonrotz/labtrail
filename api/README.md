@@ -7,8 +7,8 @@ Apollo Graphql API of the LabTrail application.
 **.env**
 
 ```
-MONGODB_URI=mongodb://USERNAME:PASSWORD@URL:PORT/DATABASENAME
-JWT_SECRET=SECRET_KEY
+MONGODB_URI="mongodb://USERNAME:PASSWORD@URL:PORT/DATABASENAME"
+JWT_SECRET="SECRET_KEY"
 ```
 
 For testing create a `.env.test` file.
