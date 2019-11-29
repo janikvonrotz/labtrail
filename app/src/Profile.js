@@ -12,6 +12,7 @@ import { useToggle, useForm } from './hooks'
 import Prompt from './Prompt'
 import ProfilePasswordForm from './ProfilePasswordForm'
 import { Redirect } from 'react-router'
+import ProfileDeleteAccount from './ProfileDeleteAccount'
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -112,6 +113,7 @@ const Profile = () => {
       >
         <ProfilePasswordForm values={values} handleChange={handleChange} />
       </Prompt>
+      <ProfileDeleteAccount />
     </Paper>
   )
 }

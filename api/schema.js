@@ -204,6 +204,7 @@ type Mutation {
     tenant: String
   ): Response @hasRole(roles: [ADMIN])
   deleteUser(id: String!): Response @hasRole(roles: [ADMIN])
+  deleteCurrentUser: Response @hasRole(roles: [USER,MANAGER,ADMIN])
   updateUserProfile(
     firstname: String,
     lastname: String,

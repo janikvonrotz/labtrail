@@ -97,6 +97,11 @@ const resolvers = {
       args._id = ObjectId(args.id)
       delete args.id
       return { success: (await (await collection('users')).deleteOne(args)).result.ok }
+    },
+    deleteCurrentUser: async (obj, args, context) => {
+      args._id = ObjectId(context.user.id)
+      delete args.id
+      return { success: (await (await collection('users')).deleteOne(args)).result.ok }
     }
   },
   User: {

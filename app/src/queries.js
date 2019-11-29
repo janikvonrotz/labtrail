@@ -324,6 +324,15 @@ mutation deleteUser( $id: String!) {
 }
 `
 
+const DELETE_CURRENT_USER = gql`
+mutation deleteCurrentUser {
+  deleteCurrentUser {
+    success
+    message
+  }
+}
+`
+
 const GET_USER = gql`
 query user($id: String) {
   user(id: $id) {
@@ -496,6 +505,7 @@ export {
   CREATE_USER,
   UPDATE_USER,
   DELETE_USER,
+  DELETE_CURRENT_USER,
   GET_USER,
   GET_USERS,
   GET_CURRENT_USER,

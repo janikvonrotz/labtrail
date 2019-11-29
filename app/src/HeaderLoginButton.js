@@ -22,7 +22,7 @@ const HeaderLoginButton = ({ user }) => {
     window.localStorage.clear()
     client.resetStore()
   }
-
+  
   if (user) {
     return (
       <Link to='/login' className={classes.link}>

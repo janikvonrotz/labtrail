@@ -51,10 +51,10 @@ const Header = () => {
           LabTrail
         </Typography>
         {hasRole(data && data.currentUser, ['ADMIN', 'MANAGER']) && <HeaderSearch />}
-        <HeaderLoginButton user={data ? data.currentUser : null} />
+        <HeaderLoginButton user={data && data.currentUser} />
       </Toolbar>
 
-      <HeaderDrawer open={open} toggleDrawer={toggleDrawer} user={data ? data.currentUser : null} />
+      <HeaderDrawer open={open} toggleDrawer={toggleDrawer} user={data && data.currentUser} />
 
     </AppBar>
   )
