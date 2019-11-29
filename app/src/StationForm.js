@@ -6,7 +6,7 @@ import Select from '@material-ui/core/Select'
 import InputLabel from '@material-ui/core/InputLabel'
 import { makeStyles } from '@material-ui/core/styles'
 import { useForm, useToggle } from './hooks'
-import DocumentSortableList from './DocumentSortableList'
+import DocumentFormList from './DocumentFormList'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Prompt from './Prompt'
@@ -108,7 +108,7 @@ const StationForm = ({ children, station, onSubmit }) => {
           setSelectedDocuments={setSelectedDocuments}
         />
       </Prompt>
-      <DocumentSortableList documents={selectedDocuments} />
+      <DocumentFormList documents={selectedDocuments} />
       {children}
     </form>
   )

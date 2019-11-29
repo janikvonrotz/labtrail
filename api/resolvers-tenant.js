@@ -1,7 +1,7 @@
 const { collection, prepare } = require('mongo')
 const { ObjectId } = require('mongodb')
 const categoryResolvers = require('./resolvers-category')
-// const userResolver = require('./resolvers-user') is not possible as this would result in require loop
+// FIXME: const userResolver = require('./resolvers-user') is not possible as this would result in a require loop
 
 const resolvers = {
   Query: {
@@ -57,8 +57,13 @@ const resolvers = {
   Tenant: {
     created_by: () => ({}),
     updated_by: () => ({}),
-    assigned_users: () => ([]),
+    assigned_users: async (obj, args, context) => {
+      const ids = obj.assigned_users ? obj.assigned_users.map(id => ObjectId(id)) : []
+      // FIXME: Accessing user collection directly
+      return (await (await collection('users')).find({ _id: { $in: ids } }).toArray()).map(prepare)
+    },
     assigned_category: async (obj, args, context) => {
+      // FIXME: Accessing category collection directly
       return categoryResolvers.Query.category(obj, { id: obj.assigned_category }, context)
     }
   }

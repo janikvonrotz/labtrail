@@ -18,7 +18,7 @@ const TenantCreate = () => {
   const classes = useStyles()
 
   // Set default values
-  const tenant = { name: '' }
+  const tenant = { name: '', assigned_users: [] }
 
   const [createAlert] = useMutation(CREATE_ALERTCLIENT)
   const [createTenant, { data }] = useMutation(CREATE_TENANT, {

@@ -5,9 +5,11 @@ query tenant($id: String) {
   tenant(id: $id) {
     id
     name
-    assigned_category {
+    assigned_users {
       id
-      name
+      firstname
+      lastname
+      email
     }
   }
 }
@@ -22,8 +24,16 @@ mutation createTenant( $name: String!) {
 `
 
 const UPDATE_TENANT = gql`
-mutation updateTenant($id: String!, $name: String) {
-  updateTenant(id: $id, name: $name) {
+mutation updateTenant(
+    $id: String!
+    $name: String
+    $assigned_users: [String]
+  ) {
+  updateTenant(
+    id: $id
+    name: $name
+    assigned_users: $assigned_users
+  ) {
     success
     message
   }
@@ -112,8 +122,20 @@ mutation createStation(
 `
 
 const UPDATE_STATION = gql`
-mutation updateStation($id: String!, $name: String, $location: String, $color: Color, $documents: [String]) {
-  updateStation(id: $id, name: $name, location: $location, color: $color, documents: $documents) {
+mutation updateStation(
+    $id: String!
+    $name: String
+    $location: String
+    $color: Color
+    $documents: [String]
+  ) {
+  updateStation(
+    id: $id
+    name: $name
+    location: $location
+    color: $color
+    documents: $documents
+  ) {
     success
     message
   }

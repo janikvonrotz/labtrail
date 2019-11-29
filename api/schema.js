@@ -150,15 +150,16 @@ type Mutation {
 
   createCategory(name: String!): Category @hasRole(roles: [ADMIN, MANAGER])
   updateCategory(
-    id: String!, 
+    id: String!,
     name: String
   ): Response @hasRole(roles: [ADMIN, MANAGER])
   deleteCategory(id: String!): Response @hasRole(roles: [ADMIN, MANAGER])
 
   createTenant(name: String!): Tenant @hasRole(roles: [ADMIN])
   updateTenant(
-    id: String!,
+    id: String!
     name: String
+    assigned_users: [String]
   ): Response @hasRole(roles: [ADMIN])
   deleteTenant(id: String!): Response @hasRole(roles: [ADMIN])
   assignTenant(

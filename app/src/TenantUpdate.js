@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import TenantForm from './TenantForm'
 import TenantDelete from './TenantDelete'
 import { useMutation } from '@apollo/react-hooks'
-import { UPDATE_TENANT, GET_TENANTS, CREATE_ALERTCLIENT } from './queries'
+import { UPDATE_TENANT, GET_TENANTS, GET_TENANT, CREATE_ALERTCLIENT } from './queries'
 import { makeStyles } from '@material-ui/core/styles'
 import Error from './Error'
 
@@ -22,9 +22,15 @@ const TenantUpdate = ({ tenant }) => {
   const [createAlert] = useMutation(CREATE_ALERTCLIENT)
   // Get hook for Tenant update
   const [updateTenant, { data, error }] = useMutation(UPDATE_TENANT, {
-    refetchQueries: [{
-      query: GET_TENANTS
-    }],
+    refetchQueries: [
+      {
+        query: GET_TENANTS
+      },
+      {
+        query: GET_TENANT,
+        variables: { id: tenant.id }
+      }
+    ],
     onCompleted: () => createAlert({ variables: { message: 'Tenant saved!', type: 'SUCCESS' } })
   })
 
@@ -37,6 +43,10 @@ const TenantUpdate = ({ tenant }) => {
 
   // Form on submit method
   const onSubmit = (tenant) => {
+    // Ensure document array is list of ids
+    if (tenant.assigned_users && tenant.assigned_users[0] && tenant.assigned_users[0].id) {
+      tenant.assigned_users = tenant.assigned_users.map(({ id }) => id)
+    }
     updateTenant({ variables: tenant })
   }
 

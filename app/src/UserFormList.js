@@ -14,35 +14,35 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const DocumenSortabletList = ({ documents }) => {
+const UserFormList = ({ users }) => {
   const classes = useStyles()
 
   return (
     <Table className={classes.table}>
       <TableHead>
         <TableRow>
-          <TableCell>title</TableCell>
-          <TableCell align='right'>description</TableCell>
-          <TableCell align='right'>category</TableCell>
+          <TableCell>email</TableCell>
+          <TableCell align='right'>firstname</TableCell>
+          <TableCell align='right'>lastname</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {documents ? documents.map(document => (
-          <TableRow key={document.id}>
+        {users && users.map(user => (
+          <TableRow key={user.id}>
             <TableCell component='th' scope='row'>
-              <Link to={`/document/${document.id}`}>{document.title}</Link>
+              <Link to={`/user/${user.id}`}>{user.email}</Link>
             </TableCell>
-            <TableCell align='right'>{document.description}</TableCell>
-            <TableCell align='right'>{document.category.name}</TableCell>
+            <TableCell align='right'>{user.firstname}</TableCell>
+            <TableCell align='right'>{user.lastname}</TableCell>
           </TableRow>
-        )) : ''}
+        ))}
       </TableBody>
     </Table>
   )
 }
 
-DocumenSortabletList.propTypes = {
-  documents: PropTypes.array
+UserFormList.propTypes = {
+  users: PropTypes.array
 }
 
-export default DocumenSortabletList
+export default UserFormList

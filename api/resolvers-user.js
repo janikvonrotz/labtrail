@@ -46,7 +46,7 @@ const resolvers = {
   Mutation: {
     createUser: async (obj, args, context) => {
       // Check if user already exists
-      const user = prepare(await (await collection('users')).findOne({ email: args.email }))
+      let user = prepare(await (await collection('users')).findOne({ email: args.email }))
       if (user) {
         throw new ForbiddenError('User already exists.')
       }
@@ -58,7 +58,10 @@ const resolvers = {
       args.password = await bcrypt.hash(args.password, BCRYPT_ROUNDS)
       args.created = new Date()
       args.created_by = context.user.id
-      return prepare((await (await collection('users')).insertOne(args)).ops[0])
+      user = prepare((await (await collection('users')).insertOne(args)).ops[0])
+
+      // Update tenant assigned list
+
     },
     updateUser: async (obj, args, context) => {
       args.updated = new Date()
@@ -110,6 +113,7 @@ const resolvers = {
       return ''
     },
     tenant: async (obj, args, context) => {
+      // FIXME: Accessing tenant collection directly
       return tenantResolver.Query.tenant(obj, { id: obj.tenant }, context)
     }
   }
