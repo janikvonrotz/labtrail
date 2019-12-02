@@ -207,14 +207,14 @@ type Mutation {
   deleteUser(id: String!): Response @hasRole(roles: [ADMIN])
   deleteCurrentUser: Response @hasRole(roles: [USER,MANAGER,ADMIN])
   updateUserProfile(
-    firstname: String,
-    lastname: String,
-    tenant: String,
+    firstname: String
+    lastname: String
+    tenant: String
   ): Response @hasRole(roles: [USER,MANAGER,ADMIN])
 
   updateUserPassword(
-    new_password: String,
-    new_password_repeated: String
+    new_password: String!
+    new_password_repeated: String!
   ): Response @hasRole(roles: [USER,MANAGER,ADMIN])
 
 }

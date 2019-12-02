@@ -408,22 +408,28 @@ const GET_CURRENT_USER = gql`
 `
 
 const LOGIN_USER = gql`
-query loginUser($email: String!, $password: String!) {
-  loginUser(email: $email, password: $password) {
+query loginUser(
+  $email: String!
+  $password: String!
+) {
+  loginUser(
+    email: $email
+    password: $password
+  ) {
     token
   }
 }
 `
 
-const UPDATE_USERPROFILE = gql`
+const UPDATE_USER_PROFILE = gql`
 mutation updateUserProfile(
-  $firstname: String,
-  $lastname: String,
+  $firstname: String
+  $lastname: String
   $tenant: String
 ) {
   updateUserProfile(
-    firstname: $firstname,
-    lastname: $lastname, 
+    firstname: $firstname
+    lastname: $lastname
     tenant: $tenant
   ) {
     success
@@ -432,10 +438,10 @@ mutation updateUserProfile(
 }
 `
 
-const UPDATE_USERPASSWORD = gql`
+const UPDATE_USER_PASSWORD = gql`
 mutation updateUserPassword(
-  $new_password: String,
-  $new_password_repeated: String
+  $new_password: String!
+  $new_password_repeated: String!
 ) {
   updateUserPassword(
     new_password: $new_password,
@@ -532,8 +538,8 @@ export {
   GET_USERS,
   GET_CURRENT_USER,
   LOGIN_USER,
-  UPDATE_USERPROFILE,
-  UPDATE_USERPASSWORD,
+  UPDATE_USER_PROFILE,
+  UPDATE_USER_PASSWORD,
   GET_ALERTCLIENT,
   CREATE_ALERTCLIENT,
   DELETE_CLIENTALERT,

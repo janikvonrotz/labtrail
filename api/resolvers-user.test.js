@@ -17,6 +17,7 @@ const { ObjectId } = require('mongodb')
 require('dotenv').config({ path: `${__dirname}/.env.${process.env.NODE_ENV}` })
 
 // Initialize Apollo server
+var context = { user: { id: 1, email: 'admin@labtrail.app', role: 'ADMIN', tenant: 1 } }
 const server = new ApolloServer({
   typeDefs,
   resolvers: merge(
@@ -28,7 +29,7 @@ const server = new ApolloServer({
     tenantResolvers,
     searchResolvers
   ),
-  context: () => ({ user: { id: 1, email: 'admin@labtrail.app', role: 'ADMIN', tenant: 1 } }),
+  context: () => (context),
   schemaDirectives: directives
 })
 
@@ -127,8 +128,14 @@ test.serial('Mutate user User to UserX', async t => {
 
 test.serial('Login with user UserX', async t => {
   const LOGIN_USER = gql`
-  query loginUser($email: String!, $password: String!) {
-    loginUser(email: $email, password: $password) {
+  query loginUser(
+    $email: String!
+    $password: String!
+  ) {
+    loginUser(
+      email: $email
+      password: $password
+    ) {
       token
     }
   }
@@ -140,7 +147,51 @@ test.serial('Login with user UserX', async t => {
   t.assert(result.data.loginUser.token)
 })
 
+test.serial('Update user UserX password', async t => {
+  context = { user: { id: result.data.createUser.id, email: 'user@labtrail.app', role: 'USER', tenant: result.data.createTenant.id } }
+  const UPDATE_USER_PASSWORD = gql`
+  mutation updateUserPassword(
+    $new_password: String!,
+    $new_password_repeated: String!
+  ) {
+    updateUserPassword(
+      new_password: $new_password,
+      new_password_repeated: $new_password_repeated
+    ) {
+      success
+    }
+  }
+  `
+  result = merge(result, await mutate({
+    query: UPDATE_USER_PASSWORD,
+    variables: { new_password: 'userpassX', new_password_repeated: 'userpassX' }
+  }))
+  t.assert(result.data.updateUserPassword.success)
+})
+
+test.serial('Login with user UserX and new password', async t => {
+  const LOGIN_USER = gql`
+  query loginUser(
+    $email: String!
+    $password: String!
+  ) {
+    loginUser(
+      email: $email
+      password: $password
+    ) {
+      token
+    }
+  }
+  `
+  result = merge(result, await query({
+    query: LOGIN_USER,
+    variables: { email: 'user@labtrail.app', password: 'userpassX' }
+  }))
+  t.assert(result.data.loginUser.token)
+})
+
 test.serial('Delete user UserX by Id', async t => {
+  context = { user: { id: 1, email: 'admin@labtrail.app', role: 'ADMIN', tenant: 1 } }
   const DELETE_USER = gql`
   mutation deleteUser( $id: String!) {
     deleteUser(id: $id) {
