@@ -36,7 +36,7 @@ const { query, mutate } = createTestClient(server)
 // Share context between tests
 var result = {}
 
-test.serial('Create tenant: Acme', async t => {
+test.serial('Create tenant Acme', async t => {
   const CREATE_TENANT = gql`
   mutation createTenant( $name: String!) {
     createTenant(name: $name) {
@@ -51,7 +51,7 @@ test.serial('Create tenant: Acme', async t => {
   t.assert(ObjectId.isValid(result.data.createTenant.id))
 })
 
-test.serial('Get tenant by Id: Acme', async t => {
+test.serial('Get tenant Acme by Id', async t => {
   const GET_TENANT = gql`
   query tenant($id: String) {
     tenant(id: $id) {
@@ -67,7 +67,7 @@ test.serial('Get tenant by Id: Acme', async t => {
   t.is(result.data.tenant.name, 'Acme')
 })
 
-test.serial('Mutate tenant: Acme -> AcmeX', async t => {
+test.serial('Mutate tenant Acme to AcmeX', async t => {
   const UPDATE_TENANT = gql`
   mutation updateTenant($id: String!, $name: String) {
     updateTenant(id: $id, name: $name) {
@@ -82,7 +82,7 @@ test.serial('Mutate tenant: Acme -> AcmeX', async t => {
   t.assert(result.data.updateTenant.success)
 })
 
-test.serial('Delete tenant by Id: Acme', async t => {
+test.serial('Delete tenant Acme by Id', async t => {
   const DELETE_TENANT = gql`
   mutation deleteTenant( $id: String!) {
     deleteTenant(id: $id) {

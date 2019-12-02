@@ -37,7 +37,7 @@ const { query, mutate } = createTestClient(server)
 // Share context between tests
 var result = {}
 
-test.serial('Create tenant: Acme', async t => {
+test.serial('Create tenant Acme', async t => {
   const CREATE_TENANT = gql`
   mutation createTenant( $name: String!) {
     createTenant(name: $name) {
@@ -52,14 +52,14 @@ test.serial('Create tenant: Acme', async t => {
   t.assert(ObjectId.isValid(result.data.createTenant.id))
 })
 
-test.serial('Create user: User', async t => {
+test.serial('Create user User', async t => {
   const CREATE_USER = gql`
   mutation createUser(
     $firstname: String!
     $lastname: String! 
     $email: String!
     $password: String!
-    $role: Role!
+    $role: Role
     $tenant: String!
   ) {
     createUser(
@@ -88,7 +88,7 @@ test.serial('Create user: User', async t => {
   t.assert(ObjectId.isValid(result.data.createUser.id))
 })
 
-test.serial('Get user by Id: User', async t => {
+test.serial('Get user User by Id', async t => {
   const GET_USER = gql`
   query user($id: String) {
     user(id: $id) {
@@ -104,7 +104,7 @@ test.serial('Get user by Id: User', async t => {
   t.is(result.data.user.firstname, 'User')
 })
 
-test.serial('Mutate user: User -> Userx', async t => {
+test.serial('Mutate user User to UserX', async t => {
   const UPDATE_USER = gql`
   mutation updateUser(
     $id: String!
@@ -125,7 +125,7 @@ test.serial('Mutate user: User -> Userx', async t => {
   t.assert(result.data.updateUser.success)
 })
 
-test.serial('Login with user: User', async t => {
+test.serial('Login with user UserX', async t => {
   const LOGIN_USER = gql`
   query loginUser($email: String!, $password: String!) {
     loginUser(email: $email, password: $password) {
@@ -140,7 +140,7 @@ test.serial('Login with user: User', async t => {
   t.assert(result.data.loginUser.token)
 })
 
-test.serial('Delete user by Id: User', async t => {
+test.serial('Delete user UserX by Id', async t => {
   const DELETE_USER = gql`
   mutation deleteUser( $id: String!) {
     deleteUser(id: $id) {
@@ -155,7 +155,7 @@ test.serial('Delete user by Id: User', async t => {
   t.assert(result.data.deleteUser.success)
 })
 
-test.serial('Delete tenant by Id: Acme', async t => {
+test.serial('Delete tenant Acme by Id', async t => {
   const DELETE_TENANT = gql`
   mutation deleteTenant( $id: String!) {
     deleteTenant(id: $id) {

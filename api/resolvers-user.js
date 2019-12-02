@@ -61,7 +61,9 @@ const resolvers = {
       user = prepare((await (await collection('users')).insertOne(args)).ops[0])
 
       // Update tenant assigned list
-
+      const filter = { _id: ObjectId(args.tenant) }
+      await (await collection('tenants')).updateOne(filter, { $push: { assigned_users: user.id } })
+      return user
     },
     updateUser: async (obj, args, context) => {
       args.updated = new Date()

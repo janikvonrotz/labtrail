@@ -36,7 +36,7 @@ const { query, mutate } = createTestClient(server)
 // Share context between tests
 var result = {}
 
-test.serial('Create category: Support', async t => {
+test.serial('Create category Support', async t => {
   const CREATE_CATEGORY = gql`
   mutation createCategory( $name: String!) {
     createCategory(name: $name) {
@@ -51,7 +51,7 @@ test.serial('Create category: Support', async t => {
   t.assert(ObjectId.isValid(result.data.createCategory.id))
 })
 
-test.serial('Create document: EnteEnteLos', async t => {
+test.serial('Create document EnteEnteLos', async t => {
   const CREATE_DOCUMENT = gql`
   mutation createDocument(
     $title: String!
@@ -81,7 +81,7 @@ test.serial('Create document: EnteEnteLos', async t => {
   t.assert(ObjectId.isValid(result.data.createDocument.id))
 })
 
-test.serial('Get document by Id: EnteEnteLos', async t => {
+test.serial('Get document EnteEnteLos by Id', async t => {
   const GET_DOCUMENT = gql`
   query document($id: String) {
     document(id: $id) {
@@ -97,7 +97,7 @@ test.serial('Get document by Id: EnteEnteLos', async t => {
   t.is(result.data.document.title, 'EnteEnteLos')
 })
 
-test.serial('Mutate document: EnteEnteLos -> EnteEnteLosX', async t => {
+test.serial('Mutate document EnteEnteLos to EnteEnteLosX', async t => {
   const UPDATE_DOCUMENT = gql`
   mutation updateDocument(
     $id: String!
@@ -118,7 +118,7 @@ test.serial('Mutate document: EnteEnteLos -> EnteEnteLosX', async t => {
   t.assert(result.data.updateDocument.success)
 })
 
-test.serial('Delete document by Id: EnteEnteLos', async t => {
+test.serial('Delete document EnteEnteLos by Id', async t => {
   const DELETE_DOCUMENT = gql`
   mutation deleteDocument( $id: String!) {
     deleteDocument(id: $id) {
@@ -133,7 +133,7 @@ test.serial('Delete document by Id: EnteEnteLos', async t => {
   t.assert(result.data.deleteDocument.success)
 })
 
-test.serial('Delete category by Id: Support', async t => {
+test.serial('Delete category Support by Id', async t => {
   const DELETE_CATEGORY = gql`
   mutation deleteCategory( $id: String!) {
     deleteCategory(id: $id) {

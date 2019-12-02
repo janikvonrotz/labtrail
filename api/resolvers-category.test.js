@@ -36,7 +36,7 @@ const { query, mutate } = createTestClient(server)
 // Share context between tests
 var result = {}
 
-test.serial('Create category: Support', async t => {
+test.serial('Create category Support', async t => {
   const CREATE_CATEGORY = gql`
   mutation createCategory( $name: String!) {
     createCategory(name: $name) {
@@ -51,7 +51,7 @@ test.serial('Create category: Support', async t => {
   t.assert(ObjectId.isValid(result.data.createCategory.id))
 })
 
-test.serial('Get category by Id: Support', async t => {
+test.serial('Get category Support by Id', async t => {
   const GET_CATEGORY = gql`
   query category($id: String) {
     category(id: $id) {
@@ -67,7 +67,7 @@ test.serial('Get category by Id: Support', async t => {
   t.is(result.data.category.name, 'Support')
 })
 
-test.serial('Mutate category: Support -> SupportX', async t => {
+test.serial('Mutate category Support to SupportX', async t => {
   const UPDATE_CATEGORY = gql`
   mutation updateCategory($id: String!, $name: String) {
     updateCategory(id: $id, name: $name) {
@@ -82,7 +82,7 @@ test.serial('Mutate category: Support -> SupportX', async t => {
   t.assert(result.data.updateCategory.success)
 })
 
-test.serial('Delete category by Id: Support', async t => {
+test.serial('Delete category Support by Id', async t => {
   const DELETE_CATEGORY = gql`
   mutation deleteCategory( $id: String!) {
     deleteCategory(id: $id) {

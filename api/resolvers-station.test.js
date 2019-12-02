@@ -36,7 +36,7 @@ const { query, mutate } = createTestClient(server)
 // Share context between tests
 var result = {}
 
-test.serial('Create station: Infopoint', async t => {
+test.serial('Create station Infopoint', async t => {
   const CREATE_STATION = gql`
   mutation createStation(
     $name: String!
@@ -63,7 +63,7 @@ test.serial('Create station: Infopoint', async t => {
   t.assert(ObjectId.isValid(result.data.createStation.id))
 })
 
-test.serial('Get station by Id: Infopoint', async t => {
+test.serial('Get station Infopoint by Id', async t => {
   const GET_STATION = gql`
   query station($id: String) {
     station(id: $id) {
@@ -79,7 +79,7 @@ test.serial('Get station by Id: Infopoint', async t => {
   t.is(result.data.station.name, 'Infopoint')
 })
 
-test.serial('Mutate station: Infopoint -> InfopointX', async t => {
+test.serial('Mutate station Infopoint to InfopointX', async t => {
   const UPDATE_STATION = gql`
   mutation updateStation($id: String!, $name: String) {
     updateStation(id: $id, name: $name) {
@@ -94,7 +94,7 @@ test.serial('Mutate station: Infopoint -> InfopointX', async t => {
   t.assert(result.data.updateStation.success)
 })
 
-test.serial('Delete station by Id: Infopoint', async t => {
+test.serial('Delete station Infopoint by Id', async t => {
   const DELETE_STATION = gql`
   mutation deleteStation( $id: String!) {
     deleteStation(id: $id) {
