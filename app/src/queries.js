@@ -72,7 +72,7 @@ const GET_ASSIGNEDTENANTS = gql`
 `
 
 const ASSIGN_CATEGORY = gql`
-mutation assignCategory( $category: String!) {
+mutation assignCategory($category: String!) {
   assignCategory(category: $category) {
     success
     message
@@ -463,8 +463,14 @@ const GET_ALERTCLIENT = gql`
 `
 
 const CREATE_ALERTCLIENT = gql`
-mutation createAlert($message: String!, $type: AlertType!) {
-  createAlert(message: $message, type: $type) @client
+mutation createAlert(
+  $message: String!
+  $type: AlertType!
+) {
+  createAlert(
+    message: $message
+    type: $type
+  ) @client
 }
 `
 

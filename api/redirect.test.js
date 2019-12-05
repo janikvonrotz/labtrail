@@ -37,6 +37,21 @@ const { query, mutate } = createTestClient(server)
 // Share context between tests
 var result = {}
 
+test.serial('Create tenant Acme', async t => {
+  const CREATE_TENANT = gql`
+  mutation createTenant( $name: String!) {
+    createTenant(name: $name) {
+      id
+    }
+  }
+  `
+  result = merge(result, await mutate({
+    mutation: CREATE_TENANT,
+    variables: { name: 'Acme' }
+  }))
+  t.assert(ObjectId.isValid(result.data.createTenant.id))
+})
+
 test.serial('Create category Support', async t => {
   const CREATE_CATEGORY = gql`
   mutation createCategory( $name: String!) {
@@ -82,41 +97,82 @@ test.serial('Create document EnteEnteLos', async t => {
   t.assert(ObjectId.isValid(result.data.createDocument.id))
 })
 
-test.serial('Get document EnteEnteLos by Id', async t => {
-  const GET_DOCUMENT = gql`
-  query document($id: String) {
-    document(id: $id) {
+test.serial('Create station Infopoint', async t => {
+  // Ensure staton is assigned to Acme tenant
+  context = { user: { id: 1, email: 'admin@labtrail.app', role: 'ADMIN', tenant: result.data.createTenant.id } }
+  const CREATE_STATION = gql`
+  mutation createStation(
+    $name: String!
+    $location: String!
+    $color: Color!
+    $documents: [String]
+  ) {
+    createStation(
+      name: $name
+      location: $location
+      color: $color
+      documents: $documents
+     ) {
       id
-      title
     }
   }
   `
-  result = merge(result, await query({
-    query: GET_DOCUMENT,
-    variables: { id: result.data.createDocument.id }
+  result = merge(result, await mutate({
+    mutation: CREATE_STATION,
+    variables: {
+      name: 'Infopoint',
+      location: 'Outer Galaxy',
+      color: 'RED',
+      documents: [result.data.createDocument.id]
+    }
   }))
-  t.is(result.data.document.title, 'EnteEnteLos')
+  t.assert(ObjectId.isValid(result.data.createStation.id))
 })
 
-test.serial('Mutate document EnteEnteLos to EnteEnteLosX', async t => {
-  const UPDATE_DOCUMENT = gql`
-  mutation updateDocument(
-    $id: String!
-    $title: String
-  ) {
-    updateDocument(
-      id: $id
-      title: $title
-    ) {
+test.serial('Assign category Support to tenant Acme', async t => {
+  // This makes the category Support active for redirects
+  const ASSIGN_CATEGORY = gql`
+  mutation assignCategory($category: String!) {
+    assignCategory(category: $category) {
       success
     }
   }
   `
   result = merge(result, await mutate({
-    mutation: UPDATE_DOCUMENT,
-    variables: { id: result.data.createDocument.id, title: 'EnteEnteLosX' }
+    mutation: ASSIGN_CATEGORY,
+    variables: { category: result.data.createCategory.id }
   }))
-  t.assert(result.data.updateDocument.success)
+  t.assert(result.data.assignCategory.success)
+})
+
+test.serial('Query redirect link on station Infopoint', async t => {
+  const GET_REDIRECT_LINK = gql`
+  query redirectLink($id: String) {
+    redirectLink(id: $id) {
+      url
+    }
+  }
+  `
+  result = merge(result, await query({
+    query: GET_REDIRECT_LINK,
+    variables: { id: result.data.createStation.id }
+  }))
+  t.is(result.data.redirectLink.url, 'https://enteentelos.ch')
+})
+
+test.serial('Delete station Infopoint by Id', async t => {
+  const DELETE_STATION = gql`
+  mutation deleteStation( $id: String!) {
+    deleteStation(id: $id) {
+      success
+    }
+  }
+  `
+  result = merge(result, await mutate({
+    mutation: DELETE_STATION,
+    variables: { id: result.data.createStation.id }
+  }))
+  t.assert(result.data.deleteStation.success)
 })
 
 test.serial('Delete document EnteEnteLos by Id', async t => {
@@ -147,4 +203,19 @@ test.serial('Delete category Support by Id', async t => {
     variables: { id: result.data.createCategory.id }
   }))
   t.assert(result.data.deleteCategory.success)
+})
+
+test.serial('Delete tenant Acme by Id', async t => {
+  const DELETE_TENANT = gql`
+  mutation deleteTenant( $id: String!) {
+    deleteTenant(id: $id) {
+      success
+    }
+  }
+  `
+  result = merge(result, await mutate({
+    mutation: DELETE_TENANT,
+    variables: { id: result.data.createTenant.id }
+  }))
+  t.assert(result.data.deleteTenant.success)
 })

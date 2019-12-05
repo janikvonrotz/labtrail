@@ -17,6 +17,7 @@ const { ObjectId } = require('mongodb')
 require('dotenv').config({ path: `${__dirname}/.env.${process.env.NODE_ENV}` })
 
 // Initialize Apollo server
+var context = { user: { id: 1, email: 'admin@labtrail.app', role: 'ADMIN', tenant: 1 } }
 const server = new ApolloServer({
   typeDefs,
   resolvers: merge(
@@ -28,7 +29,7 @@ const server = new ApolloServer({
     tenantResolvers,
     searchResolvers
   ),
-  context: () => ({ user: { id: 1, email: 'admin@labtrail.app', role: 'ADMIN', tenant: 1 } }),
+  context: () => (context),
   schemaDirectives: directives
 })
 const { query, mutate } = createTestClient(server)
