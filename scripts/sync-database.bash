@@ -9,5 +9,10 @@ fi
 read -r -p "Restore target database: $TARGET_DATABASENAME ? [y/N]" response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
-    mongorestore -h $TARGET_DATBASEHOST -d $TARGET_DATABASENAME -u $TARGET_DATABASE_USERNAME -p $TARGET_DATABASE_PASSWORD ./.dump/$SOURCE_DATABASENAME
+    if [[$TARGET_DATABASE_USERNAME] && [[TARGET_DATABASE_PASSWORD]]
+    then
+        mongorestore -h $TARGET_DATBASEHOST -d $TARGET_DATABASENAME -u $TARGET_DATABASE_USERNAME -p $TARGET_DATABASE_PASSWORD ./.dump/$SOURCE_DATABASENAME
+    else
+        mongorestore -h $TARGET_DATBASEHOST -d $TARGET_DATABASENAME ./.dump/$SOURCE_DATABASENAME
+    fi
 fi
