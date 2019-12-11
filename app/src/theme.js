@@ -1,11 +1,13 @@
 import { createMuiTheme } from '@material-ui/core/styles'
-import red from '@material-ui/core/colors/red'
+import 'typeface-roboto'
 
 const theme = createMuiTheme({
   palette: {
-    primary: red,
+    primary: {
+      main: '#0064a6' // ZHAW primary color Pantone 2945 U
+    },
     secondary: {
-      main: '#43a047'
+      main: '#000' // ZHAW secondary color Pantone 7502
     }
   }
 })

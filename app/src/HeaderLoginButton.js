@@ -6,8 +6,11 @@ import { useApolloClient } from '@apollo/react-hooks'
 import PropTypes from 'prop-types'
 
 const useStyles = makeStyles(theme => ({
-  link: {
+  Link: {
     textDecoration: 'none'
+  },
+  Button: {
+    color: '#fff'
   }
 }))
 
@@ -22,17 +25,17 @@ const HeaderLoginButton = ({ user }) => {
     window.localStorage.clear()
     client.resetStore()
   }
-  
+
   if (user) {
     return (
-      <Link to='/login' className={classes.link}>
-        <Button onClick={logout} color='inherit'>Logout</Button>
+      <Link to='/login' className={classes.Link}>
+        <Button onClick={logout} className={classes.Button}>Logout</Button>
       </Link>
     )
   }
   return (
-    <Link to='/login' className={classes.link}>
-      <Button color='inherit'>Login</Button>
+    <Link to='/login' className={classes.Link}>
+      <Button className={classes.Button}>Login</Button>
     </Link>
   )
 }

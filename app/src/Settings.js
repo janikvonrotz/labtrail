@@ -30,7 +30,7 @@ const Settings = () => {
     }],
     onCompleted: () => {
       client.resetStore()
-      createAlert({ variables: { message: 'Settings saved! Reseted cache.', type: 'SUCCESS' } })
+      createAlert({ variables: { message: 'Settings saved! Cache reseted.', type: 'SUCCESS' } })
     }
   })
 

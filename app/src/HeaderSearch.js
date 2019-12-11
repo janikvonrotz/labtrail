@@ -6,7 +6,7 @@ import HeaderSearchList from './HeaderSearchList'
 import { useDebounce } from './hooks'
 
 const useStyles = makeStyles(theme => ({
-  search: {
+  Search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
       width: 'auto'
     }
   },
-  searchIcon: {
+  SearchIcon: {
     width: theme.spacing(7),
     height: '100%',
     position: 'absolute',
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  inputInput: {
+  InputInput: {
     padding: theme.spacing(1, 1, 1, 7),
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -52,15 +52,14 @@ const HeaderSearch = () => {
 
   return (
     <>
-      <div className={classes.search}>
-        <div className={classes.searchIcon}>
+      <div className={classes.Search}>
+        <div className={classes.SearchIcon}>
           <SearchIcon />
         </div>
         <InputBase
           placeholder='Search…'
           classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput
+            input: classes.InputInput
           }}
           inputProps={{ 'aria-label': 'search' }}
           id='search'

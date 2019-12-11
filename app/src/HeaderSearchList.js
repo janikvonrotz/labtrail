@@ -12,24 +12,25 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Link from 'react-router-dom/Link'
 
 const useStyles = makeStyles(theme => ({
-  root: {
+  Root: {
     top: theme.spacing(9),
     width: 300,
     position: 'absolute',
     right: 0,
     zIndex: 1
   },
-  paper: {
+  Paper: {
+    width: 250,
     padding: theme.spacing(2, 2),
     position: 'absolute'
   },
-  list: {
+  List: {
     backgroundColor: theme.palette.background.paper
   },
-  title: {
+  Title: {
     padding: theme.spacing(1, 1)
   },
-  link: {
+  Link: {
     textDecoration: 'none'
   }
 }))
@@ -46,11 +47,11 @@ const HeaderSearchList = ({ setQuery, query }) => {
   if (query && data && data.search && data.search.length === 0) {
     result = (
       <>
-        <Typography className={classes.title} variant='h5' component='h3'>
+        <Typography className={classes.Title} variant='h5' component='h3'>
           No Results
         </Typography>
         <Divider />
-        <List className={classes.list}>
+        <List className={classes.List}>
           <ListItem>
             <ListItemText
               primary='Empty'
@@ -82,11 +83,11 @@ const HeaderSearchList = ({ setQuery, query }) => {
     for (const key in grouped) {
       items.push(
         <React.Fragment key={key}>
-          <Typography className={classes.title} variant='h5' component='h3'>
+          <Typography className={classes.Title} variant='h5' component='h3'>
             {key}
           </Typography>
           <Divider />
-          <List className={classes.list}>
+          <List className={classes.List}>
             {grouped[key].map(item => {
               let primary = ''
               let secondary = ''
@@ -107,7 +108,7 @@ const HeaderSearchList = ({ setQuery, query }) => {
               }
 
               return (
-                <Link key={item.id} to={`/${key.toLowerCase()}/${item.id}`} className={classes.link}>
+                <Link key={item.id} to={`/${key.toLowerCase()}/${item.id}`} className={classes.Link}>
                   <ListItem onClick={event => setQuery('')} button>
                     <ListItemText
                       primary={primary}
@@ -126,8 +127,8 @@ const HeaderSearchList = ({ setQuery, query }) => {
 
   if (result) {
     return (
-      <div className={classes.root}>
-        <Paper className={classes.paper}>
+      <div className={classes.Root}>
+        <Paper className={classes.Paper}>
           {result}
         </Paper>
       </div>

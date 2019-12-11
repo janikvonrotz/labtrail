@@ -44,7 +44,7 @@ const Profile = () => {
   const [updateUserProfile, { loading: updateUserProfileLoading, error: updateUserProfileError, client }] = useMutation(UPDATE_USER_PROFILE, {
     onCompleted: () => {
       client.resetStore()
-      createAlert({ variables: { message: 'Profile saved! Reseted cache.', type: 'SUCCESS' } })
+      createAlert({ variables: { message: 'Profile saved! Cache reseted.', type: 'SUCCESS' } })
     }
   })
 
@@ -98,7 +98,6 @@ const Profile = () => {
       <Button
         variant='contained'
         color='secondary'
-        type='submit'
         className={classes.button}
         onClick={toggle}
       >

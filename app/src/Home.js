@@ -26,6 +26,12 @@ const Home = () => {
         LabTrail
       </Typography>
       <Typography component='p'>
+        QR-code manager with multi-tenant support.
+      </Typography>
+      <Typography component='p'>
+        This project is sponsored by the <a href='https://www.zhaw.ch/en/lsfm/institutes-centres/icbt/biocatalysis-and-process-technology/'>bioprocess technology division of the ZHAW</a>.
+      </Typography>
+      <Typography component='p'>
         LabTrail is the central platform to manage the destinations of QR-Codes. Register new QR-Codes and define multiple link targets. Manage users and assign them to tenants. Switch easily between tenants and their active QR-Code category.
       </Typography>
       <Typography component='p'>

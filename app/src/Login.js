@@ -10,15 +10,19 @@ import { useLazyQuery } from '@apollo/react-hooks'
 import { LOGIN_USER, GET_CURRENT_USER } from './queries'
 import { Redirect } from 'react-router'
 import { useForm } from './hooks'
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles(theme => ({
-  title: {
+  GridContainer: {
+    justifyContent: 'center'
+  },
+  Titel: {
     margin: theme.spacing(2, 0)
   },
-  paper: {
+  Paper: {
     padding: theme.spacing(3, 2)
   },
-  submit: {
+  ButtonSubmit: {
     margin: theme.spacing(3, 0, 2)
   }
 }))
@@ -41,10 +45,10 @@ const Login = () => {
   })
 
   // Wait for lazy query
-  if (called && loading) return <Paper className={classes.paper}><Loading /></Paper>
+  if (called && loading) return <Paper className={classes.Paper}><Loading /></Paper>
 
   // Show error message if lazy query fails
-  if (error) return <Paper className={classes.paper}><Error message={error.message} /></Paper>
+  if (error) return <Paper className={classes.Paper}><Error message={error.message} /></Paper>
 
   // Store token if login is successful
   if (data && data.loginUser.token) {
@@ -56,46 +60,50 @@ const Login = () => {
   }
 
   return (
-    <Paper className={classes.paper}>
-      <Typography className={classes.title} variant='h3' component='h1'>
-        Login
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          variant='outlined'
-          margin='normal'
-          required
-          fullWidth
-          id='email'
-          name='email'
-          label='Email Address'
-          type='email'
-          value={values.email}
-          onChange={handleChange}
-          autoFocus
-        />
-        <TextField
-          variant='outlined'
-          margin='normal'
-          required
-          fullWidth
-          id='password'
-          name='password'
-          label='Password'
-          type='password'
-          value={values.password}
-          onChange={handleChange}
-        />
-        <Button
-          type='submit'
-          fullWidth
-          variant='contained'
-          color='primary'
-          className={classes.submit}
-        >
-          Sign in
-        </Button>
-      </form>
+    <Paper className={classes.Paper}>
+      <Grid container className={classes.GridContainer}>
+        <Grid item>
+          <Typography className={classes.Title} variant='h3' component='h1'>
+            Login
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              id='email'
+              name='email'
+              label='Email Address'
+              type='email'
+              value={values.email}
+              onChange={handleChange}
+              autoFocus
+            />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              id='password'
+              name='password'
+              label='Password'
+              type='password'
+              value={values.password}
+              onChange={handleChange}
+            />
+            <Button
+              type='submit'
+              fullWidth
+              variant='contained'
+              color='primary'
+              className={classes.ButtonSubmit}
+            >
+              Sign in
+            </Button>
+          </form>
+        </Grid>
+      </Grid>
     </Paper>
   )
 }

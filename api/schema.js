@@ -163,7 +163,7 @@ type Mutation {
   ): Response @hasRole(roles: [ADMIN])
   deleteTenant(id: String!): Response @hasRole(roles: [ADMIN])
   assignTenant(
-    id: String!, 
+    id: String!,
     user: String!
   ): Response @hasRole(roles: [ADMIN])
   assignCategory(
