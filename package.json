@@ -7,7 +7,7 @@
     "test": "yarn workspaces run test"
   },
   "private": true,
-  "workspaces": ["api", "app", "auth", "qr", "mongo", "scripts"],
+  "workspaces": ["api", "app", "auth", "qr", "mongo", "scripts", "typeface-helveticarounded-bold"],
   "author": "Janik von Rotz",
-  "license": "GPLv3"
+  "license": "GPL-3.0"
 }

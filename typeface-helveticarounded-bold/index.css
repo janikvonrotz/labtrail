@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'HelveticaRoundedBold';
+  src: url('./files/HelveticaRounded-Bold.woff2') format('woff2'),
+  url('./files/HelveticaRounded-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}

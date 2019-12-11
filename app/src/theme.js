@@ -1,5 +1,6 @@
 import { createMuiTheme } from '@material-ui/core/styles'
 import 'typeface-roboto'
+import 'typeface-helveticarounded-bold'
 
 const theme = createMuiTheme({
   palette: {

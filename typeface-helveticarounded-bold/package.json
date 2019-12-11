@@ -1,0 +1,20 @@
+{
+  "name": "typeface-helveticarounded-bold",
+  "version": "1.0.0",
+  "description": "Typeface HelveticaRounded Bold",
+  "main": "index.css",
+  "keywords": [
+    "typeface",
+    "font",
+    "font family",
+    "helvetica fonts",
+    "helvetica"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "lint": "echo \"Error: no linter specified\" && exit 0"
+  },
+  "author": "Janik von Rotz",
+  "license": "GPL-3.0",
+  "repository": "https://github.com/janikvonrotz/typeface-helveticarounded-bold"
+}

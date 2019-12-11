@@ -14,11 +14,12 @@ import { hasRole } from './helpers'
 
 // Styles for menu bar and drawer
 const useStyles = makeStyles(theme => ({
-  menuButton: {
+  ButtonMenu: {
     marginRight: theme.spacing(2)
   },
-  title: {
-    flexGrow: 1
+  Title: {
+    flexGrow: 1,
+    fontFamily: 'HelveticaRoundedBold'
   }
 }))
 
@@ -41,13 +42,13 @@ const Header = () => {
         <IconButton
           onClick={toggleDrawer}
           edge='start'
-          className={classes.menuButton}
+          className={classes.ButtonMenu}
           color='inherit'
           aria-label='menu'
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant='h6' className={classes.title}>
+        <Typography variant='h5' className={classes.Title}>
           LabTrail
         </Typography>
         {hasRole(data && data.currentUser, ['ADMIN', 'MANAGER']) && <HeaderSearch />}

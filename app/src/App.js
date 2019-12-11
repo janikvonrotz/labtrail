@@ -7,18 +7,21 @@ import Routes from './Routes'
 import AlertClient from './AlertClient'
 import theme from './theme'
 import { ThemeProvider } from '@material-ui/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
 
 function App () {
   return (
     <Apollo>
       <FlexboxGrid>
-        <ThemeProvider theme={theme}>
-          <Router>
-            <AlertClient />
-            <Header />
-            <Routes />
-          </Router>
-        </ThemeProvider>
+        <CssBaseline>
+          <ThemeProvider theme={theme}>
+            <Router>
+              <AlertClient />
+              <Header />
+              <Routes />
+            </Router>
+          </ThemeProvider>
+        </CssBaseline>
       </FlexboxGrid>
     </Apollo>
   )
