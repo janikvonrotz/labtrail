@@ -9,5 +9,5 @@
   "private": true,
   "workspaces": ["api", "app", "auth", "qr", "mongo", "scripts"],
   "author": "Janik von Rotz",
-  "license": "MIT"
+  "license": "GPLv3"
 }
