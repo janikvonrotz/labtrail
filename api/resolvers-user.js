@@ -1,7 +1,7 @@
 const { collection, prepare } = require('mongo')
 const { ObjectId } = require('mongodb')
 const { AuthenticationError, ForbiddenError } = require('apollo-server-micro')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const tenantResolver = require('./resolvers-tenant')
 
