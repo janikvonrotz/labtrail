@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "now dev",
     "lint": "yarn workspaces run lint",
-    "test": "yarn workspaces run test"
+    "test": "yarn workspaces run test",
+    "docker-build-api": "docker build -t api:1.0.0 -f api/Dockerfile ."
   },
   "private": true,
   "workspaces": ["api", "app", "auth", "qr", "mongo", "scripts", "typeface-helveticarounded-bold"],

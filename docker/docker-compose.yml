@@ -1,0 +1,17 @@
+version: '3'
+services:
+  database:
+    image: mongo
+    ports:
+    - "27017:27017"
+    volumes:
+    - $PWD/../scripts:/scripts
+  api:
+    image: api:${API_VERSION}
+    ports:
+    - "3001:3000"
+    environment:
+    - MONGODB_URI=${MONGODB_URI}
+    - JWT_SECRET=${JWT_SECRET}
+    links:
+    - "database:database"
