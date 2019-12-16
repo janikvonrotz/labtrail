@@ -5,7 +5,10 @@
     "dev": "now dev",
     "lint": "yarn workspaces run lint",
     "test": "yarn workspaces run test",
-    "docker-build-api": "docker build -t api:1.0.0 -f api/Dockerfile ."
+    "docker-build-api": "docker build -t api:1.0.0 -f api/Dockerfile .",
+    "docker-build-app": "docker build -t app:1.0.0 -f app/Dockerfile .",
+    "docker-build-qr": "docker build -t qr:1.0.0 -f qr/Dockerfile .",
+    "docker-compose": "docker-compose up -d"
   },
   "private": true,
   "workspaces": ["api", "app", "auth", "qr", "mongo", "scripts", "typeface-helveticarounded-bold"],

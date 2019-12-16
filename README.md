@@ -10,7 +10,9 @@ LabTrail is the central platform to manage the destinations of QR-Codes. Registe
 
 ![Screenshot](/screenshot.png)
 
-## Setup
+## Configuration
+
+### Database
 
 For search performance text indexes are required on every mongodb collection. Index the following fields:
 
@@ -24,8 +26,71 @@ user.lastname
 user.email
 ```
 
+### Environment Variables
+
+**.env**
+
+```
+MONGODB_URI=mongodb://USERNAME:PASSWORD@URL:PORT/DATABASENAME
+JWT_SECRET=SECRET_KEY
+# Deployment - Docker:
+API_VERSION=X.X.X
+APP_VERSION=X.X.X
+QR_VERSION=X.X.X
+```
+
+Checkout each packagefolder for environment variable definitions.
+
+## Development
+
+Install package dependencies with yarn workspace.
+
+`yarn`
+
+Run the development server.
+
+`yarn dev`
+
+### Package
+
+Every package can be developed standalone.
+
+Configure the package environment variables and start the development server.
+
+`yarn dev`
+
+### Testing
+
+Run the linter first.
+
+`yarn lint`
+
+Configure the package environment variables and then run the tests.
+
+`yarn test`
+
 ## Deployment
+
+Checkout the [deployment concept]() for details.
+
+### Serverless
 
 Configure environment variables and deploy with [now](https://zeit.co/now).
 
 `now`
+
+### Docker
+
+Build the docker images.
+
+```
+yarn docker-build-api
+yarn docker-build-app
+yarn docker-build-qr
+```
+
+Configure the environment variables and run docker compose.
+
+`yarn docker-compose`
+
+### Ansible

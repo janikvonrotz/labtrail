@@ -8,6 +8,7 @@ React frontend of the LabTrail application.
 
 ```
 BROWSER=none
+# Optional:
 REACT_APP_APOLLO_URL=https://example.org/graphql
 ```
 

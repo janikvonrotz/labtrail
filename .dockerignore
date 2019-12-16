@@ -1,3 +1,7 @@
-node_modules
-npm-debug.log
-.env
+**/node_modules
+**/.env*
+**/default.vim
+**/*.swp
+**/yarn-error.log
+**/.DS_Store
+**/.git

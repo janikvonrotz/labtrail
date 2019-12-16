@@ -1,0 +1,28 @@
+version: '3'
+services:
+  database:
+    image: mongo:4.2.2
+    volumes:
+    - $PWD/scripts:/scripts
+  api:
+    image: api:${API_VERSION}
+    environment:
+    - MONGODB_URI=mongodb://database:27017/labtrail
+    - JWT_SECRET=${JWT_SECRET}
+    links:
+    - "database:database"
+  app:
+    image: app:${APP_VERSION}
+  qr:
+    image: qr:${QR_VERSION}
+  proxy:
+    image: nginx:1.15-alpine
+    ports:
+    - "80:80"
+    - "443:443"
+    volumes:
+    - "$PWD/etc/nginx/default.conf:/etc/nginx/conf.d/default.conf:"
+    links:
+    - "api:api"
+    - "app:app"
+    - "qr:qr"
