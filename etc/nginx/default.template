@@ -1,0 +1,27 @@
+server {
+    listen 80;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name ${NGINX_HOST};
+
+    ssl_certificate ${NGINX_HOST}.crt;
+    ssl_certificate_key ${NGINX_HOST}.key;
+
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+
+    location / {
+        proxy_pass http://app;
+    }
+
+    location /api {
+        proxy_pass http://api:3000/api;
+    }
+
+    location /qr {
+        proxy_pass http://qr:3000;
+    }
+}
