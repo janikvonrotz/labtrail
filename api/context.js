@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-micro')
 const jwt = require('jsonwebtoken')
 const { collection, prepare } = require('mongo')
+const { json } = require('micro')
 
 const context = async ({ req }) => {
   // Get the user token from the headers
@@ -8,6 +9,11 @@ const context = async ({ req }) => {
 
   // Create null user
   let user
+
+  // parse the request if body is not present
+  if (!req.body) {
+    req.body = await json(req)
+  }
 
   // Verify token if available and query is not login user.
   if (token && !req.body.query.includes('loginUser')) {
