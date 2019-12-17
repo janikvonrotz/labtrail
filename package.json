@@ -5,9 +5,9 @@
     "dev": "now dev",
     "lint": "yarn workspaces run lint",
     "test": "yarn workspaces run test",
-    "docker-build-api": "docker build -t api:1.0.0 -f api/Dockerfile .",
-    "docker-build-app": "docker build -t app:1.0.0 -f app/Dockerfile .",
-    "docker-build-qr": "docker build -t qr:1.0.0 -f qr/Dockerfile .",
+    "docker-build-api": "docker build --rm -t api:1.0.0 -f api/Dockerfile .",
+    "docker-build-app": "docker build --rm -t app:1.0.0 -f app/Dockerfile .",
+    "docker-build-qr": "docker build --rm -t qr:1.0.0 -f qr/Dockerfile .",
     "docker-compose": "docker-compose up -d"
   },
   "private": true,
