@@ -1,0 +1,1 @@
+test -f .env && export $(cat .env | xargs)
