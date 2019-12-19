@@ -75,13 +75,13 @@ Checkout the [deployment concept]() for details.
 
 ### Serverless
 
-Configure environment variables and deploy with [now](https://zeit.co/now).
+Configure the environment variables and deploy with [now](https://zeit.co/now).
 
 `now`
 
 ### Docker
 
-Build the docker images.
+Configure the environment variables and build the docker images.
 
 ```
 yarn docker-build-api
@@ -89,7 +89,7 @@ yarn docker-build-app
 yarn docker-build-qr
 ```
 
-Configure the environment variables and run docker compose.
+Run docker compose.
 
 `yarn docker-compose`
 
