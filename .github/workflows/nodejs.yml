@@ -22,4 +22,5 @@ jobs:
         yarn
         yarn test
       env:
-        CI: true
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        MONGODB_URI: ${{ secrets.MONGODB_URI }}
