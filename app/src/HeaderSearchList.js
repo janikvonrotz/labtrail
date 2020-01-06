@@ -35,16 +35,16 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const HeaderSearchList = ({ setQuery, query }) => {
+const HeaderSearchList = ({ setQuery, query, debouncedQuery }) => {
   const classes = useStyles()
 
-  const { data } = useQuery(SEARCH, { variables: { query: query } })
+  const { loading, data } = useQuery(SEARCH, { variables: { query: debouncedQuery } })
 
   // By default do not show any results
   var result = null
 
   // If query is present and result set is empty show empty results
-  if (query && data && data.search && data.search.length === 0) {
+  if (query && data && data.search && data.search.length === 0 && !loading) {
     result = (
       <>
         <Typography className={classes.Title} variant='h5' component='h3'>
@@ -63,7 +63,8 @@ const HeaderSearchList = ({ setQuery, query }) => {
     )
   }
 
-  if (query && data && data.search && data.search.length !== 0) {
+  // Generate result data
+  if (query && data && data.search && data.search.length !== 0 && !loading) {
     // group search results
     let grouped = {}
     if (data.search.length > 1) {
@@ -125,7 +126,8 @@ const HeaderSearchList = ({ setQuery, query }) => {
     result = items
   }
 
-  if (result) {
+  // Show results and hide on result click (query is empty)
+  if (result && query !== '' && !loading) {
     return (
       <div className={classes.Root}>
         <Paper className={classes.Paper}>
@@ -140,7 +142,8 @@ const HeaderSearchList = ({ setQuery, query }) => {
 
 HeaderSearchList.propTypes = {
   setQuery: PropTypes.func,
-  query: PropTypes.string
+  query: PropTypes.string,
+  debouncedQuery: PropTypes.string
 }
 
 export default HeaderSearchList

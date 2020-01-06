@@ -64,9 +64,10 @@ const HeaderSearch = () => {
           inputProps={{ 'aria-label': 'search' }}
           id='search'
           onChange={(event) => { setQuery(event.target.value) }}
+          value={query}
         />
       </div>
-      <HeaderSearchList setQuery={setQuery} query={debouncedQuery} />
+      <HeaderSearchList setQuery={setQuery} query={query} debouncedQuery={debouncedQuery} />
     </>
   )
 }
