@@ -92,5 +92,3 @@ yarn docker-build-qr
 Run docker compose.
 
 `yarn docker-compose`
-
-### Ansible
