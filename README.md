@@ -2,6 +2,8 @@
 
 # LabTrail
 
+![](https://github.com/janikvonrotz/labtrail/workflows/Node%20CI/badge.svg)
+
 QR-code manager with multi-tenant support.
 
 This project is sponsored by the [bioprocess technology division of the ZHAW](https://www.zhaw.ch/en/lsfm/institutes-centres/icbt/biocatalysis-and-process-technology/).
@@ -92,5 +94,3 @@ yarn docker-build-qr
 Run docker compose.
 
 `yarn docker-compose`
-
-### Ansible
