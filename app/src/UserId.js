@@ -14,7 +14,8 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(2, 0)
   },
   paper: {
-    padding: theme.spacing(3, 2)
+    padding: theme.spacing(3, 2),
+    overflowX: 'auto'
   }
 }))
 

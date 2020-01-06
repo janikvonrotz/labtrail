@@ -18,6 +18,9 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     margin: theme.spacing(2, 0)
+  },
+  paragraph: {
+    wordWrap: 'break-word'
   }
 }))
 
@@ -86,7 +89,7 @@ const StationUpdate = ({ station }) => {
         QR-Code
       </Typography>
       <QRCode value={qrUrl} fgColor={station.color} />
-      <Typography component='p'>
+      <Typography className={classes.paragraph} component='p'>
         This station link:<br />
         <a href={qrUrl}>{qrUrl}</a><br />
         Redirects to:<br />
