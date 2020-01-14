@@ -62,7 +62,7 @@ const TenantForm = ({ children, tenant, onSubmit }) => {
       </Button>
       <Prompt
         title='Select Users'
-        content='Please select users to tenant access:'
+        content='Please select users to grant tenant access:'
         open={active}
         onSubmit={handleSelectedUsers}
         onClose={resetSelectedUsers}
