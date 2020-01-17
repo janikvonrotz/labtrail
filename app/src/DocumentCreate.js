@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1, 1, 1, 0)
   }
 }))
 
@@ -37,7 +37,7 @@ const DocumentCreate = () => {
     <DocumentForm document={document} onSubmit={(document) => (createDocument({ variables: document }))}>
       <Link to='/documents'>
         <Button
-          variant='contained'
+          variant='outlined'
           color='secondary'
           className={classes.button}
         >

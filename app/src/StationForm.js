@@ -79,9 +79,10 @@ const StationForm = ({ children, station, onSubmit }) => {
           onChange={handleChange}
         >
           <option value='' />
-          <option value='RED'>RED</option>
-          <option value='GREEN'>GREEN</option>
-          <option value='BLUE'>BLUE</option>
+          <option value='BLACK'>Black</option>
+          <option value='RED'>Red</option>
+          <option value='GREEN'>Green</option>
+          <option value='BLUE'>Blue</option>
         </Select>
       </FormControl>
       <Typography className={classes.title} variant='h4' component='h2'>

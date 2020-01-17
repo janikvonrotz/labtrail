@@ -13,6 +13,7 @@ enum Color {
   RED
   GREEN
   BLUE
+  BLACK
 }
 
 enum Role {

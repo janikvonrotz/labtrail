@@ -10,7 +10,7 @@ import { useToggle } from './hooks'
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1, 1, 1, 0)
   }
 }))
 
@@ -34,7 +34,7 @@ const StationDelete = ({ station }) => {
   return (
     <>
       <Button
-        variant='contained'
+        variant='outlined'
         color='secondary'
         type='submit'
         className={classes.button}

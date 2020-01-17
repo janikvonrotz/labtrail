@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1, 1, 1, 0)
   }
 }))
 
@@ -37,7 +37,7 @@ const TenantCreate = () => {
     <TenantForm tenant={tenant} onSubmit={(tenant) => (createTenant({ variables: tenant }))}>
       <Link to='/tenants'>
         <Button
-          variant='contained'
+          variant='outlined'
           color='secondary'
           className={classes.button}
         >

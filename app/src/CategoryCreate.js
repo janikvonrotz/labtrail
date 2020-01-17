@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1, 1, 1, 0)
   }
 }))
 
@@ -37,7 +37,7 @@ const CategoryCreate = () => {
     <CategoryForm category={category} onSubmit={(category) => (createCategory({ variables: category }))}>
       <Link to='/categories'>
         <Button
-          variant='contained'
+          variant='outlined'
           color='secondary'
           className={classes.button}
         >

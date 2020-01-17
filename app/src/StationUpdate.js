@@ -13,14 +13,14 @@ import QRCode from 'qrcode.react'
 import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles(theme => ({
-  button: {
-    margin: theme.spacing(1)
-  },
   title: {
     margin: theme.spacing(2, 0)
   },
   paragraph: {
     wordWrap: 'break-word'
+  },
+  button: {
+    margin: theme.spacing(1, 1, 1, 0)
   }
 }))
 
@@ -58,6 +58,12 @@ const StationUpdate = ({ station }) => {
     updateStation({ variables: station })
   }
 
+  const copyQrCodeToClipboard = () => {
+    console.log('Copy QR Code')
+    const canvas = document.getElementById('qrcode')
+    canvas.select()
+  }
+
   var port = window.location.port
   port = (port && port !== 80 && port !== 443) ? `:${port}` : ''
   const qrUrl = `${window.location.protocol}//${window.location.hostname}${port}/qr/${station.id}`
@@ -68,7 +74,7 @@ const StationUpdate = ({ station }) => {
       <StationForm station={station} onSubmit={onSubmit}>
         <Link to='/stations'>
           <Button
-            variant='contained'
+            variant='outlined'
             color='secondary'
             className={classes.button}
           >
@@ -88,7 +94,20 @@ const StationUpdate = ({ station }) => {
       <Typography className={classes.title} variant='h4' component='h2'>
         QR-Code
       </Typography>
-      <QRCode value={qrUrl} fgColor={station.color} />
+      <QRCode
+        id='qrcode'
+        value={qrUrl}
+        fgColor={station.color}
+      />
+      <br />
+      <Button
+        variant='outlined'
+        color='primary'
+        className={classes.button}
+        onClick={copyQrCodeToClipboard}
+      >
+          Copy to clipboard
+      </Button>
       <Typography className={classes.paragraph} component='p'>
         This station link:<br />
         <a href={qrUrl}>{qrUrl}</a><br />

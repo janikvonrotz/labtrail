@@ -12,7 +12,7 @@ import Error from './Error'
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1, 1, 1, 0)
   }
 }))
 
@@ -49,7 +49,7 @@ const DocumentUpdate = ({ document }) => {
     <DocumentForm document={document} onSubmit={onSubmit}>
       <Link to='/documents'>
         <Button
-          variant='contained'
+          variant='outlined'
           color='secondary'
           className={classes.button}
         >

@@ -11,11 +11,11 @@ import { makeStyles } from '@material-ui/core/styles'
 import Error from './Error'
 
 const useStyles = makeStyles(theme => ({
-  button: {
-    margin: theme.spacing(1)
-  },
   title: {
     margin: theme.spacing(2, 0)
+  },
+  button: {
+    margin: theme.spacing(1, 1, 1, 0)
   }
 }))
 
@@ -59,7 +59,7 @@ const UserUpdate = ({ user }) => {
       <UserForm user={user} onSubmit={onSubmit}>
         <Link to='/users'>
           <Button
-            variant='contained'
+            variant='outlined'
             color='secondary'
             className={classes.button}
           >

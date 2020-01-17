@@ -12,7 +12,7 @@ import Error from './Error'
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1, 1, 1, 0)
   }
 }))
 
@@ -54,7 +54,7 @@ const TenantUpdate = ({ tenant }) => {
     <TenantForm tenant={tenant} onSubmit={onSubmit}>
       <Link to='/tenants'>
         <Button
-          variant='contained'
+          variant='outlined'
           color='secondary'
           className={classes.button}
         >

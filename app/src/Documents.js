@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     overflowX: 'auto'
   },
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1, 1, 1, 0)
   }
 }))
 
