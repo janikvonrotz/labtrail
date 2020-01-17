@@ -10,7 +10,7 @@ This project is sponsored by the [bioprocess technology division of the ZHAW](ht
 
 LabTrail is the central platform to manage the destinations of QR-Codes. Register new QR-Codes and define multiple link targets. Manage users and assign them to tenants. Switch easily between tenants and their active QR-Code category.
 
-![Screenshot](/screenshot.png)
+![Screenshot](/docs/assets/screenshot.png)
 
 ## Configuration
 
@@ -72,8 +72,6 @@ Configure the package environment variables and then run the tests.
 `yarn test`
 
 ## Deployment
-
-Checkout the [deployment concept]() for details.
 
 ### Serverless
 
