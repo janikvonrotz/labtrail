@@ -59,9 +59,25 @@ const StationUpdate = ({ station }) => {
   }
 
   const copyQrCodeToClipboard = () => {
-    console.log('Copy QR Code')
+    // Append img tag for copying
     const canvas = document.getElementById('qrcode')
-    canvas.select()
+    const img = document.createElement('img')
+    img.src = canvas.toDataURL('image/png')
+    document.body.appendChild(img)
+
+    // Create selection
+    const selection = window.getSelection()
+    const range = window.document.createRange()
+    selection.removeAllRanges()
+    range.selectNode(img)
+    selection.addRange(range)
+
+    // Copy content to clipboard
+    window.document.execCommand('copy')
+
+    // Cleanup
+    selection.removeAllRanges()
+    window.document.body.removeChild(img)
   }
 
   var port = window.location.port
