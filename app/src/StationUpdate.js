@@ -59,17 +59,28 @@ const StationUpdate = ({ station }) => {
   }
 
   const copyQrCodeToClipboard = () => {
-    // Append img tag for copying
+    // Create section element for copying
+    const section = document.createElement('section')
+
+    // Create title element and append to selection
+    const h2 = document.createElement('h2')
+    h2.innerText = station.name
+    section.appendChild(h2)
+
+    // Create image element and append to selection
     const canvas = document.getElementById('qrcode')
     const img = document.createElement('img')
     img.src = canvas.toDataURL('image/png')
-    document.body.appendChild(img)
+    section.appendChild(img)
+
+    // Append everything to body
+    document.body.appendChild(section)
 
     // Create selection
     const selection = window.getSelection()
     const range = window.document.createRange()
     selection.removeAllRanges()
-    range.selectNode(img)
+    range.selectNode(section)
     selection.addRange(range)
 
     // Copy content to clipboard
@@ -77,7 +88,10 @@ const StationUpdate = ({ station }) => {
 
     // Cleanup
     selection.removeAllRanges()
-    window.document.body.removeChild(img)
+    window.document.body.removeChild(section)
+
+    // Notify
+    createAlert({ variables: { message: 'QR-Code copied!', type: 'SUCCESS' } })
   }
 
   var port = window.location.port
