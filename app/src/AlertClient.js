@@ -9,7 +9,7 @@ const AlertClient = () => {
   const [deleteAlert] = useMutation(DELETE_CLIENTALERT)
 
   if (data && data.alert) {
-    return <Alert open message={data.alert.message} onClose={deleteAlert} />
+    return <Alert open alert={data.alert} onClose={deleteAlert} />
   }
   return null
 }

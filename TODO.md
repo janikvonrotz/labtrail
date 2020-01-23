@@ -1,6 +1,6 @@
-# Major
+# TODO
 
-- [x] Bump to node 12.x
+## Major
 
 ## Management
 
@@ -10,25 +10,20 @@
 
 ## Design
 
-- [x] QR-Code color add black
 - [ ] Change logo colors -> create svg
-- [x] Update screenshot
-- [ ] Hide logout button on mobile behind dots menu -> Move logout button to menu
 
 ## Testing
 
-- [ ] Advanced tests
-- [ ] Basic React Test with jest and apollo mock
+- [ ] ~ Advanced tests
+- [ ] ~ Basic React Test with jest and apollo mock
 
 ## Search
 
-- [ ] Filter search results by role!
+- [ ] ! Filter search results by role
 - [ ] Ensure to improve performance -> check query search
 - [ ] Hide search results if input box looses focus; use onBlur is too fast
 
 ## Feature
-
-- [x] Copy QR-code image with text to clipboard
 
 ## User Management
 
@@ -41,7 +36,6 @@
 
 ## Content
 
-- [ ] Write a markdown guide and integrate it under help section
 - [ ] Add impressum
 
 ## Logging
@@ -65,19 +59,24 @@
 # Minor
 
 - [ ] Add Breadcrumbs https://material-ui.com/components/breadcrumbs/#integration-with-react-router
-- [ ] Format success alert message
 - [ ] Add documentations to directives
-- [ ] Add React tests with submit and etc.
 - [ ] Rename document title to name and checkout how graphql schema updates work
-- [x] GitHub action badge show no status
 
 ## Enhancements
 
 - [ ] Fix those validate chains with ES7`: `data && data.search && data.search.length` -> `data?.search?.length` 
 - [ ] create LocalStorage hook https://github.com/streamich/react-use
 
-# Done
+# NODO
 
+- [x] Format success alert message
+- [x] Hide logout button on mobile behind dots menu -> Move logout button to menu
+- [x] Write a markdown guide and integrate it under help section
+- [x] GitHub action badge show no status
+- [x] QR-Code color add black
+- [x] Copy QR-code image with text to clipboard
+- [x] Bump to node 12.x
+- [x] Update screenshot
 - [x] wordwrap for qrcode links on mobile
 - [x] Hide search immediately on click
 - [x] Remove query if result clicked

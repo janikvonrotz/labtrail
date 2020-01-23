@@ -91,7 +91,7 @@ const StationUpdate = ({ station }) => {
     window.document.body.removeChild(section)
 
     // Notify
-    createAlert({ variables: { message: 'QR-Code copied!', type: 'SUCCESS' } })
+    createAlert({ variables: { message: 'QR-Code copied!', type: 'INFO' } })
   }
 
   var port = window.location.port

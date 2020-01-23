@@ -18,6 +18,9 @@ import { hasRole } from './helpers'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import Divider from '@material-ui/core/Divider'
 import PropTypes from 'prop-types'
+import { useApolloClient } from '@apollo/react-hooks'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import HelpIcon from '@material-ui/icons/Help'
 
 const drawerWidth = 240
 
@@ -44,6 +47,15 @@ const useStyles = makeStyles(theme => ({
 const HeaderDrawer = ({ open, toggleDrawer, user }) => {
   const classes = useStyles()
 
+  // Get Apollo client for store manipulation
+  const client = useApolloClient()
+
+  // Reset Apollo and local store on logout
+  const logout = () => {
+    window.localStorage.clear()
+    client.resetStore()
+  }
+
   return (
     <Drawer
       open={open}
@@ -53,7 +65,6 @@ const HeaderDrawer = ({ open, toggleDrawer, user }) => {
       }}
       onClick={toggleDrawer}
     >
-
       <MenuItem className={classes.drawerHeader} onClick={toggleDrawer}>
         <IconButton>
           <ChevronLeftIcon />
@@ -137,7 +148,24 @@ const HeaderDrawer = ({ open, toggleDrawer, user }) => {
           </MenuItem>
         </Link>
       )}
-
+      <Link to='/help' className={classes.link}>
+        <MenuItem>
+          <ListItemIcon>
+            <HelpIcon />
+          </ListItemIcon>
+          <ListItemText>Help</ListItemText>
+        </MenuItem>
+      </Link>
+      {user && (
+        <Link to='/login' className={classes.Link}>
+          <MenuItem onClick={logout}>
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText>Logout</ListItemText>
+          </MenuItem>
+        </Link>
+      )}
     </Drawer>
   )
 }

@@ -7,14 +7,20 @@ import CloseIcon from '@material-ui/icons/Close'
 const useStyles = makeStyles(theme => ({
   close: {
     padding: theme.spacing(0.5)
+  },
+  success: {
+    '& div': {
+      backgroundColor: '#4caf50'
+    }
   }
 }))
 
-const Alert = ({ open, message, onClose }) => {
+const Alert = ({ open, alert, onClose }) => {
   const classes = useStyles()
 
   return (
     <Snackbar
+      className={alert.type && classes[alert.type.toLowerCase()]}
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'center'
@@ -25,7 +31,7 @@ const Alert = ({ open, message, onClose }) => {
       ContentProps={{
         'aria-describedby': 'message-id'
       }}
-      message={<span id='message-id'>{message}</span>}
+      message={<span id='message-id'>{alert.message}</span>}
       action={
         <IconButton
           key='close'

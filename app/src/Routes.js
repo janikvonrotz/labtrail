@@ -19,6 +19,7 @@ import Settings from './Settings'
 import Users from './Users'
 import User from './User'
 import UserId from './UserId'
+import Help from './Help'
 
 const Routes = () => (
   <>
@@ -41,6 +42,7 @@ const Routes = () => (
     <Route exact path='/login' component={Login} />
     <Route exact path='/settings' component={Settings} />
     <Route exact path='/profile' component={Profile} />
+    <Route exact path='/help' component={Help} />
   </>
 )
 

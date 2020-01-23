@@ -6,6 +6,7 @@ const typeDefs = gql`
 enum AlertType {
     SUCCESS
     ERROR
+    INFO
 }
 
 type Alert {
