@@ -17,7 +17,7 @@ const resolvers = {
       if (context.user && context.user.tenant) {
         filter.tenant = context.user.tenant
       }
-      return (await (await collection('categories')).find(filter).toArray()).map(prepare)
+      return (await (await collection('categories')).find(filter).sort(sortBy).toArray()).map(prepare)
     },
     categorySearch: async (obj, args, context) => {
       const filter = { $text: { $search: args.query } }

@@ -152,8 +152,8 @@ mutation deleteStation( $id: String!) {
 `
 
 const GET_STATIONS = gql`
-{
-  stations {
+query stations ( $sortBy: SortBy) {
+  stations (sortBy: $sortBy) {
     id
     name
     location
@@ -163,7 +163,7 @@ const GET_STATIONS = gql`
 `
 
 const GET_DOCUMENT = gql`
-query documents($id: String) {
+query document($id: String) {
   document(id: $id) {
     id
     title
@@ -231,8 +231,8 @@ mutation deleteDocument( $id: String!) {
 `
 
 const GET_DOCUMENTS = gql`
-{
-  documents {
+query documents ( $sortBy: SortBy) {
+  documents (sortBy: $sortBy) {
     id
     title
     link
@@ -282,8 +282,8 @@ mutation deleteCategory( $id: String!) {
 `
 
 const GET_CATEGORIES = gql`
-{
-  categories {
+query categories ( $sortBy: SortBy) {
+  categories (sortBy: $sortBy) {
     id
     name
   }
@@ -373,8 +373,8 @@ query user($id: String) {
 `
 
 const GET_USERS = gql`
-{
-  users {
+query users ( $sortBy: SortBy) {
+  users (sortBy: $sortBy) {
     id
     email
     firstname

@@ -10,6 +10,8 @@ import Error from './Error'
 import Loading from './Loading'
 import { GET_USERS } from './queries'
 import { useQuery } from '@apollo/react-hooks'
+import TableSortLabel from './TableSortLabel'
+import { useSortBy } from './hooks'
 
 const useStyles = makeStyles(theme => ({
   table: {
@@ -20,7 +22,10 @@ const useStyles = makeStyles(theme => ({
 const UserList = () => {
   const classes = useStyles()
 
-  const { loading, error, data } = useQuery(GET_USERS)
+  const [sortBy, setSortBy] = useSortBy()
+  const { loading, error, data } = useQuery(GET_USERS, {
+    variables: { sortBy: sortBy }
+  })
 
   if (loading) return <Loading />
   if (error) return <Error message={error.message} />
@@ -29,9 +34,30 @@ const UserList = () => {
     <Table className={classes.table}>
       <TableHead>
         <TableRow>
-          <TableCell>email</TableCell>
-          <TableCell align='right'>firstname</TableCell>
-          <TableCell align='right'>lastname</TableCell>
+          <TableCell>
+            <TableSortLabel
+              active={(sortBy && sortBy.field) === 'email'}
+              field='email'
+              order={sortBy && sortBy.order}
+              onClick={event => setSortBy({ field: 'email', order: 'ASC' })}
+            />
+          </TableCell>
+          <TableCell align='right'>
+            <TableSortLabel
+              active={(sortBy && sortBy.field) === 'firstname'}
+              field='firstname'
+              order={sortBy && sortBy.order}
+              onClick={event => setSortBy({ field: 'firstname', order: 'ASC' })}
+            />
+          </TableCell>
+          <TableCell align='right'>
+            <TableSortLabel
+              active={(sortBy && sortBy.field) === 'lastname'}
+              field='lastname'
+              order={sortBy && sortBy.order}
+              onClick={event => setSortBy({ field: 'lastname', order: 'ASC' })}
+            />
+          </TableCell>
           <TableCell align='right'>role</TableCell>
           <TableCell align='right'>tenant</TableCell>
         </TableRow>

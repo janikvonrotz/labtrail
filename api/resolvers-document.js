@@ -18,7 +18,7 @@ const resolvers = {
       if (context.user && context.user.tenant) {
         filter.tenant = context.user.tenant
       }
-      return (await (await collection('documents')).find(filter).toArray()).map(prepare)
+      return (await (await collection('documents')).find(filter).sort(sortBy).toArray()).map(prepare)
     },
     document: async (obj, args, context) => {
       const filter = { _id: ObjectId(args.id) }

@@ -10,6 +10,8 @@ import Error from './Error'
 import Loading from './Loading'
 import { GET_CATEGORIES } from './queries'
 import { useQuery } from '@apollo/react-hooks'
+import TableSortLabel from './TableSortLabel'
+import { useSortBy } from './hooks'
 
 const useStyles = makeStyles(theme => ({
   table: {
@@ -20,7 +22,10 @@ const useStyles = makeStyles(theme => ({
 const CategoryList = () => {
   const classes = useStyles()
 
-  const { loading, error, data } = useQuery(GET_CATEGORIES)
+  const [sortBy, setSortBy] = useSortBy()
+  const { loading, error, data } = useQuery(GET_CATEGORIES, {
+    variables: { sortBy: sortBy }
+  })
 
   if (loading) return <Loading />
   if (error) return <Error message={error.message} />
@@ -29,7 +34,14 @@ const CategoryList = () => {
     <Table className={classes.table}>
       <TableHead>
         <TableRow>
-          <TableCell>name</TableCell>
+          <TableCell>
+            <TableSortLabel
+              active={(sortBy && sortBy.field) === 'name'}
+              field='name'
+              order={sortBy && sortBy.order}
+              onClick={event => setSortBy({ field: 'name', order: 'ASC' })}
+            />
+          </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>

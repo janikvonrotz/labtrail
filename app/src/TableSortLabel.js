@@ -17,12 +17,12 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const TableSortLabel = ({ field, order, onClick }) => {
+const TableSortLabel = ({ active, field, order, onClick }) => {
   const classes = useStyles()
 
   return (
     <MuiTableSortLabel
-      active={!!order}
+      active={active}
       direction={order ? order.toLowerCase() : 'asc'}
       onClick={onClick}
     >
@@ -37,6 +37,7 @@ const TableSortLabel = ({ field, order, onClick }) => {
 }
 
 TableSortLabel.propTypes = {
+  active: PropTypes.bool.isRequired,
   field: PropTypes.string.isRequired,
   order: PropTypes.string,
   onClick: PropTypes.func.isRequired

@@ -36,6 +36,7 @@ const TenantList = () => {
         <TableRow>
           <TableCell>
             <TableSortLabel
+              active={(sortBy && sortBy.field) === 'name'}
               field='name'
               order={sortBy && sortBy.order}
               onClick={event => setSortBy({ field: 'name', order: 'ASC' })}
