@@ -6,7 +6,11 @@ const categoryResolvers = require('./resolvers-category')
 const resolvers = {
   Query: {
     tenants: async (obj, args, context) => {
-      return (await (await collection('tenants')).find({}).toArray()).map(prepare)
+      const sortBy = {}
+      if (args.sortBy) {
+        sortBy[args.sortBy.field] = args.sortBy.order === 'ASC' ? 1 : -1
+      }
+      return (await (await collection('tenants')).find({}).sort(sortBy).toArray()).map(prepare)
     },
     tenantSearch: async (obj, args, context) => {
       const filter = { $text: { $search: args.query } }

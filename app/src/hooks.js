@@ -1,5 +1,19 @@
 import { useState, useEffect } from 'react'
 
+const useSortBy = (data) => {
+  const [sortBy, setState] = useState(data)
+
+  const setSortBy = (newSortBy) => {
+    // Toggle order if existing and new or state sortBy are the same
+    if (JSON.stringify(newSortBy) === JSON.stringify(sortBy) && newSortBy.order === 'ASC') {
+      newSortBy.order = 'DESC'
+    }
+    setState(newSortBy)
+  }
+
+  return [sortBy, setSortBy]
+}
+
 const useForm = (callback, data) => {
   const [values, setValues] = useState(data)
 
@@ -109,6 +123,7 @@ const useDebounce = (value, delay) => {
 }
 
 export {
+  useSortBy,
   useForm,
   useToggle,
   useLocalStorage,

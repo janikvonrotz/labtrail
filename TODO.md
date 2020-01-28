@@ -25,6 +25,8 @@
 
 ## Feature
 
+- [ ] Dokumente in Stationsansicht erfassen
+
 ## User Management
 
 - [ ] ~ Enable Registration
@@ -51,6 +53,7 @@
 - [ ] Resolve Error: Store reset while query was in flight (not completed in link chain) on Settings update
 - [ ] Fix select box referesh on pages without redirect
 - [ ] Fix User Update controlled password problem
+- [ ] Catching the token expired error ignores all errors
 
 ## Security
 
@@ -65,7 +68,7 @@
 ## Enhancements
 
 - [ ] Fix those validate chains with ES7`: `data && data.search && data.search.length` -> `data?.search?.length` 
-- [ ] create LocalStorage hook https://github.com/streamich/react-use
+- [ ] create LocalStorage hook https://github.com/streamich/react-use, https://blog.bitsrc.io/writing-your-own-custom-hooks-4fbcf77e112e
 
 # NODO
 

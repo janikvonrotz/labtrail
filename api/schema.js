@@ -22,6 +22,16 @@ enum Role {
   USER
 }
 
+enum Order {
+  ASC
+  DESC
+}
+
+input SortBy {
+  field: String!
+  order: Order!
+}
+
 type Response {
   success: Boolean!
   message: String
@@ -113,7 +123,7 @@ type Query {
   category(id: String): Category @hasRole(roles: [ADMIN, MANAGER])
   categorySearch(query: String): [Category]
 
-  tenants: [Tenant] @hasRole(roles: [ADMIN])
+  tenants(sortBy: SortBy): [Tenant] @hasRole(roles: [ADMIN])
   tenant(id: String): Tenant @hasRole(roles: [ADMIN])
   assignedTenants: [Tenant] @hasRole(roles: [USER, MANAGER, ADMIN])
   tenantSearch(query: String): [Tenant]

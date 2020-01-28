@@ -50,8 +50,8 @@ mutation deleteTenant( $id: String!) {
 `
 
 const GET_TENANTS = gql`
-{
-  tenants {
+query tenants ( $sortBy: SortBy) {
+  tenants (sortBy: $sortBy) {
     id
     name
     assigned_category {
