@@ -52,6 +52,14 @@ const TenantUpdate = ({ tenant }) => {
 
   return (
     <TenantForm tenant={tenant} onSubmit={onSubmit}>
+      <Button
+        variant='contained'
+        color='primary'
+        type='submit'
+        className={classes.button}
+      >
+        Save
+      </Button>
       <Link to='/tenants'>
         <Button
           variant='outlined'
@@ -62,14 +70,6 @@ const TenantUpdate = ({ tenant }) => {
         </Button>
       </Link>
       <TenantDelete tenant={tenant} />
-      <Button
-        variant='contained'
-        color='primary'
-        type='submit'
-        className={classes.button}
-      >
-        Save
-      </Button>
     </TenantForm>
   )
 }

@@ -36,12 +36,20 @@ const CategoryUpdate = ({ category }) => {
   }
 
   // Form on submit method
-  function onSubmit (category) {
+  function onSubmit(category) {
     updateCategory({ variables: category })
   }
 
   return (
     <CategoryForm category={category} onSubmit={onSubmit}>
+      <Button
+        variant='contained'
+        color='primary'
+        type='submit'
+        className={classes.button}
+      >
+        Save
+      </Button>
       <Link to='/categories'>
         <Button
           variant='outlined'
@@ -52,14 +60,6 @@ const CategoryUpdate = ({ category }) => {
         </Button>
       </Link>
       <CategoryDelete category={category} />
-      <Button
-        variant='contained'
-        color='primary'
-        type='submit'
-        className={classes.button}
-      >
-        Save
-      </Button>
     </CategoryForm>
   )
 }

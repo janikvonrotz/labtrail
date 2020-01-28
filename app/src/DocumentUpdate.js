@@ -36,7 +36,7 @@ const DocumentUpdate = ({ document }) => {
   }
 
   // Form on submit method
-  function onSubmit (document) {
+  function onSubmit(document) {
     // Set category id
     if (document.category.id) {
       document.category = document.category.id
@@ -47,6 +47,14 @@ const DocumentUpdate = ({ document }) => {
 
   return (
     <DocumentForm document={document} onSubmit={onSubmit}>
+      <Button
+        variant='contained'
+        color='primary'
+        type='submit'
+        className={classes.button}
+      >
+        Save
+      </Button>
       <Link to='/documents'>
         <Button
           variant='outlined'
@@ -57,14 +65,6 @@ const DocumentUpdate = ({ document }) => {
         </Button>
       </Link>
       <DocumentDelete document={document} />
-      <Button
-        variant='contained'
-        color='primary'
-        type='submit'
-        className={classes.button}
-      >
-        Save
-      </Button>
     </DocumentForm>
   )
 }

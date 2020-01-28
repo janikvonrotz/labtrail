@@ -33,7 +33,7 @@
 
 ## Filter and Sort
 
-- [ ] Add table sort feature
+- [x] Add table sort feature
 - [ ] Add table pagination
 
 ## Content
@@ -47,6 +47,10 @@
 ## Hosting
 
 - [ ] Setup kubernetes cluster and deploy with helm scripts?! or simply with Ansible
+
+## UX
+
+- [x] Ensure save button is always first in row -> default on enter
 
 ## Bugfixing
 

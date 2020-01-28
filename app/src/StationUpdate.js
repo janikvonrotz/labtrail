@@ -102,6 +102,14 @@ const StationUpdate = ({ station }) => {
   return (
     <>
       <StationForm station={station} onSubmit={onSubmit}>
+        <Button
+          variant='contained'
+          color='primary'
+          type='submit'
+          className={classes.button}
+        >
+          Save
+        </Button>
         <Link to='/stations'>
           <Button
             variant='outlined'
@@ -112,14 +120,6 @@ const StationUpdate = ({ station }) => {
           </Button>
         </Link>
         <StationDelete station={station} />
-        <Button
-          variant='contained'
-          color='primary'
-          type='submit'
-          className={classes.button}
-        >
-          Save
-        </Button>
       </StationForm>
       <Typography className={classes.title} variant='h4' component='h2'>
         QR-Code
@@ -136,7 +136,7 @@ const StationUpdate = ({ station }) => {
         className={classes.button}
         onClick={copyQrCodeToClipboard}
       >
-          Copy to clipboard
+        Copy to clipboard
       </Button>
       <Typography className={classes.paragraph} component='p'>
         This station link:<br />

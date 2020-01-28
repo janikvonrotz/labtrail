@@ -57,6 +57,14 @@ const UserUpdate = ({ user }) => {
   return (
     <>
       <UserForm user={user} onSubmit={onSubmit}>
+        <Button
+          variant='contained'
+          color='primary'
+          type='submit'
+          className={classes.button}
+        >
+          Save
+        </Button>
         <Link to='/users'>
           <Button
             variant='outlined'
@@ -67,14 +75,6 @@ const UserUpdate = ({ user }) => {
           </Button>
         </Link>
         <UserDelete user={user} />
-        <Button
-          variant='contained'
-          color='primary'
-          type='submit'
-          className={classes.button}
-        >
-          Save
-        </Button>
       </UserForm>
     </>
   )
