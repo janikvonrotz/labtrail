@@ -10,6 +10,8 @@ import Error from './Error'
 import Loading from './Loading'
 import { GET_DOCUMENTS } from './queries'
 import { useQuery } from '@apollo/react-hooks'
+import TableSortLabel from './TableSortLabel'
+import { useSortBy } from './hooks'
 
 const useStyles = makeStyles(theme => ({
   table: {
@@ -20,7 +22,10 @@ const useStyles = makeStyles(theme => ({
 const DocumentList = () => {
   const classes = useStyles()
 
-  const { loading, error, data } = useQuery(GET_DOCUMENTS)
+  const [sortBy, setSortBy] = useSortBy()
+  const { loading, error, data } = useQuery(GET_DOCUMENTS, {
+    variables: { sortBy: sortBy }
+  })
 
   if (loading) return <Loading />
   if (error) return <Error message={error.message} />
@@ -29,9 +34,30 @@ const DocumentList = () => {
     <Table className={classes.table}>
       <TableHead>
         <TableRow>
-          <TableCell>title</TableCell>
-          <TableCell align='right'>link</TableCell>
-          <TableCell align='right'>description</TableCell>
+          <TableCell>
+            <TableSortLabel
+              active={(sortBy && sortBy.field) === 'title'}
+              field='title'
+              order={sortBy && sortBy.order}
+              onClick={event => setSortBy({ field: 'title', order: 'ASC' })}
+            />
+          </TableCell>
+          <TableCell align='right'>
+            <TableSortLabel
+              active={(sortBy && sortBy.field) === 'link'}
+              field='link'
+              order={sortBy && sortBy.order}
+              onClick={event => setSortBy({ field: 'link', order: 'ASC' })}
+            />
+          </TableCell>
+          <TableCell align='right'>
+            <TableSortLabel
+              active={(sortBy && sortBy.field) === 'description'}
+              field='description'
+              order={sortBy && sortBy.order}
+              onClick={event => setSortBy({ field: 'description', order: 'ASC' })}
+            />
+          </TableCell>
           <TableCell align='right'>category</TableCell>
           <TableCell align='right'>forward</TableCell>
         </TableRow>

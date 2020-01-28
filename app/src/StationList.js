@@ -10,6 +10,8 @@ import Error from './Error'
 import Loading from './Loading'
 import { GET_STATIONS } from './queries'
 import { useQuery } from '@apollo/react-hooks'
+import TableSortLabel from './TableSortLabel'
+import { useSortBy } from './hooks'
 
 const useStyles = makeStyles(theme => ({
   table: {
@@ -20,7 +22,10 @@ const useStyles = makeStyles(theme => ({
 const StationList = () => {
   const classes = useStyles()
 
-  const { loading, error, data } = useQuery(GET_STATIONS)
+  const [sortBy, setSortBy] = useSortBy()
+  const { loading, error, data } = useQuery(GET_STATIONS, {
+    variables: { sortBy: sortBy }
+  })
 
   if (loading) return <Loading />
   if (error) return <Error message={error.message} />
@@ -29,9 +34,30 @@ const StationList = () => {
     <Table className={classes.table}>
       <TableHead>
         <TableRow>
-          <TableCell>Name</TableCell>
-          <TableCell align='right'>Location</TableCell>
-          <TableCell align='right'>Color</TableCell>
+          <TableCell>
+            <TableSortLabel
+              active={(sortBy && sortBy.field) === 'name'}
+              field='name'
+              order={sortBy && sortBy.order}
+              onClick={event => setSortBy({ field: 'name', order: 'ASC' })}
+            />
+          </TableCell>
+          <TableCell align='right'>
+            <TableSortLabel
+              active={(sortBy && sortBy.field) === 'location'}
+              field='location'
+              order={sortBy && sortBy.order}
+              onClick={event => setSortBy({ field: 'location', order: 'ASC' })}
+            />
+          </TableCell>
+          <TableCell align='right'>
+            <TableSortLabel
+              active={(sortBy && sortBy.field) === 'color'}
+              field='color'
+              order={sortBy && sortBy.order}
+              onClick={event => setSortBy({ field: 'color', order: 'ASC' })}
+            />
+          </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>

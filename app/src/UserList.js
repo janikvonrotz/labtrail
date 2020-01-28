@@ -58,7 +58,14 @@ const UserList = () => {
               onClick={event => setSortBy({ field: 'lastname', order: 'ASC' })}
             />
           </TableCell>
-          <TableCell align='right'>role</TableCell>
+          <TableCell align='right'>
+            <TableSortLabel
+              active={(sortBy && sortBy.field) === 'role'}
+              field='role'
+              order={sortBy && sortBy.order}
+              onClick={event => setSortBy({ field: 'role', order: 'ASC' })}
+            />
+          </TableCell>
           <TableCell align='right'>tenant</TableCell>
         </TableRow>
       </TableHead>
