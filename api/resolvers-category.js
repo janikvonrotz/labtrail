@@ -6,7 +6,13 @@ const tenantResolver = require('./resolvers-tenant')
 const resolvers = {
   Query: {
     categories: async (obj, args, context) => {
-      const filter = {}
+      // Set filter from args
+      const filter = args.filter ? args.filter : {}
+      // Build sorter
+      const sortBy = {}
+      if (args.sortBy) {
+        sortBy[args.sortBy.field] = args.sortBy.order === 'ASC' ? 1 : -1
+      }
       // Filter by tenant if user is logged in
       if (context.user && context.user.tenant) {
         filter.tenant = context.user.tenant

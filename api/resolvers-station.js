@@ -8,13 +8,19 @@ const tenantResolver = require('./resolvers-tenant')
 const resolvers = {
   Query: {
     stations: async (obj, args, context) => {
-      const filter = {}
+      // Set filter from args
+      const filter = args.filter ? args.filter : {}
+      // Build sorter
+      const sortBy = {}
+      if (args.sortBy) {
+        sortBy[args.sortBy.field] = args.sortBy.order === 'ASC' ? 1 : -1
+      }
       // Filter by tenant if user is logged in
       if (context.user && context.user.tenant) {
         filter.tenant = context.user.tenant
       }
       // Open database connection, access stations collection and return all documents
-      return (await (await collection('stations')).find(filter).toArray()).map(prepare)
+      return (await (await collection('stations')).find(filter).sort(sortBy).toArray()).map(prepare)
     },
     station: async (obj, args, context) => {
       const filter = { _id: ObjectId(args.id) }
@@ -40,7 +46,7 @@ const resolvers = {
       if (tenant.assigned_category) {
         const ids = station.documents ? station.documents.map((id) => (ObjectId(id))) : []
         // Get documents without context
-        const documents = await documentResolver.Query.documents(obj, { _id: { $in: ids }, category: tenant.assigned_category }, {})
+        const documents = await documentResolver.Query.documents(obj, { filter: { _id: { $in: ids } }, category: tenant.assigned_category }, {})
         return documents ? { url: documents[0].link } : null
       } else {
         return null
@@ -84,7 +90,7 @@ const resolvers = {
     documents: async (obj, args, context) => {
       // Return document object searched by id in documents array
       const ids = obj.documents ? obj.documents.map((id) => (ObjectId(id))) : []
-      return documentResolver.Query.documents(obj, { _id: { $in: ids } }, context)
+      return documentResolver.Query.documents(obj, { filter: { _id: { $in: ids } } }, context)
     },
     created_by: async (obj, args, context) => {
       return userResolver.Query.user(obj, { id: obj.created_by }, context)
@@ -101,7 +107,7 @@ const resolvers = {
       // Get documents from station and filter by tenant category
       if (tenant.assigned_category) {
         const ids = obj.documents ? obj.documents.map((id) => (ObjectId(id))) : []
-        const documents = await documentResolver.Query.documents(obj, { _id: { $in: ids }, category: tenant.assigned_category }, context)
+        const documents = await documentResolver.Query.documents(obj, { filter: { _id: { $in: ids }, category: tenant.assigned_category } }, context)
         return documents ? documents[0] : null
       } else {
         return null

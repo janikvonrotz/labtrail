@@ -12,8 +12,13 @@ const resolvers = {
   Query: {
     users: async (obj, args, context) => {
       // Set filter from args
-      const filter = args
-      return (await (await collection('users')).find(filter).toArray()).map(prepare)
+      const filter = args.filter ? args.filter : {}
+      // Build sorter
+      const sortBy = {}
+      if (args.sortBy) {
+        sortBy[args.sortBy.field] = args.sortBy.order === 'ASC' ? 1 : -1
+      }
+      return (await (await collection('users')).find(filter).sort(sortBy).toArray()).map(prepare)
     },
     user: async (obj, args, context) => {
       return prepare(await (await collection('users')).findOne({ _id: ObjectId(args.id) }))

@@ -114,12 +114,12 @@ type User {
 }
 
 type Query {
-  stations: [Station] @hasRole(roles: [ADMIN, MANAGER])
+  stations(sortBy: SortBy): [Station] @hasRole(roles: [ADMIN, MANAGER])
   station(id: String): Station @hasRole(roles: [ADMIN, MANAGER])
   redirectLink(id: String): Link
   stationSearch(query: String): [Station]
 
-  categories: [Category] @hasRole(roles: [ADMIN, MANAGER])
+  categories(sortBy: SortBy): [Category] @hasRole(roles: [ADMIN, MANAGER])
   category(id: String): Category @hasRole(roles: [ADMIN, MANAGER])
   categorySearch(query: String): [Category]
 
@@ -128,12 +128,12 @@ type Query {
   assignedTenants: [Tenant] @hasRole(roles: [USER, MANAGER, ADMIN])
   tenantSearch(query: String): [Tenant]
 
-  documents: [Document] @hasRole(roles: [ADMIN, MANAGER])
+  documents(sortBy: SortBy): [Document] @hasRole(roles: [ADMIN, MANAGER])
   document(id: String): Document @hasRole(roles: [ADMIN, MANAGER])
   documentSearch(query: String): [Document]
 
   currentUser: User @hasRole(roles: [USER, MANAGER, ADMIN])
-  users: [User] @hasRole(roles: [ADMIN])
+  users(sortBy: SortBy): [User] @hasRole(roles: [ADMIN])
   user(id: String): User @hasRole(roles: [ADMIN])
   createdBy(id: String): User @hasRole(roles: [ADMIN])
   updatedBy(id: String): User @hasRole(roles: [ADMIN])
