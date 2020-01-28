@@ -34,6 +34,7 @@
 ## Filter and Sort
 
 - [x] Add table sort feature
+- [ ] Add select list sort and filter
 - [ ] Add table pagination
 
 ## Content
