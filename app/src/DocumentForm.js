@@ -8,7 +8,7 @@ import FormGroup from '@material-ui/core/FormGroup'
 import CategoryFormSelect from './CategoryFormSelect'
 
 const DocumentForm = ({ children, document, onSubmit }) => {
-  const { values, handleChange, handleSubmit } = useForm(onSubmit, document)
+  const [values, handleChange, handleSubmit] = useForm(onSubmit, document)
 
   // Get category id from nested object
   if (values.category && values.category.id) {

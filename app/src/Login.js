@@ -31,7 +31,7 @@ const Login = () => {
   const classes = useStyles()
 
   // Use form state
-  const { values, handleChange, handleSubmit } = useForm((credentials) => loginUser(), {
+  const [values, handleChange, handleSubmit] = useForm((credentials) => loginUser(), {
     email: '',
     password: ''
   })

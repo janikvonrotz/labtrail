@@ -29,7 +29,7 @@ const Profile = () => {
   const [createAlert] = useMutation(CREATE_ALERTCLIENT)
 
   // Password reset form
-  const { toggle, active } = useToggle(false)
+  const [active, toggle] = useToggle(false)
   const { values, handleChange } = useForm(null, { new_password: '', new_password_repeated: '' })
   const [updateUserPassword, { loading: updateUserPasswordLoading, error: updateUserPasswordError, data: updateUserPasswordData }] = useMutation(UPDATE_USER_PASSWORD, {
     onCompleted: () => {

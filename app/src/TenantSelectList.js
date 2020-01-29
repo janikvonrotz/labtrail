@@ -9,6 +9,7 @@ import Error from './Error'
 import Loading from './Loading'
 import { GET_TENANTS } from './queries'
 import { useQuery } from '@apollo/react-hooks'
+import { compareValues } from './helpers'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,6 +40,9 @@ const TenantSelectList = ({ selectedTenants, setSelectedTenants }) => {
 
     setSelectedTenants(newSelectedTenants)
   }
+
+  // Sort tenants by name
+  data.tenants.sort(compareValues('name'))
 
   return (
     <List className={classes.root}>

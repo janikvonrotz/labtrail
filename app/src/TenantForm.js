@@ -18,9 +18,9 @@ const useStyles = makeStyles(theme => ({
 const TenantForm = ({ children, tenant, onSubmit }) => {
   const classes = useStyles()
 
-  const { values, handleChange, handleSubmit } = useForm(onSubmit, tenant)
+  const [values, handleChange, handleSubmit] = useForm(onSubmit, tenant)
   const [selectedUsers, setSelectedUsers] = React.useState(tenant.assigned_users)
-  const { toggle, active } = useToggle(false)
+  const [active, toggle] = useToggle(false)
 
   const handleSelectedUsers = () => {
     // Set users array of tenant

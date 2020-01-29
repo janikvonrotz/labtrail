@@ -194,6 +194,11 @@ mutation createDocument(
     forward: $forward
   ) {
     id
+    title
+    description
+    category {
+      name
+    }
   }
 }
 `

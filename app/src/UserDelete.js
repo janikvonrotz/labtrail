@@ -25,7 +25,7 @@ const UserDelete = ({ user }) => {
     onCompleted: () => createAlert({ variables: { message: 'User deleted!', type: 'SUCCESS' } })
   })
 
-  const { toggle, active } = useToggle(false)
+  const [active, toggle] = useToggle(false)
 
   if (data && data.deleteUser.success) {
     return <Redirect to='/users' />

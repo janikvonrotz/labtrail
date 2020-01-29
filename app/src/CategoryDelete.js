@@ -25,7 +25,7 @@ const CategoryDelete = ({ category }) => {
     onCompleted: () => createAlert({ variables: { message: 'Category deleted!', type: 'SUCCESS' } })
   })
 
-  const { toggle, active } = useToggle(false)
+  const [toggle, active] = useToggle(false)
 
   if (data && data.deleteCategory.success) {
     return <Redirect to='/categories' />

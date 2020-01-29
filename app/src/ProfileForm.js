@@ -5,7 +5,7 @@ import { useForm } from './hooks'
 import TenantFormSelect from './TenantFormSelect'
 
 const ProfileForm = ({ children, user, onSubmit }) => {
-  const { values, handleChange, handleSubmit } = useForm(onSubmit, user)
+  const [values, handleChange, handleSubmit] = useForm(onSubmit, user)
 
   // Get tenant id from nested object
   if (values.tenant && values.tenant.id) {

@@ -4,7 +4,6 @@
 
 ## Management
 
-- [ ] Upload code to ZHAW GitHub
 - [ ] Sebi Datainput
 - [ ] Fix dates for security audit
 
@@ -25,16 +24,12 @@
 
 ## Feature
 
-- [ ] Dokumente in Stationsansicht erfassen
-
 ## User Management
 
 - [ ] ~ Enable Registration
 
 ## Filter and Sort
 
-- [x] Add table sort feature
-- [ ] Add select list sort and filter
 - [ ] Add table pagination
 
 ## Content
@@ -51,14 +46,13 @@
 
 ## UX
 
-- [x] Ensure save button is always first in row -> default on enter
-
 ## Bugfixing
 
 - [ ] Resolve Error: Store reset while query was in flight (not completed in link chain) on Settings update
 - [ ] Fix select box referesh on pages without redirect
 - [ ] Fix User Update controlled password problem
 - [ ] Catching the token expired error ignores all errors
+- [ ] If submit is propagated from child form the schema required definition are ignored!?
 
 ## Security
 
@@ -77,6 +71,11 @@
 
 # NODO
 
+- [x] Dokumente in Stationsansicht erfassen
+- [x] Upload code to ZHAW GitHub
+- [x] Add table sort feature
+- [x] Add select list sort 
+- [x] Ensure save button is always first in row -> default on enter
 - [x] Format success alert message
 - [x] Hide logout button on mobile behind dots menu -> Move logout button to menu
 - [x] Write a markdown guide and integrate it under help section

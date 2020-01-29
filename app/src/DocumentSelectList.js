@@ -9,6 +9,7 @@ import Error from './Error'
 import Loading from './Loading'
 import { GET_DOCUMENTS } from './queries'
 import { useQuery } from '@apollo/react-hooks'
+import { compareValues } from './helpers'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,6 +40,9 @@ const DocumentSelectList = ({ selectedDocuments, setSelectedDocuments }) => {
 
     setSelectedDocuments(newSelectedDocuments)
   }
+
+  // Sort documents by title
+  data.documents.sort(compareValues('title'))
 
   return (
     <List className={classes.root}>

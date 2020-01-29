@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField'
 import { useForm } from './hooks'
 
 const CategoryForm = ({ children, category, onSubmit }) => {
-  const { values, handleChange, handleSubmit } = useForm(onSubmit, category)
+  const [values, handleChange, handleSubmit] = useForm(onSubmit, category)
 
   return (
     <form onSubmit={handleSubmit}>

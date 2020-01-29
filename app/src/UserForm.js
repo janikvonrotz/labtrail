@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 const UserForm = ({ children, user, onSubmit }) => {
   const classes = useStyles()
 
-  const { values, handleChange, handleSubmit } = useForm(onSubmit, user)
+  const [values, handleChange, handleSubmit] = useForm(onSubmit, user)
 
   // Get tenant id from nested object
   if (values.tenant && values.tenant.id) {

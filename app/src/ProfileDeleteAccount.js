@@ -19,7 +19,7 @@ const ProfileDeleteAccount = () => {
   const classes = useStyles()
 
   // Password reset form
-  const { toggle, active } = useToggle(false)
+  const [active, toggle] = useToggle(false)
   const [deleteCurrentUser, { error, data, client }] = useMutation(DELETE_CURRENT_USER)
 
   // If account has been deleted logout and redirect to entry page
