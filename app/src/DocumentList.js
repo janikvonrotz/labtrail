@@ -59,7 +59,14 @@ const DocumentList = () => {
             />
           </TableCell>
           <TableCell align='right'>category</TableCell>
-          <TableCell align='right'>forward</TableCell>
+          <TableCell align='right'>
+            <TableSortLabel
+              active={(sortBy && sortBy.field) === 'forward'}
+              field='forward'
+              order={sortBy && sortBy.order}
+              onClick={event => setSortBy({ field: 'forward', order: 'ASC' })}
+            />
+          </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
