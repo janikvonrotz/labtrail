@@ -5,7 +5,7 @@ const useSortBy = (data) => {
 
   const setSortBy = (newSortBy) => {
     // Toggle order if existing and new or state sortBy are the same
-    if (JSON.stringify(newSortBy) === JSON.stringify(sortBy) && newSortBy.order === 'ASC') {
+    if (newSortBy && JSON.stringify(newSortBy) === JSON.stringify(sortBy) && newSortBy.order === 'ASC') {
       newSortBy.order = 'DESC'
     }
     setState(newSortBy)

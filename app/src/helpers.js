@@ -4,17 +4,21 @@ const hasRole = (obj, args) => {
   }
 }
 
-const compareValues = (key, order = 'asc') => {
+const compareValues = (key, order = 'ASC') => {
+  const keys = key.split('.')
+
   return (a, b) => {
-    if (!a[key] || !b[key]) {
-      // property doesn't exist on either object
-      return 0
+    let i = 0
+
+    // Access nested property
+    while (i < keys.length) {
+      a = a[keys[i]]
+      b = b[keys[i]]
+      i++
     }
 
-    const varA = (typeof a[key] === 'string')
-      ? a[key].toUpperCase() : a[key]
-    const varB = (typeof b[key] === 'string')
-      ? b[key].toUpperCase() : b[key]
+    const varA = (typeof a === 'string') ? a.toUpperCase() : a
+    const varB = (typeof b === 'string') ? b.toUpperCase() : b
 
     let comparison = 0
     if (varA > varB) {
@@ -23,7 +27,7 @@ const compareValues = (key, order = 'asc') => {
       comparison = -1
     }
     return (
-      (order === 'desc') ? (comparison * -1) : comparison
+      (order === 'DESC') ? (comparison * -1) : comparison
     )
   }
 }
