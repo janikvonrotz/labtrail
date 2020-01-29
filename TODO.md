@@ -15,6 +15,7 @@
 
 - [ ] ~ Advanced tests
 - [ ] ~ Basic React Test with jest and apollo mock
+- [ ] Test sorting
 
 ## Search
 
@@ -31,6 +32,7 @@
 ## Filter and Sort
 
 - [ ] Add table pagination
+- [ ] Sort nested objects on client side
 
 ## Content
 
