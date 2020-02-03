@@ -5,16 +5,16 @@ services:
     volumes:
     - $PWD/scripts:/scripts
   api:
-    image: api:${API_VERSION}
+    image: docker.pkg.github.com/janikvonrotz/labtrail/api:${API_VERSION}
     environment:
     - MONGODB_URI=mongodb://database:27017/labtrail
     - JWT_SECRET=${JWT_SECRET}
     links:
     - "database:database"
   app:
-    image: app:${APP_VERSION}
+    image: docker.pkg.github.com/janikvonrotz/labtrail/app:${APP_VERSION}
   qr:
-    image: qr:${QR_VERSION}
+    image: docker.pkg.github.com/janikvonrotz/labtrail/qr:${QR_VERSION}
     links:
     - "api:api"
   proxy:
