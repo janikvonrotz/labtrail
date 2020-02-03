@@ -18,7 +18,7 @@ LabTrail is the central platform to manage the destinations of QR-Codes. Registe
 
 For search performance text indexes are required on every mongodb collection. Index the following fields:
 
-```
+```txt
 categories.name
 documents.title
 tenants.name
@@ -32,10 +32,10 @@ user.email
 
 **.env**
 
-```
+```bash
 MONGODB_URI=mongodb://USERNAME:PASSWORD@URL:PORT/DATABASENAME
 JWT_SECRET=SECRET_KEY
-# Deployment - Docker:
+# Docker deployment:
 API_VERSION=X.X.X
 APP_VERSION=X.X.X
 QR_VERSION=X.X.X
@@ -89,6 +89,22 @@ yarn docker-build-app
 yarn docker-build-qr
 ```
 
-Run docker compose.
+Run docker compose to test.
 
 `yarn docker-compose`
+
+Publish images to registry.
+
+```
+yarn docker-publish-api
+yarn docker-publish-app
+yarn docker-publish-qr
+```
+
+Pull images from registry.
+
+```
+yarn docker-pull-api
+yarn docker-pull-app
+yarn docker-pull-qr
+```

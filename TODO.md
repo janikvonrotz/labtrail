@@ -1,9 +1,12 @@
 # TODO
 
-## Major
+## Deployment
+
+- [ ] Publish docker images https://help.github.com/en/github/managing-packages-with-github-packages/configuring-docker-for-use-with-github-packages
 
 ## Management
 
+- [ ] Quiz mit Forms?
 - [ ] Sebi Datainput
 - [ ] Fix dates for security audit
 
