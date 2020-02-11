@@ -1,13 +1,13 @@
 {
-  "name": "mongo",
-  "version": "1.0.2",
+  "name": "@apland/mongo",
+  "version": "1.0.3",
   "main": "index.js",
   "scripts": {
     "lint": "standard",
     "test": "ava"
   },
   "dependencies": {
-    "mongodb": "^3.3.0-beta2"
+    "mongodb": "^3.5.2"
   },
   "devDependencies": {
     "ava": "^2.4.0",
