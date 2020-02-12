@@ -2,6 +2,7 @@
 
 ## Deployment
 
+- [x] Install for ZHAW
 - [x] Publish docker images https://help.github.com/en/github/managing-packages-with-github-packages/configuring-docker-for-use-with-github-packages
 
 ## Management
@@ -22,8 +23,8 @@
 
 ## Search
 
-- [ ] Search when pressing enter -> no debounce and instant search
-- [ ] ! Filter search results by role
+- [ ] Search when pressing enter -> no debounce and instant search #prio
+- [ ] Filter search results by role #prio
 - [ ] Ensure to improve performance -> check query search
 - [ ] Hide search results if input box looses focus; use onBlur is too fast
 
@@ -33,16 +34,16 @@
 
 ## User Management
 
-- [ ] ~ Enable Registration
+- [ ] Enable Registration #proposal
 
 ## Filter and Sort
 
-- [ ] Add table pagination
-- [ ] Sort nested objects on client side
+- [ ] Add table pagination #define strategy
+- [ ] Sort nested objects on client side -> fix switching
 
 ## Content
 
-- [ ] Add impressum
+- [ ] Add about page and reference apland
 
 ## Logging
 
@@ -50,7 +51,7 @@
 
 ## Hosting
 
-- [ ] Setup kubernetes cluster and deploy with helm scripts?! or simply with Ansible
+- [ ] Setup kubernetes cluster and deploy with helm scripts?! or simply with Ansible #education
 
 ## UX
 
