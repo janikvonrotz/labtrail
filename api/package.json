@@ -15,7 +15,7 @@
     "jsonwebtoken": "^8.5.1",
     "micro": "^9.3.4",
     "micro-cors": "^0.1.1",
-    "mongo": "1.0.3"
+    "@apland/mongo": "1.0.3"
   },
   "devDependencies": {
     "apollo-server-testing": "^2.9.9",
