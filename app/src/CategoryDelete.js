@@ -25,7 +25,7 @@ const CategoryDelete = ({ category }) => {
     onCompleted: () => createAlert({ variables: { message: 'Category deleted!', type: 'SUCCESS' } })
   })
 
-  const [toggle, active] = useToggle(false)
+  const [active, toggle] = useToggle(false)
 
   if (data && data.deleteCategory.success) {
     return <Redirect to='/categories' />
@@ -36,7 +36,6 @@ const CategoryDelete = ({ category }) => {
       <Button
         variant='outlined'
         color='secondary'
-        type='submit'
         className={classes.button}
         onClick={toggle}
       >
@@ -46,7 +45,7 @@ const CategoryDelete = ({ category }) => {
         title='Delete Category'
         content={`Do you really want to delete the category: ${category.name} ?`}
         open={active}
-        onSubmit={event => deleteCategory({ variables: category })}
+        onSubmit={() => deleteCategory({ variables: category })}
         onClose={toggle}
       />
     </>

@@ -49,7 +49,7 @@ const ProfileDeleteAccount = () => {
         title='Delete Account'
         content='Do you really want to delete your account?'
         open={active}
-        onSubmit={event => deleteCurrentUser()}
+        onSubmit={() => deleteCurrentUser()}
         onClose={toggle}
       />
     </>

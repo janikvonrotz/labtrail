@@ -36,7 +36,6 @@ const StationDelete = ({ station }) => {
       <Button
         variant='outlined'
         color='secondary'
-        type='submit'
         className={classes.button}
         onClick={toggle}
       >
@@ -46,7 +45,7 @@ const StationDelete = ({ station }) => {
         title='Delete Station'
         content={`Do you really want to delete the station: ${station.name} ?`}
         open={active}
-        onSubmit={event => deleteStation({ variables: station })}
+        onSubmit={() => deleteStation({ variables: station })}
         onClose={toggle}
       />
     </>

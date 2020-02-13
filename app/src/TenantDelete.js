@@ -36,7 +36,6 @@ const TenantDelete = ({ tenant }) => {
       <Button
         variant='outlined'
         color='secondary'
-        type='submit'
         className={classes.button}
         onClick={toggle}
       >
@@ -46,7 +45,7 @@ const TenantDelete = ({ tenant }) => {
         title='Delete Tenant'
         content={`Do you really want to delete the tenant: ${tenant.name} ?`}
         open={active}
-        onSubmit={event => deleteTenant({ variables: tenant })}
+        onSubmit={() => deleteTenant({ variables: tenant })}
         onClose={toggle}
       />
     </>

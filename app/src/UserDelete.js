@@ -36,7 +36,6 @@ const UserDelete = ({ user }) => {
       <Button
         variant='outlined'
         color='secondary'
-        type='submit'
         className={classes.button}
         onClick={toggle}
       >
@@ -46,7 +45,7 @@ const UserDelete = ({ user }) => {
         title='Delete User'
         content={`Do you really want to delete the user: ${user.email} ?`}
         open={active}
-        onSubmit={event => deleteUser({ variables: user })}
+        onSubmit={() => deleteUser({ variables: user })}
         onClose={toggle}
       />
     </>

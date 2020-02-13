@@ -36,7 +36,6 @@ const DocumentDelete = ({ document }) => {
       <Button
         variant='outlined'
         color='secondary'
-        type='submit'
         className={classes.button}
         onClick={toggle}
       >
@@ -46,7 +45,7 @@ const DocumentDelete = ({ document }) => {
         title='Delete Document'
         content={`Do you really want to delete the document: ${document.title} ?`}
         open={active}
-        onSubmit={event => deleteDocument({ variables: document })}
+        onSubmit={() => deleteDocument({ variables: document })}
         onClose={toggle}
       />
     </>
