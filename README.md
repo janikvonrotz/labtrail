@@ -94,6 +94,14 @@ Run docker compose to test.
 
 `yarn docker-compose`
 
+Tag images.
+
+```
+yarn docker-tag-api
+yarn docker-tag-app
+yarn docker-tag-qr
+```
+
 Publish images to registry.
 
 ```
