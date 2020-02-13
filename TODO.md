@@ -48,8 +48,11 @@
 
 ## UX
 
-## Bugfixing
+- [ ] Shorten url link on documents and make clickable
 
+## Bugs
+
+- [ ] Delete prompt automatially opens and cannot be closed
 - [ ] Resolve Error: Store reset while query was in flight (not completed in link chain) on Settings update
 - [ ] Fix select box referesh on pages without redirect
 - [ ] Fix User Update controlled password problem
