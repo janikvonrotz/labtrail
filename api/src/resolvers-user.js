@@ -1,4 +1,4 @@
-const { collection, prepare } = require('mongo')
+const { collection, prepare } = require('@apland/mongo')
 const { ObjectId } = require('mongodb')
 const { AuthenticationError, ForbiddenError } = require('apollo-server-micro')
 const bcrypt = require('bcryptjs')

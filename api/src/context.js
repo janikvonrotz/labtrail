@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server-micro')
 const jwt = require('jsonwebtoken')
-const { collection, prepare } = require('mongo')
+const { collection, prepare } = require('@apland/mongo')
 const { json } = require('micro')
 
 const context = async ({ req }) => {
