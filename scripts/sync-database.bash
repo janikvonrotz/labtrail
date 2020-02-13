@@ -3,9 +3,6 @@ export $(cat .env | xargs)
 read -r -p "Dump source database: $SOURCE_DATABASENAME ? [y/N]" response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
-mongodump -h $SOURCE_DATBASEHOST -d $SOURCE_DATABASENAME -u $SOURCE_DATABASE_USERNAME -p $SOURCE_DATABASE_PASSWORD -o ./.dump
-fi
-then
     if [[$SOURCE_DATABASE_USERNAME] && [[SOURCE_DATABASE_PASSWORD]]
     then
         mongodump -h $SOURCE_DATBASEHOST -d $SOURCE_DATABASENAME -u $SOURCE_DATABASE_USERNAME -p $SOURCE_DATABASE_PASSWORD -o ./.dump
