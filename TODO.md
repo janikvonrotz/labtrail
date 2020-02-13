@@ -2,7 +2,8 @@
 
 ## Deployment
 
-- [ ] Deploy new release
+- [ ] Persist database #topprio
+- [x] Deploy new release
 - [x] Install for ZHAW
 - [x] Publish docker images https://help.github.com/en/github/managing-packages-with-github-packages/configuring-docker-for-use-with-github-packages
 

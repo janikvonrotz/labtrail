@@ -4,6 +4,7 @@ services:
     image: mongo:4.2.2
     volumes:
     - $PWD/scripts:/scripts
+    - /usr/share/labtrail/database:/data/db
   api:
     image: docker.pkg.github.com/janikvonrotz/labtrail/api:${API_VERSION}
     environment:

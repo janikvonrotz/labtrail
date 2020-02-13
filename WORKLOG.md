@@ -73,4 +73,4 @@
 | 29.01.20 | 10:00 | 13:40 | Enable add documents in station view | Intebtriebnahme LabTrail |  |  |
 | 03.02.20 | 09:45 | 12:00 | Publish docker images to GitHub registry | Intebtriebnahme LabTrail | Container |  |
 | 12.02.20 | 18:30 | 20:00 | Install new server and deploy docker containers | Intebtriebnahme LabTrail |  |  |
-| 13.02.20 | 09:00 | 09:45 | Update search feature and deploy new release | Intebtriebnahme LabTrail |  |  |
+| 13.02.20 | 09:00 | 10:55 | Update search feature and deploy new release | Intebtriebnahme LabTrail |  |  |
