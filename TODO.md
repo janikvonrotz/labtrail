@@ -25,6 +25,7 @@
 ## Search
 
 - [ ] Filter search results by role #prio
+- [ ] Clear input box on setQuery
 - [x] Search when pressing enter -> no debounce and instant search #prio
 - [x] Ensure to improve performance -> check query search
 - [-] Hide search results if input box looses focus; use onBlur is too fast
