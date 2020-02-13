@@ -35,16 +35,36 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const HeaderSearchList = ({ setQuery, query, debouncedQuery }) => {
+const HeaderSearchList = ({ setQuery, query }) => {
   const classes = useStyles()
 
-  const { loading, data } = useQuery(SEARCH, { variables: { query: debouncedQuery } })
+  // Run search query
+  const { loading, data } = useQuery(SEARCH, { variables: { query: query } })
 
   // By default do not show any results
   var result = null
 
+  // If query is loading show loading message
+  if (loading) {
+    result = (
+      <>
+        <Typography className={classes.Title} variant='h5' component='h3'>
+          Loading
+        </Typography>
+        <Divider />
+        <List className={classes.List}>
+          <ListItem>
+            <ListItemText
+              primary='Search is running ...'
+            />
+          </ListItem>
+        </List>
+      </>
+    )
+  }
+
   // If query is present and result set is empty show empty results
-  if (query && data && data.search && data.search.length === 0 && !loading) {
+  if (data && data.search && data.search.length === 0 && !loading) {
     result = (
       <>
         <Typography className={classes.Title} variant='h5' component='h3'>
@@ -54,8 +74,7 @@ const HeaderSearchList = ({ setQuery, query, debouncedQuery }) => {
         <List className={classes.List}>
           <ListItem>
             <ListItemText
-              primary='Empty'
-              secondary='No resuls for your search query.'
+              primary='No resuls for your search query.'
             />
           </ListItem>
         </List>
@@ -64,7 +83,7 @@ const HeaderSearchList = ({ setQuery, query, debouncedQuery }) => {
   }
 
   // Generate result data
-  if (query && data && data.search && data.search.length !== 0 && !loading) {
+  if (data && data.search && data.search.length !== 0 && !loading) {
     // group search results
     let grouped = {}
     if (data.search.length > 1) {
@@ -127,7 +146,7 @@ const HeaderSearchList = ({ setQuery, query, debouncedQuery }) => {
   }
 
   // Show results and hide on result click (query is empty)
-  if (result && query !== '' && !loading) {
+  if (result && query !== '') {
     return (
       <div className={classes.Root}>
         <Paper className={classes.Paper}>
@@ -142,8 +161,7 @@ const HeaderSearchList = ({ setQuery, query, debouncedQuery }) => {
 
 HeaderSearchList.propTypes = {
   setQuery: PropTypes.func,
-  query: PropTypes.string,
-  debouncedQuery: PropTypes.string
+  query: PropTypes.string
 }
 
 export default HeaderSearchList

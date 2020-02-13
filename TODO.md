@@ -2,6 +2,7 @@
 
 ## Deployment
 
+- [ ] Deploy new release
 - [x] Install for ZHAW
 - [x] Publish docker images https://help.github.com/en/github/managing-packages-with-github-packages/configuring-docker-for-use-with-github-packages
 
@@ -17,20 +18,20 @@
 
 ## Testing
 
-- [ ] ~ Advanced tests
-- [ ] ~ Basic React Test with jest and apollo mock
+- [ ] Advanced tests #lowprio
+- [ ] Basic React Test with jest and apollo mock #lowprio
 - [ ] Test sorting
 
 ## Search
 
-- [ ] Search when pressing enter -> no debounce and instant search #prio
 - [ ] Filter search results by role #prio
-- [ ] Ensure to improve performance -> check query search
-- [ ] Hide search results if input box looses focus; use onBlur is too fast
+- [x] Search when pressing enter -> no debounce and instant search #prio
+- [x] Ensure to improve performance -> check query search
+- [-] Hide search results if input box looses focus; use onBlur is too fast
 
 ## Code
 
-- [ ] Move api code into src folder
+- [x] Move api code into src folder
 
 ## User Management
 

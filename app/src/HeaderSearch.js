@@ -3,7 +3,6 @@ import InputBase from '@material-ui/core/InputBase'
 import { fade, makeStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 import HeaderSearchList from './HeaderSearchList'
-import { useDebounce } from './hooks'
 
 const useStyles = makeStyles(theme => ({
   Search: {
@@ -48,7 +47,13 @@ const HeaderSearch = () => {
 
   // State for search query
   const [query, setQuery] = useState('')
-  const debouncedQuery = useDebounce(query, 1000)
+
+  const onKeyDown = (event) => {
+    // Set search query if enter key is pressed
+    if (event.keyCode === 13) {
+      setQuery(event.target.value)
+    }
+  }
 
   return (
     <>
@@ -63,11 +68,10 @@ const HeaderSearch = () => {
           }}
           inputProps={{ 'aria-label': 'search' }}
           id='search'
-          onChange={(event) => { setQuery(event.target.value) }}
-          value={query}
+          onKeyDown={onKeyDown}
         />
       </div>
-      <HeaderSearchList setQuery={setQuery} query={query} debouncedQuery={debouncedQuery} />
+      <HeaderSearchList setQuery={setQuery} query={query} />
     </>
   )
 }
