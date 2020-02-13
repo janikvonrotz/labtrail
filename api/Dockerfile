@@ -8,10 +8,10 @@ COPY ./package*.json .
 
 # Copy packages
 COPY ./api ./api
-COPY ./mongo ./mongo
+COPY ./@apland/mongo ./@apland/mongo
 
 # Install dependencies for packages
-RUN yarn workspace mongo install
+RUN yarn workspace @apland/mongo install
 RUN yarn workspace api install
 
 # Run the app

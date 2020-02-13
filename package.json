@@ -1,6 +1,6 @@
 {
   "name": "labtrail",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "scripts": {
     "dev": "now dev",
     "lint": "yarn workspaces run lint",
@@ -9,15 +9,15 @@
     "docker-build-app": ". ./env.sh && docker build --rm -t app:$APP_VERSION -f app/Dockerfile .",
     "docker-build-qr": ". ./env.sh && docker build --rm -t qr:$QR_VERSION -f qr/Dockerfile .",
     "docker-compose": "docker-compose up -d",
-    "docker-publish-api": ". ./env.sh && docker tag api:$API_VERSION docker.pkg.github.com/janikvonrotz/labtrail/api:$API_VERSION && docker push docker.pkg.github.com/janikvonrotz/labtrail/api:$API_VERSION",
-    "docker-publish-app": ". ./env.sh && docker tag app:$APP_VERSION docker.pkg.github.com/janikvonrotz/labtrail/app:$APP_VERSION && docker push docker.pkg.github.com/janikvonrotz/labtrail/app:$APP_VERSION",
-    "docker-publish-qr": ". ./env.sh && docker tag qr:$QR_VERSION docker.pkg.github.com/janikvonrotz/labtrail/qr:$QR_VERSION && docker push docker.pkg.github.com/janikvonrotz/labtrail/qr:$QR_VERSION",
-    "docker-pull-api": ". ./env.sh && docker pull docker.pkg.github.com/janikvonrotz/labtrail/api:$API_VERSION",
-    "docker-pull-app": ". ./env.sh && docker pull docker.pkg.github.com/janikvonrotz/labtrail/app:$APP_VERSION",
-    "docker-pull-qr": ". ./env.sh && docker pull docker.pkg.github.com/janikvonrotz/labtrail/qr:$QR_VERSION"
+    "docker-publish-api": ". ./env.sh && docker tag api:$API_VERSION $REGISTRY/api:latest && docker tag api:$API_VERSION $REGISTRY/api:$API_VERSION && docker push $REGISTRY/api:latest",
+    "docker-publish-app": ". ./env.sh && docker tag app:$APP_VERSION $REGISTRY/app:latest && docker tag api:$API_VERSION $REGISTRY/app:$APP_VERSION && docker push $REGISTRY/app:latest",
+    "docker-publish-qr": ". ./env.sh && docker tag qr:$QR_VERSION $REGISTRY/qr:latest && docker tag api:$API_VERSION $REGISTRY/qr:$QR_VERSION && docker push $REGISTRY/qr:latest",
+    "docker-pull-api": ". ./env.sh && docker pull $REGISTRY/api:$API_VERSION",
+    "docker-pull-app": ". ./env.sh && docker pull $REGISTRY/app:$APP_VERSION",
+    "docker-pull-qr": ". ./env.sh && docker pull $REGISTRY/qr:$QR_VERSION"
   },
   "private": true,
-  "workspaces": ["api", "app", "auth", "qr", "mongo", "scripts", "typeface-helveticarounded-bold"],
+  "workspaces": ["api", "app", "auth", "qr", "@apland/mongo", "scripts", "typeface-helveticarounded-bold"],
   "author": "Janik von Rotz",
   "license": "GPL-3.0"
 }

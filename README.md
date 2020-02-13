@@ -39,6 +39,7 @@ JWT_SECRET=SECRET_KEY
 API_VERSION=X.X.X
 APP_VERSION=X.X.X
 QR_VERSION=X.X.X
+REGISTRY=URI
 ```
 
 Checkout each packagefolder for environment variable definitions.
@@ -81,7 +82,7 @@ Configure the environment variables and deploy with [now](https://zeit.co/now).
 
 ### Docker
 
-Configure the environment variables and build the docker images.
+Configure the environment variables for docker and build the images.
 
 ```
 yarn docker-build-api
