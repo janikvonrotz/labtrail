@@ -2,11 +2,6 @@
 
 ## Deployment
 
-- [ ] Persist database #topprio
-- [x] Deploy new release
-- [x] Install for ZHAW
-- [x] Publish docker images https://help.github.com/en/github/managing-packages-with-github-packages/configuring-docker-for-use-with-github-packages
-
 ## Management
 
 - [ ] Quiz mit Forms?
@@ -27,13 +22,8 @@
 
 - [ ] Filter search results by role #prio
 - [ ] Clear input box on setQuery
-- [x] Search when pressing enter -> no debounce and instant search #prio
-- [x] Ensure to improve performance -> check query search
-- [-] Hide search results if input box looses focus; use onBlur is too fast
 
 ## Code
-
-- [x] Move api code into src folder
 
 ## User Management
 
@@ -81,8 +71,16 @@
 - [ ] Fix those validate chains with ES7`: `data && data.search && data.search.length` -> `data?.search?.length` 
 - [ ] create LocalStorage hook https://github.com/streamich/react-use, https://blog.bitsrc.io/writing-your-own-custom-hooks-4fbcf77e112e
 
-# NODO
+# DONE
 
+- [x] Persist database #topprio
+- [x] Deploy new release
+- [x] Install for ZHAW
+- [x] Publish docker images https://help.github.com/en/github/managing-packages-with-github-packages/configuring-docker-for-use-with-github-packages
+- [x] Search when pressing enter -> no debounce and instant search #prio
+- [x] Ensure to improve performance -> check query search
+- [-] Hide search results if input box looses focus; use onBlur is too fast
+- [x] Move api code into src folder
 - [x] Dokumente in Stationsansicht erfassen
 - [x] Upload code to ZHAW GitHub
 - [x] Add table sort feature

@@ -74,3 +74,4 @@
 | 03.02.20 | 09:45 | 12:00 | Publish docker images to GitHub registry | Intebtriebnahme LabTrail | Container |  |
 | 12.02.20 | 18:30 | 20:00 | Install new server and deploy docker containers | Intebtriebnahme LabTrail |  |  |
 | 13.02.20 | 09:00 | 10:55 | Update search feature and deploy new release | Intebtriebnahme LabTrail |  |  |
+| 13.02.20 | 10:55 | 11:10 | Fix database persistence | Intebtriebnahme LabTrail |  |  |
