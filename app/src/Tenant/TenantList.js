@@ -6,12 +6,12 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import Error from './Error'
-import Loading from './Loading'
-import { GET_TENANTS } from './queries'
+import Error from '../Error'
+import Loading from '../Loading'
+import { GET_TENANTS } from '../queries'
 import { useQuery } from '@apollo/react-hooks'
-import TableSortLabel from './TableSortLabel'
-import { useSortBy } from './hooks'
+import TableSortLabel from '../TableSortLabel'
+import { useSortBy } from '../hooks'
 
 const useStyles = makeStyles(theme => ({
   table: {

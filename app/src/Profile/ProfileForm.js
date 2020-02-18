@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from '@material-ui/core/TextField'
 import { useForm } from '../hooks'
-import TenantFormSelect from '../TenantFormSelect'
+import TenantFormSelect from '../Tenant/TenantFormSelect'
 
 const ProfileForm = ({ children, user, onSubmit }) => {
   const [values, handleChange, handleSubmit] = useForm(onSubmit, user)

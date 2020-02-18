@@ -5,7 +5,7 @@ import { useForm } from '../hooks'
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormGroup from '@material-ui/core/FormGroup'
-import CategoryFormSelect from './CategoryFormSelect'
+import CategoryFormSelect from '../Category/CategoryFormSelect'
 
 const DocumentForm = ({ children, document, onSubmit }) => {
   const [values, handleChange, handleSubmit] = useForm(onSubmit, document)

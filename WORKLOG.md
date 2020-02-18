@@ -76,3 +76,4 @@
 | 13.02.20 | 09:00 | 10:55 | Update search feature and deploy new release | Intebtriebnahme LabTrail |  |  |
 | 13.02.20 | 10:55 | 11:10 | Fix database persistence | Intebtriebnahme LabTrail |  |  |
 | 13.02.20 | 12:55 | 13:30 | Fix category delete bug | Intebtriebnahme LabTrail |  |  |
+| 18.02.20 | 17:10 | 17:40 | Split app src into folder, various improvments | Intebtriebnahme LabTrail |  |  |

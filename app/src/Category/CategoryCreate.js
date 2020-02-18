@@ -1,7 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import CategoryForm from './CategoryForm'
 import { useMutation } from '@apollo/react-hooks'

@@ -52,10 +52,10 @@
 
 ## Bugs
 
-- [ ] Delete prompt automatially opens and cannot be closed
+- [x] Delete prompt automatially opens and cannot be closed
 - [ ] Resolve Error: Store reset while query was in flight (not completed in link chain) on Settings update
 - [ ] Fix select box referesh on pages without redirect
-- [ ] Fix User Update controlled password problem
+- [x] Fix User Update controlled password problem
 - [ ] Catching the token expired error ignores all errors
 - [ ] If submit is propagated from child form the schema required definition are ignored!?
 

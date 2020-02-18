@@ -30,7 +30,7 @@ const Profile = () => {
 
   // Password reset form
   const [active, toggle] = useToggle(false)
-  const { values, handleChange } = useForm(null, { new_password: '', new_password_repeated: '' })
+  const [values, handleChange] = useForm(null, { new_password: '', new_password_repeated: '' })
   const [updateUserPassword, { loading: updateUserPasswordLoading, error: updateUserPasswordError, data: updateUserPasswordData }] = useMutation(UPDATE_USER_PASSWORD, {
     onCompleted: () => {
       window.localStorage.clear()

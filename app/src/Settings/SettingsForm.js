@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CategoryFormSelect from './CategoryFormSelect'
+import CategoryFormSelect from '../Category/CategoryFormSelect'
 import { useForm } from '../hooks'
 import Typography from '@material-ui/core/Typography'
 
