@@ -89,7 +89,12 @@ const DocumentList = () => {
             <TableCell component='th' scope='row'>
               <Link to={`/document/${document.id}`}>{document.title}</Link>
             </TableCell>
-            <TableCell align='right'>{document.link}</TableCell>
+            <TableCell align='right'>{(
+              document.link.length > 50 ?
+                <a href={`${document.link}`}>{`${document.link.slice(0, 50)} ...`}</a>
+                : <a href={`${document.link}`}>{document.link}</a>
+            )}
+            </TableCell>
             <TableCell align='right'>{document.description}</TableCell>
             <TableCell align='right'>{document.category && document.category.name}</TableCell>
             <TableCell align='right'>{document.forward ? 'true' : 'false'}</TableCell>

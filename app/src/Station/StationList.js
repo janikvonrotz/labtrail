@@ -42,6 +42,7 @@ const StationList = () => {
               onClick={event => setSortBy({ field: 'name', order: 'ASC' })}
             />
           </TableCell>
+          <TableCell>documents</TableCell>
           <TableCell align='right'>
             <TableSortLabel
               active={(sortBy && sortBy.field) === 'location'}
@@ -65,6 +66,17 @@ const StationList = () => {
           <TableRow key={station.id}>
             <TableCell component='th' scope='row'>
               <Link to={`/station/${station.id}`}>{station.name}</Link>
+            </TableCell>
+            <TableCell align='right'>
+              {station.documents.length !== 0 && station.documents.map(
+                document => (
+                  <a
+                    key={document.title}
+                    href={`/documents/${document.id}`}
+                  >
+                    {document.title}
+                  </a>)
+              ).reduce((prev, curr) => <>{prev}<br />{curr}</>)}
             </TableCell>
             <TableCell align='right'>{station.location}</TableCell>
             <TableCell align='right'>{station.color}</TableCell>
