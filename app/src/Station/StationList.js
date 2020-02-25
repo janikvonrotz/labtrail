@@ -72,7 +72,7 @@ const StationList = () => {
                 document => (
                   <a
                     key={document.title}
-                    href={`/documents/${document.id}`}
+                    href={`/document/${document.id}`}
                   >
                     {document.title}
                   </a>)
