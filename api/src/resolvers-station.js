@@ -46,7 +46,7 @@ const resolvers = {
       if (tenant.assigned_category) {
         const ids = station.documents ? station.documents.map((id) => (ObjectId(id))) : []
         // Get documents without context
-        const documents = await documentResolver.Query.documents(obj, { filter: { _id: { $in: ids } }, category: tenant.assigned_category }, {})
+        const documents = await documentResolver.Query.documents(obj, { filter: { _id: { $in: ids }, category: tenant.assigned_category } }, {})
         return documents ? { url: documents[0].link } : null
       } else {
         return null

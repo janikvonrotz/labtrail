@@ -49,6 +49,7 @@
 
 ## Bugs
 
+- [ ] No word wraps for station document link list
 - [ ] Create station with documents does not work
 - [ ] Create tenant with user does not add user
 - [ ] Resolve Error: Store reset while query was in flight (not completed in link chain) on Settings update
@@ -74,6 +75,7 @@
 
 # DONE
 
+- [x] redirectLink does not work properly
 - [x] Shorten url link on documents and make clickable
 - [x] Quiz mit Forms?
 - [x] Fix User Update controlled password problem
