@@ -79,3 +79,4 @@
 | 18.02.20 | 17:10 | 17:40 | Split app src into folder, various improvments | Intebtriebnahme LabTrail |  |  |
 | 25.02.20 | 08:30 | 09:45 | Improve station view and deploy app release | Intebtriebnahme LabTrail |  |  |
 | 25.02.20 | 13:00 | 13:25 | Resolve redirect bug and deploy new api version | Intebtriebnahme LabTrail |  |  |
+| 26.02.20 | 15:00 | 18:45 | Enable ModSecurity for LabTrail | Intebtriebnahme LabTrail |  |

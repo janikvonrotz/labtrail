@@ -59,8 +59,8 @@
 
 ## Security
 
-- [ ] Enable and configure owasp modsecuirty from modsecurity branch
 - [ ] Custom fields bypassing schema hasRole directive
+- [x] Enable and configure owasp modsecuirty from modsecurity branch
 
 # Minor
 
