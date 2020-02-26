@@ -4,7 +4,6 @@
 
 ## Management
 
-- [ ] Quiz mit Forms?
 - [ ] Sebi Datainput
 - [ ] Fix dates for security audit
 
@@ -48,19 +47,19 @@
 
 ## UX
 
-- [ ] Shorten url link on documents and make clickable
-
 ## Bugs
 
-- [x] Delete prompt automatially opens and cannot be closed
+- [ ] No word wraps for station document link list
+- [ ] Create station with documents does not work
+- [ ] Create tenant with user does not add user
 - [ ] Resolve Error: Store reset while query was in flight (not completed in link chain) on Settings update
 - [ ] Fix select box referesh on pages without redirect
-- [x] Fix User Update controlled password problem
 - [ ] Catching the token expired error ignores all errors
 - [ ] If submit is propagated from child form the schema required definition are ignored!?
 
 ## Security
 
+- [ ] Enable and configure owasp modsecuirty from modsecurity branch
 - [ ] Custom fields bypassing schema hasRole directive
 
 # Minor
@@ -76,6 +75,11 @@
 
 # DONE
 
+- [x] redirectLink does not work properly
+- [x] Shorten url link on documents and make clickable
+- [x] Quiz mit Forms?
+- [x] Fix User Update controlled password problem
+- [x] Delete prompt automatially opens and cannot be closed
 - [x] Persist database #topprio
 - [x] Deploy new release
 - [x] Install for ZHAW

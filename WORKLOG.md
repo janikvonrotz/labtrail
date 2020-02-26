@@ -77,3 +77,5 @@
 | 13.02.20 | 10:55 | 11:10 | Fix database persistence | Intebtriebnahme LabTrail |  |  |
 | 13.02.20 | 12:55 | 13:30 | Fix category delete bug | Intebtriebnahme LabTrail |  |  |
 | 18.02.20 | 17:10 | 17:40 | Split app src into folder, various improvments | Intebtriebnahme LabTrail |  |  |
+| 25.02.20 | 08:30 | 09:45 | Improve station view and deploy app release | Intebtriebnahme LabTrail |  |  |
+| 25.02.20 | 13:00 | 13:25 | Resolve redirect bug and deploy new api version | Intebtriebnahme LabTrail |  |  |

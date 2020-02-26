@@ -158,6 +158,10 @@ query stations ( $sortBy: SortBy) {
     name
     location
     color
+    documents {
+      id
+      title
+    }
   }
 }
 `
