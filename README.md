@@ -10,7 +10,11 @@ This project is sponsored by the [bioprocess technology division of the ZHAW](ht
 
 LabTrail is the central platform to manage the destinations of QR-Codes. Register new QR-Codes and define multiple link targets. Manage users and assign them to tenants. Switch easily between tenants and their active QR-Code category.
 
-<img width="500px" src="/docs/assets/screenshot.png" alt="Screenshot" />
+<img width="500px" src="./docs/assets/screenshot.png" alt="Screenshot" />
+
+## Demo
+
+Open [https://labtrail.app/](https://labtrail.app/) in your browser and login with username `demo@labtrail.app` and password `demo`.
 
 ## Configuration
 
