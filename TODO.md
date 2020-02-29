@@ -1,6 +1,10 @@
 # TODO
 
+## Feature
+
 ## Deployment
+
+- [ ] Deploy app 1.4
 
 ## Management
 
@@ -43,8 +47,6 @@
 
 ## Hosting
 
-- [ ] Setup kubernetes cluster and deploy with helm scripts?! or simply with Ansible #education
-
 ## UX
 
 ## Bugs
@@ -60,7 +62,6 @@
 ## Security
 
 - [ ] Custom fields bypassing schema hasRole directive
-- [x] Enable and configure owasp modsecuirty from modsecurity branch
 
 # Minor
 
@@ -75,6 +76,11 @@
 
 # DONE
 
+- [x] Add hosting concept
+- [x] Upload and Send presentation to Lu add demo login
+- [x] Enable and configure owasp modsecuirty from modsecurity branch
+- [-] Setup kubernetes cluster and deploy with helm scripts?! or simply with Ansible #education
+- [x] Add login redirect https://stackoverflow.com/questions/54091535/redirect-to-login-page-in-react-router-4 http://localhost:3001/station/5d9b371b5a157f000815a2a4 should not redirect -> Make routes wait until finished loading
 - [x] redirectLink does not work properly
 - [x] Shorten url link on documents and make clickable
 - [x] Quiz mit Forms?

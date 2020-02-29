@@ -53,7 +53,7 @@ const Help = () => {
         Documents are urls that point to website or document on the web. Documents have a category and are assigned to stations.
       </Typography>
       <Typography className={classes.title} variant='h4' component='h2'>
-        Catgories
+        Categories
       </Typography>
       <Typography component='p'>
         Based on the active category of the tenant LabTrail decides which station QR-code links to which document url.

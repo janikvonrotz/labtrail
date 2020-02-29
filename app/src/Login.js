@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Login = () => {
+const Login = ({ match }) => {
   const classes = useStyles()
 
   // Use form state
@@ -52,7 +52,10 @@ const Login = () => {
 
   // Store token if login is successful
   if (data && data.loginUser.token) {
+    // Set new token
     window.localStorage.setItem('token', data.loginUser.token)
+
+    // Reset store
     client.resetStore()
 
     // Redirect to home page

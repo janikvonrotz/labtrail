@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router'
 
 const useSortBy = (data) => {
   const [sortBy, setState] = useState(data)
@@ -85,9 +86,14 @@ const useDebounce = (value, delay) => {
   return debouncedValue
 }
 
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search)
+}
+
 export {
   useSortBy,
   useForm,
   useToggle,
-  useDebounce
+  useDebounce,
+  useQuery
 }
