@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "micro": "^9.3.4",
     "node-fetch": "^2.6.0"
   },
