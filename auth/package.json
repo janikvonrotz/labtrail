@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "dotenv": "^8.1.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "micro": "^9.3.4",
     "samlify": "^2.6.0"
